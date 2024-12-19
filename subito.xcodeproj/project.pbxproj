@@ -3,20 +3,86 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1224332CFA0833001057B0 /* TaxiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224322CFA082E001057B0 /* TaxiExtension.swift */; };
+		4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
+		4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
+		4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224372CFA579A001057B0 /* AddressRow.swift */; };
+		4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1AEC1A2CED205A00887421 /* ModalProducto.swift */; };
+		4B2B71302D0A1FF5003BF403 /* DirectionSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B712F2D0A1FCC003BF403 /* DirectionSD.swift */; };
+		4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B71312D0A358F003BF403 /* UserSD.swift */; };
+		4B2B71342D0A55FB003BF403 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2B71332D0A55FB003BF403 /* SwiftData.framework */; };
+		4B2B71352D0A5610003BF403 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2B71332D0A55FB003BF403 /* SwiftData.framework */; };
+		4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B763E2CAC490400F046EF /* CartModal.swift */; };
+		4B2B76422CAC6B2500F046EF /* Taxi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76412CAC6B2000F046EF /* Taxi.swift */; };
+		4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76432CAC6DB700F046EF /* LocationManager.swift */; };
+		4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76462CAC6F4700F046EF /* MapController.swift */; };
+		4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76492CACEAD700F046EF /* Eats.swift */; };
+		4B2B764C2CACF5FB00F046EF /* DirectionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */; };
+		4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */; };
+		4B4F91E32CF4CA5200E8CD11 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */; };
+		4B4F91E42CF4CA5200E8CD11 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */; };
+		4B4F91F52CF4CA5300E8CD11 /* DeliveryExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4B4F91FA2CF4CCE600E8CD11 /* DeliveryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */; };
+		4B4F92632CF4E4AB00E8CD11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */; };
+		4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */; };
+		4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */; };
+		4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92732CF644A100E8CD11 /* ContentExtension.swift */; };
+		4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7C52CD17C270009EA89 /* EatsExtension.swift */; };
+		4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7E62CD2F8270009EA89 /* Establishments.swift */; };
+		4B73C74E2CE52A3B00997644 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B73C74D2CE52A3800997644 /* Products.swift */; };
+		4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */; };
+		4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */; };
+		4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7F02D09DD380091D024 /* Directions.swift */; };
+		4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */; };
+		4BA8B8002D0CE524000352FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8B7FF2D0CE520000352FC /* AppDelegate.swift */; };
 		4BB1BB782C8F65C000EB8EA0 /* subitoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BB772C8F65C000EB8EA0 /* subitoApp.swift */; };
 		4BB1BB7A2C8F65C000EB8EA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BB792C8F65C000EB8EA0 /* ContentView.swift */; };
-		4BB1BB7C2C8F65C100EB8EA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB1BB7B2C8F65C100EB8EA0 /* Assets.xcassets */; };
 		4BB1BB802C8F65C100EB8EA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB1BB7F2C8F65C100EB8EA0 /* Preview Assets.xcassets */; };
 		4BB1BB8A2C8F65C200EB8EA0 /* subitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BB892C8F65C200EB8EA0 /* subitoTests.swift */; };
 		4BB1BB942C8F65C200EB8EA0 /* subitoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BB932C8F65C200EB8EA0 /* subitoUITests.swift */; };
 		4BB1BB962C8F65C200EB8EA0 /* subitoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BB952C8F65C200EB8EA0 /* subitoUITestsLaunchTests.swift */; };
+		4BB1BBA32C8F682800EB8EA0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBA22C8F682800EB8EA0 /* Router.swift */; };
+		4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */; };
+		4BB1BBA92C8F6CD500EB8EA0 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBA82C8F6CD500EB8EA0 /* Login.swift */; };
+		4BB1BBAB2C8F6D0300EB8EA0 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
+		4BB1BBAE2C8F6D5500EB8EA0 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */; };
+		4BB1BBB42C8F6EF400EB8EA0 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB32C8F6EF400EB8EA0 /* CategoryView.swift */; };
+		4BB1BBB62C8F6FB700EB8EA0 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */; };
+		4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB72C8F70A000EB8EA0 /* Account.swift */; };
+		4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */; };
+		4BC0801E2D08AC5A00216D95 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC0801D2D08AC5700216D95 /* Register.swift */; };
+		4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC080212D08B05600216D95 /* LoginExtension.swift */; };
+		4BCCD5662CCC0EE1006C962C /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCCD5652CCC0EDB006C962C /* Categories.swift */; };
+		4BCCD5682CCC0F7F006C962C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCCD5672CCC0F5B006C962C /* Category.swift */; };
+		4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCEFB342CEE801A00C9843C /* Stepper.swift */; };
+		4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */; };
+		4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */; };
+		4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF95BF2CF911D00076ACC3 /* Skeleton.swift */; };
+		4BE716A52D0B769300BE73FC /* ModalProductoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */; };
+		4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */; };
+		4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716C52D0CAEBB00BE73FC /* Shopping.swift */; };
+		4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */; };
+		4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */; };
+		4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */; };
+		4BFB13062D10EB8F00A99B5F /* CardSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13052D10EB8A00A99B5F /* CardSD.swift */; };
+		4BFB13082D11BB3600A99B5F /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13072D11BB3200A99B5F /* WebView.swift */; };
+		4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130A2D11CC2900A99B5F /* Payment.swift */; };
+		4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130F2D122C0800A99B5F /* MercadoPago.swift */; };
+		4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB131B2D14893200A99B5F /* TrackingSD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4B4F91F32CF4CA5300E8CD11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BB1BB6C2C8F65C000EB8EA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B4F91E12CF4CA5200E8CD11;
+			remoteInfo = DeliveryExtension;
+		};
 		4BB1BB862C8F65C200EB8EA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4BB1BB6C2C8F65C000EB8EA0 /* Project object */;
@@ -33,11 +99,54 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4B4F91C32CF4C93600E8CD11 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4B4F91F52CF4CA5300E8CD11 /* DeliveryExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4B1224322CFA082E001057B0 /* TaxiExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiExtension.swift; sourceTree = "<group>"; };
+		4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAutocomplete.swift; sourceTree = "<group>"; };
+		4B1224372CFA579A001057B0 /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
+		4B1AEC1A2CED205A00887421 /* ModalProducto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProducto.swift; sourceTree = "<group>"; };
+		4B2B712F2D0A1FCC003BF403 /* DirectionSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionSD.swift; sourceTree = "<group>"; };
+		4B2B71312D0A358F003BF403 /* UserSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSD.swift; sourceTree = "<group>"; };
+		4B2B71332D0A55FB003BF403 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/SwiftData.framework; sourceTree = DEVELOPER_DIR; };
+		4B2B763E2CAC490400F046EF /* CartModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModal.swift; sourceTree = "<group>"; };
+		4B2B76412CAC6B2000F046EF /* Taxi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taxi.swift; sourceTree = "<group>"; };
+		4B2B76432CAC6DB700F046EF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4B2B76462CAC6F4700F046EF /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		4B2B76482CAC7B5D00F046EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; };
+		4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModal.swift; sourceTree = "<group>"; };
+		4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryState.swift; sourceTree = "<group>"; };
+		4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeliveryExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModal.swift; sourceTree = "<group>"; };
+		4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentExtension.swift; sourceTree = "<group>"; };
+		4B4F92732CF644A100E8CD11 /* ContentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtension.swift; sourceTree = "<group>"; };
+		4B55D7C52CD17C270009EA89 /* EatsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsExtension.swift; sourceTree = "<group>"; };
+		4B55D7E62CD2F8270009EA89 /* Establishments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Establishments.swift; sourceTree = "<group>"; };
+		4B73C74D2CE52A3800997644 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstablishmentExtension.swift; sourceTree = "<group>"; };
+		4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModalExtension.swift; sourceTree = "<group>"; };
+		4BA6B7F02D09DD380091D024 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
+		4BA8B7FE2D0CE171000352FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4BA8B7FF2D0CE520000352FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BB1BB742C8F65C000EB8EA0 /* subito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = subito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB1BB772C8F65C000EB8EA0 /* subitoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subitoApp.swift; sourceTree = "<group>"; };
 		4BB1BB792C8F65C000EB8EA0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4BB1BB7B2C8F65C100EB8EA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BB1BB7D2C8F65C100EB8EA0 /* subito.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = subito.entitlements; sourceTree = "<group>"; };
 		4BB1BB7F2C8F65C100EB8EA0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4BB1BB852C8F65C200EB8EA0 /* subitoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = subitoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,13 +154,66 @@
 		4BB1BB8F2C8F65C200EB8EA0 /* subitoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = subitoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB1BB932C8F65C200EB8EA0 /* subitoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subitoUITests.swift; sourceTree = "<group>"; };
 		4BB1BB952C8F65C200EB8EA0 /* subitoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subitoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4BB1BBA22C8F682800EB8EA0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateModel.swift; sourceTree = "<group>"; };
+		4BB1BBA82C8F6CD500EB8EA0 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
+		4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
+		4BB1BBB32C8F6EF400EB8EA0 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		4BB1BBB72C8F70A000EB8EA0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4BC0801D2D08AC5700216D95 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		4BC080212D08B05600216D95 /* LoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtension.swift; sourceTree = "<group>"; };
+		4BCCD5652CCC0EDB006C962C /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		4BCCD5672CCC0F5B006C962C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		4BCEFB342CEE801A00C9843C /* Stepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
+		4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsComponent.swift; sourceTree = "<group>"; };
+		4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstablishment.swift; sourceTree = "<group>"; };
+		4BDF95BF2CF911D00076ACC3 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
+		4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProductoExtension.swift; sourceTree = "<group>"; };
+		4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModalExtension.swift; sourceTree = "<group>"; };
+		4BE716C52D0CAEBB00BE73FC /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
+		4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewExtension.swift; sourceTree = "<group>"; };
+		4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalRestaurants.swift; sourceTree = "<group>"; };
+		4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
+		4BFB13052D10EB8A00A99B5F /* CardSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSD.swift; sourceTree = "<group>"; };
+		4BFB13072D11BB3200A99B5F /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		4BFB130A2D11CC2900A99B5F /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		4BFB130F2D122C0800A99B5F /* MercadoPago.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercadoPago.swift; sourceTree = "<group>"; };
+		4BFB131B2D14893200A99B5F /* TrackingSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4B4F91F62CF4CA5300E8CD11 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4B4F91E12CF4CA5200E8CD11 /* DeliveryExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4B4F91E52CF4CA5200E8CD11 /* Delivery */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4B4F91F62CF4CA5300E8CD11 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Delivery; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		4B4F91DF2CF4CA5200E8CD11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4F91E42CF4CA5200E8CD11 /* SwiftUI.framework in Frameworks */,
+				4B4F91E32CF4CA5200E8CD11 /* WidgetKit.framework in Frameworks */,
+				4B2B71342D0A55FB003BF403 /* SwiftData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB1BB712C8F65C000EB8EA0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B2B71352D0A5610003BF403 /* SwiftData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +234,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B2B712E2D0A1FA9003BF403 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				4BFB131B2D14893200A99B5F /* TrackingSD.swift */,
+				4BFB13052D10EB8A00A99B5F /* CardSD.swift */,
+				4B2B71312D0A358F003BF403 /* UserSD.swift */,
+				4B2B712F2D0A1FCC003BF403 /* DirectionSD.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		4B2B76402CAC6B1900F046EF /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				4B2B76492CACEAD700F046EF /* Eats.swift */,
+				4B2B76412CAC6B2000F046EF /* Taxi.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		4B2B76452CAC6F3400F046EF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4BFB13072D11BB3200A99B5F /* WebView.swift */,
+				4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */,
+				4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */,
+				4B2B76462CAC6F4700F046EF /* MapController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4B4F91A92CF4C93500E8CD11 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B2B71332D0A55FB003BF403 /* SwiftData.framework */,
+				4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */,
+				4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B55D7C42CD17C1D0009EA89 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */,
+				4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */,
+				4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */,
+				4BC080212D08B05600216D95 /* LoginExtension.swift */,
+				4B1224322CFA082E001057B0 /* TaxiExtension.swift */,
+				4B4F92732CF644A100E8CD11 /* ContentExtension.swift */,
+				4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */,
+				4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */,
+				4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */,
+				4B55D7C52CD17C270009EA89 /* EatsExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		4BB1BB6B2C8F65C000EB8EA0 = {
 			isa = PBXGroup;
 			children = (
 				4BB1BB762C8F65C000EB8EA0 /* subito */,
 				4BB1BB882C8F65C200EB8EA0 /* subitoTests */,
 				4BB1BB922C8F65C200EB8EA0 /* subitoUITests */,
+				4B4F91E52CF4CA5200E8CD11 /* Delivery */,
+				4B4F91A92CF4C93500E8CD11 /* Frameworks */,
 				4BB1BB752C8F65C000EB8EA0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +310,7 @@
 				4BB1BB742C8F65C000EB8EA0 /* subito.app */,
 				4BB1BB852C8F65C200EB8EA0 /* subitoTests.xctest */,
 				4BB1BB8F2C8F65C200EB8EA0 /* subitoUITests.xctest */,
+				4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,11 +318,22 @@
 		4BB1BB762C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXGroup;
 			children = (
+				4B2B712E2D0A1FA9003BF403 /* SwiftData */,
+				4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */,
+				4B55D7C42CD17C1D0009EA89 /* Extensions */,
+				4B2B76482CAC7B5D00F046EF /* Info.plist */,
+				4B2B76452CAC6F3400F046EF /* Controllers */,
+				4BB1BBAF2C8F6E7900EB8EA0 /* Views */,
+				4BB1BBAC2C8F6D4900EB8EA0 /* Components */,
+				4BB1BBA52C8F69BB00EB8EA0 /* Configs */,
+				4BB1BBA42C8F698000EB8EA0 /* Models */,
 				4BB1BB772C8F65C000EB8EA0 /* subitoApp.swift */,
 				4BB1BB792C8F65C000EB8EA0 /* ContentView.swift */,
-				4BB1BB7B2C8F65C100EB8EA0 /* Assets.xcassets */,
 				4BB1BB7D2C8F65C100EB8EA0 /* subito.entitlements */,
 				4BB1BB7E2C8F65C100EB8EA0 /* Preview Content */,
+				4BB1BBA22C8F682800EB8EA0 /* Router.swift */,
+				4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */,
+				4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */,
 			);
 			path = subito;
 			sourceTree = "<group>";
@@ -129,9 +363,97 @@
 			path = subitoUITests;
 			sourceTree = "<group>";
 		};
+		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4BFB130F2D122C0800A99B5F /* MercadoPago.swift */,
+				4BFB130A2D11CC2900A99B5F /* Payment.swift */,
+				4BE716C52D0CAEBB00BE73FC /* Shopping.swift */,
+				4BA6B7F02D09DD380091D024 /* Directions.swift */,
+				4B73C74D2CE52A3800997644 /* Products.swift */,
+				4B55D7E62CD2F8270009EA89 /* Establishments.swift */,
+				4BCCD5672CCC0F5B006C962C /* Category.swift */,
+				4BB1BBA82C8F6CD500EB8EA0 /* Login.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				4BA8B7FF2D0CE520000352FC /* AppDelegate.swift */,
+				4B2B76432CAC6DB700F046EF /* LocationManager.swift */,
+				4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */,
+				4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */,
+				4BC0801D2D08AC5700216D95 /* Register.swift */,
+				4B1224372CFA579A001057B0 /* AddressRow.swift */,
+				4BDF95BF2CF911D00076ACC3 /* Skeleton.swift */,
+				4BCEFB342CEE801A00C9843C /* Stepper.swift */,
+				4B1AEC1A2CED205A00887421 /* ModalProducto.swift */,
+				4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */,
+				4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */,
+				4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */,
+				4BCCD5652CCC0EDB006C962C /* Categories.swift */,
+				4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */,
+				4B2B763E2CAC490400F046EF /* CartModal.swift */,
+				4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4BB1BBAF2C8F6E7900EB8EA0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4B2B76402CAC6B1900F046EF /* SubViews */,
+				4BB1BBB22C8F6ED600EB8EA0 /* Structs */,
+				4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */,
+				4BB1BBB72C8F70A000EB8EA0 /* Account.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4BB1BBB22C8F6ED600EB8EA0 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */,
+				4BB1BBB32C8F6EF400EB8EA0 /* CategoryView.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4B4F91E12CF4CA5200E8CD11 /* DeliveryExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4F91F72CF4CA5300E8CD11 /* Build configuration list for PBXNativeTarget "DeliveryExtension" */;
+			buildPhases = (
+				4B4F91DE2CF4CA5200E8CD11 /* Sources */,
+				4B4F91DF2CF4CA5200E8CD11 /* Frameworks */,
+				4B4F91E02CF4CA5200E8CD11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4B4F91E52CF4CA5200E8CD11 /* Delivery */,
+			);
+			name = DeliveryExtension;
+			packageProductDependencies = (
+			);
+			productName = DeliveryExtension;
+			productReference = 4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4BB1BB732C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB1BB992C8F65C200EB8EA0 /* Build configuration list for PBXNativeTarget "subito" */;
@@ -139,10 +461,12 @@
 				4BB1BB702C8F65C000EB8EA0 /* Sources */,
 				4BB1BB712C8F65C000EB8EA0 /* Frameworks */,
 				4BB1BB722C8F65C000EB8EA0 /* Resources */,
+				4B4F91C32CF4C93600E8CD11 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4B4F91F42CF4CA5300E8CD11 /* PBXTargetDependency */,
 			);
 			name = subito;
 			productName = subito;
@@ -192,9 +516,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					4B4F91E12CF4CA5200E8CD11 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 					4BB1BB732C8F65C000EB8EA0 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -210,11 +537,11 @@
 			};
 			buildConfigurationList = 4BB1BB6F2C8F65C000EB8EA0 /* Build configuration list for PBXProject "subito" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "es-419";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"es-419",
 			);
 			mainGroup = 4BB1BB6B2C8F65C000EB8EA0;
 			productRefGroup = 4BB1BB752C8F65C000EB8EA0 /* Products */;
@@ -224,17 +551,26 @@
 				4BB1BB732C8F65C000EB8EA0 /* subito */,
 				4BB1BB842C8F65C200EB8EA0 /* subitoTests */,
 				4BB1BB8E2C8F65C200EB8EA0 /* subitoUITests */,
+				4B4F91E12CF4CA5200E8CD11 /* DeliveryExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4B4F91E02CF4CA5200E8CD11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB1BB722C8F65C000EB8EA0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */,
+				4B4F92632CF4E4AB00E8CD11 /* Assets.xcassets in Resources */,
 				4BB1BB802C8F65C100EB8EA0 /* Preview Assets.xcassets in Resources */,
-				4BB1BB7C2C8F65C100EB8EA0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,12 +591,72 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4B4F91DE2CF4CA5200E8CD11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
+				4B4F91FA2CF4CCE600E8CD11 /* DeliveryState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB1BB702C8F65C000EB8EA0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */,
+				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
+				4B73C74E2CE52A3B00997644 /* Products.swift in Sources */,
+				4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */,
+				4BB1BBB62C8F6FB700EB8EA0 /* Wallet.swift in Sources */,
+				4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */,
+				4BCCD5682CCC0F7F006C962C /* Category.swift in Sources */,
+				4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */,
+				4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */,
+				4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */,
+				4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */,
+				4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */,
+				4BFB13082D11BB3600A99B5F /* WebView.swift in Sources */,
+				4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */,
+				4BA8B8002D0CE524000352FC /* AppDelegate.swift in Sources */,
+				4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */,
+				4BB1BBAE2C8F6D5500EB8EA0 /* Splash.swift in Sources */,
+				4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
+				4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */,
+				4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */,
+				4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */,
+				4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */,
+				4B2B764C2CACF5FB00F046EF /* DirectionsModal.swift in Sources */,
+				4BB1BBAB2C8F6D0300EB8EA0 /* ApiCaller.swift in Sources */,
+				4BCCD5662CCC0EE1006C962C /* Categories.swift in Sources */,
+				4BB1BBA92C8F6CD500EB8EA0 /* Login.swift in Sources */,
+				4BC0801E2D08AC5A00216D95 /* Register.swift in Sources */,
+				4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */,
+				4BE716A52D0B769300BE73FC /* ModalProductoExtension.swift in Sources */,
+				4BFB13062D10EB8F00A99B5F /* CardSD.swift in Sources */,
+				4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */,
+				4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */,
+				4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */,
+				4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */,
+				4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */,
+				4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */,
+				4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */,
+				4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */,
 				4BB1BB7A2C8F65C000EB8EA0 /* ContentView.swift in Sources */,
+				4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */,
+				4BB1BBA32C8F682800EB8EA0 /* Router.swift in Sources */,
 				4BB1BB782C8F65C000EB8EA0 /* subitoApp.swift in Sources */,
+				4BB1BBB42C8F6EF400EB8EA0 /* CategoryView.swift in Sources */,
+				4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */,
+				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
+				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,
+				4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */,
+				4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */,
+				4B1224332CFA0833001057B0 /* TaxiExtension.swift in Sources */,
+				4B2B76422CAC6B2500F046EF /* Taxi.swift in Sources */,
+				4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */,
+				4B2B71302D0A1FF5003BF403 /* DirectionSD.swift in Sources */,
+				4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +680,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4B4F91F42CF4CA5300E8CD11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B4F91E12CF4CA5200E8CD11 /* DeliveryExtension */;
+			targetProxy = 4B4F91F32CF4CA5300E8CD11 /* PBXContainerItemProxy */;
+		};
 		4BB1BB872C8F65C200EB8EA0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4BB1BB732C8F65C000EB8EA0 /* subito */;
@@ -296,7 +697,79 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4BA8B7FE2D0CE171000352FC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		4B4F91F82CF4CA5300E8CD11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Delivery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = subito.subito.Delivery;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B4F91F92CF4CA5300E8CD11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Delivery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = subito.subito.Delivery;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		4BB1BB972C8F65C200EB8EA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -331,6 +804,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -392,6 +866,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -416,36 +891,50 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = subito/subito.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"subito/Preview Content\"";
-				DEVELOPMENT_TEAM = 9NTUW88L35;
+				DEVELOPMENT_TEAM = 6UWH42ZAY5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = subito/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -454,46 +943,57 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = subito/subito.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"subito/Preview Content\"";
-				DEVELOPMENT_TEAM = 9NTUW88L35;
+				DEVELOPMENT_TEAM = 6UWH42ZAY5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = subito/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		4BB1BB9D2C8F65C200EB8EA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -513,10 +1013,10 @@
 		4BB1BB9E2C8F65C200EB8EA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -536,9 +1036,9 @@
 		4BB1BBA02C8F65C200EB8EA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -558,9 +1058,9 @@
 		4BB1BBA12C8F65C200EB8EA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -580,6 +1080,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4B4F91F72CF4CA5300E8CD11 /* Build configuration list for PBXNativeTarget "DeliveryExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4F91F82CF4CA5300E8CD11 /* Debug */,
+				4B4F91F92CF4CA5300E8CD11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4BB1BB6F2C8F65C000EB8EA0 /* Build configuration list for PBXProject "subito" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

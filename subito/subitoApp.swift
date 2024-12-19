@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct subitoApp: App {
+    @StateObject var userState = UserStateModel()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+   
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView{
+                AppSwitch()
+            }
+            .environmentObject(userState)
         }
+        .modelContainer(userState.container)
     }
 }
