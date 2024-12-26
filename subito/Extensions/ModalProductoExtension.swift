@@ -62,6 +62,7 @@ extension ModalProducto {
             
             api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingResponse.self) { response in
                 if response.status == "success" {
+                   
                     try! context.save()
                     dismiss()
                 }
@@ -89,6 +90,7 @@ extension ModalProducto {
                 
                 api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingResponse.self) { response in
                     if response.status == "success" {
+                        
                         try! context.save()
                         dismiss()
                     }
@@ -100,36 +102,37 @@ extension ModalProducto {
     }
     
     func saveNew() {
-        try! context.delete(model: CartSD.self)
-        
-        let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: count)
-        let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
-        
-        context.insert(establishment)
-        establishment.products.append(producto)
-        
-        let shoppingCart = [
-            "shopping" : [
-                "establishment_id" : data.pg_establishments_id,
-                "items" : [
-                    [
-                        "product_id" : data.pd_id,
-                        "quantity" : count
+        api.fetch(url: "shopping/remove/cart", method: "POST", token: token, ofType: ShoppingResponse.self) { response in
+            if response.status == "success" {
+                try! context.delete(model: CartSD.self)
+                
+                let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: count)
+                let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
+                
+                context.insert(establishment)
+                establishment.products.append(producto)
+                
+                let shoppingCart = [
+                    "shopping" : [
+                        "establishment_id" : data.pg_establishments_id,
+                        "items" : [
+                            [
+                                "product_id" : data.pd_id,
+                                "quantity" : count
+                            ]
+                        ]
                     ]
                 ]
-            ]
-        ]
-        
-        api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingResponse.self) { response in
-            if response.status == "success" {
-                try! context.save()
-                dismiss()
+                
+                api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingResponse.self) { response in
+                    if response.status == "success" {
+                        
+                        
+                        try! context.save()
+                        dismiss()
+                    }
+                }
             }
         }
     }
-}
-
-#Preview {
-    Eats()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CardSD.self])
 }

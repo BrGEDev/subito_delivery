@@ -18,8 +18,10 @@ struct subitoApp: App {
             NavigationView{
                 AppSwitch()
             }
-            .environmentObject(userState)
         }
         .modelContainer(userState.container)
+        .environmentObject(userState)
     }
 }
+
+

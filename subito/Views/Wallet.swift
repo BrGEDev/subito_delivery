@@ -86,7 +86,3 @@ struct Wallet: View {
         
     }
 }
-
-#Preview {
-    Wallet()
-}

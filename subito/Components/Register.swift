@@ -108,7 +108,3 @@ struct Register: View {
         }
     }
 }
-
-#Preview {
-    Register()
-}

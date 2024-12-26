@@ -118,10 +118,3 @@ struct DirectionsModal: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-
-
-
-#Preview {
-    DirectionsModal()
-        .modelContainer(for: [DirectionSD.self, UserSD.self])
-}

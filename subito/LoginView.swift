@@ -32,26 +32,26 @@ struct PrincipalView: View{
                 Text("Iniciando sesión")
             }
         } else {
-            NavigationView{
-                ZStack{
-                    Image(.pedidos)
+            ZStack{
+                Image(.pedidos)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 1000, height: 1000)
+                    .blur(radius: 20)
+                    .ignoresSafeArea()
+                
+                VStack{
+                    Image(.logoDark)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 1000, height: 1000)
-                        .blur(radius: 20)
-                        .ignoresSafeArea()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200)
+                        .padding(40)
+                        .zIndex(2)
                     
-                    VStack{
-                        Image(.logoDark)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200)
-                            .padding(40)
-                            .zIndex(2)
-                        
+                    
+                    VStack(spacing: 20){
                         
                         VStack{
-                            
                             Text("Iniciar Sesión")
                                 .font(.title)
                                 .bold()
@@ -91,59 +91,49 @@ struct PrincipalView: View{
                                 }
                             }){
                                 Text("Iniciar Sesión")
-                            }
-                            .alert(isPresented: $alert){
-                                Alert(title: Text("Validación").bold(),
-                                      message: Text(message),
-                                      dismissButton: .default(Text("Aceptar"))
-                                )
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
                             .foregroundColor(.black)
-                            .frame(width: 200, height: 50)
-                            .background(Color.yellow)
+                            .background(Color.accentColor)
                             .cornerRadius(20)
+                            .frame(width: 200, height: 50)
                             .padding()
-                            
-                            Divider()
-                                .frame(width: 300)
-                                .padding(.bottom)
-                            
-                            VStack(spacing: 15){
-                                Button("Olvidé mi contraseña"){
-                                    showingSheet.toggle()
-                                }
-                                .foregroundColor(.red)
-                                .font(.system(size: 15))
-                                .sheet(isPresented: $showingSheet){
-                                }
-                                
-                                Button("Registrarme"){
-                                    register.toggle()
-                                }
-                                .foregroundColor(.blue)
-                                .font(.system(size: 15))
-                                .sheet(isPresented: $register){
-                                    Register()
-                                }
-                            }
                         }
-                        .padding(30)
-                        .background(Color.white.opacity(0.99))
-                        .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
-                        .shadow(radius: 20)
+                        
+                        HStack(alignment: .center, spacing: 40){
+                            Button("Registrarme"){
+                                register = true
+                            }
+                            .foregroundColor(.blue)
+                            .font(.system(size: 16))
+                            
+                            Button("Olvidé mi contraseña"){
+                                showingSheet = true
+                            }
+                            .foregroundColor(.red)
+                            .font(.system(size: 16))
+                        }
                     }
+                    .padding(30)
+                    .background(colorScheme == .dark ? Color.black.opacity(0.89) : Color.white.opacity(0.89))
+                    .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
+                    .shadow(radius: 20)
                 }
             }
             .onTapGesture {
-                    if usernameFocus {
+                if usernameFocus {
                     usernameFocus = false
                 }
             }
+            .alert(isPresented: $alert){
+                Alert(title: Text("Validación").bold(),
+                      message: Text(message),
+                      dismissButton: .default(Text("Aceptar"))
+                )
+            }
+            .sheet(isPresented: $register){
+                Register()
+            }
         }
     }
-}
-
-#Preview {
-    PrincipalView()
-        .environmentObject(UserStateModel())
 }

@@ -70,6 +70,7 @@ struct CartModal: View {
     @Binding var isPresented: Bool
     
     @StateObject var api: ApiCaller = ApiCaller()
+    var socket: SocketService
   
     @Query var establishments: [CartSD]
     @State var payment: Float = 0
@@ -113,7 +114,7 @@ struct CartModal: View {
                     }
                     
                     HStack(spacing: 15){
-                        NavigationLink(destination: PaymentModal(isPresented: $isPresented)){
+                        NavigationLink(destination: PaymentModal(socket: socket, isPresented: $isPresented)){
                             Text("Pagar \(Text(payment, format: .currency(code: "MXN")))")
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -164,9 +165,3 @@ struct CartModal: View {
         }
     }
 }
-
-#Preview {
-    Eats()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CartSD.self])
-}
-

@@ -26,12 +26,13 @@ struct HeaderModal: View {
         ZStack(alignment: .bottom){
             AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(image)")) { image in
                 image.resizable()
+                    .frame(width: Screen.width * 0.45, height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .frame(height: 200)
+                    .clipped()
             } placeholder: {
                 ProgressView()
                     .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .frame(height: 200)
+                    .frame(height: Screen.width * 0.45)
             }
             
             HStack{
@@ -50,6 +51,7 @@ struct HeaderModal: View {
             }
             .background(.ultraThinMaterial)
             .cornerRadius(30)
+            .frame(width: Screen.width * 0.45)
         }
     }
 }
@@ -57,8 +59,6 @@ struct HeaderModal: View {
 struct BodyModal: View {
     @Binding var isExpand: Bool
     @State var data: Item
-    
-    //@State var productos: [ModelCategories] = []
     
     var body: some View {
         VStack{
@@ -182,6 +182,55 @@ struct ProductListF: View {
         }
         .sheet(isPresented: $modal) {
             ModalProducto(location: location, data: data)
+        }
+        .contextMenu {
+            Button(action: {
+                modal = true
+            }){
+                Label("Ver producto", systemImage: "eye")
+            }
+            
+            Button(action: {}){
+                Label("Agregar producto", systemImage: "plus")
+            }
+        } preview: {
+            VStack{
+                AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: Screen.width, height: 200)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: Screen.width, height: 200)
+                }
+                
+                HStack(alignment: .bottom){
+                    VStack{
+                        Text(data.pd_name)
+                            .font(.title)
+                            .bold()
+                        
+                        Text(data.pd_description)
+                        
+                        Spacer(minLength: 20)
+                        
+                        HStack{
+                            Text(Float(data.pd_unit_price)!, format: .currency(code: "MXN"))
+                                .font(.system(size: 20))
+                            
+                            Spacer()
+                            
+                            Text("\(Image(systemName: "shippingbox")) \(data.pd_quantity ?? "0")")
+                                .font(.system(size: 20))
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Material.thin)
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 }
@@ -398,16 +447,15 @@ struct ModalRestaurants: View {
                         dragValue = .zero
                     }) : nil
             )
-            .clipShape(RoundedRectangle(cornerRadius: 50))
+            .clipShape(RoundedRectangle(cornerRadius: dragValue.height > 0 ? 50 : 0))
             .scaleEffect(1 - (dragValue.height/1700))
+            .frame(width: isActive == data.id ? Screen.width : 200)
         }
-    
-        .frame(width: isActive == data.id ? Screen.width : 200, height: isActive == data.id ? Screen.height : 200)
+        .frame(width: isActive == data.id ? Screen.width : Screen.width * 0.45, height: isActive == data.id ? Screen.height : 200)
         .animation(Animation.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5))
         .edgesIgnoringSafeArea(.all)
         .background(isExpand ? AnyShapeStyle(.thinMaterial) : AnyShapeStyle(.clear))
-        .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 0)
+        .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 1)
     }
 
 }
-

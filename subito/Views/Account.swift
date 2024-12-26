@@ -109,8 +109,3 @@ struct Account: View {
         }
     }
 }
-
-#Preview {
-    Account()
-        .modelContainer(for: UserSD.self)
-}

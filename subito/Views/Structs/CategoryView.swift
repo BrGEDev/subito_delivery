@@ -14,6 +14,7 @@ struct CategoryView: View {
     @State var id_category: Int
     @State var establishments: [Establishments] = []
     @State var load: Bool = true
+    var socket: SocketService
     
     @State var isExpand: Bool = false
     @State var activeID: String = ""
@@ -70,7 +71,8 @@ struct CategoryView: View {
                         .foregroundStyle(.primary)
                 }
                 .sheet(isPresented: $cartModal){
-                    CartModal(isPresented: $cartModal)                    }
+                    CartModal(isPresented: $cartModal, socket: socket)
+                }
             }
         }
         .toolbar(isExpand ? .hidden : .visible, for: .navigationBar)
@@ -82,8 +84,4 @@ struct CategoryView: View {
         }
         .navigationBarTitleDisplayMode(.large)
     }
-}
-
-#Preview {
-    CategoryView(categoryTitle: "Restaurantes", id_category: 12)
 }

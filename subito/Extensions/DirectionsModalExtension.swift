@@ -153,8 +153,3 @@ extension DirectionsModal {
         dismiss()
     }
 }
-
-#Preview {
-    DirectionsModal()
-        .modelContainer(for: [DirectionSD.self, UserSD.self])
-}

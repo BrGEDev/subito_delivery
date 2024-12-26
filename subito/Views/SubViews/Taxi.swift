@@ -179,11 +179,16 @@ struct Taxi: View {
                     .onAppear{
                         coords = .userLocation(followsHeading: true, fallback: .camera(MapCamera(centerCoordinate: locationManager.userLocation, distance: 30)))
                     }
-                    MapUserLocationButton(scope: mapScope)
-                        .buttonBorderShape(.circle)
-                        .shadow(radius: 17)
-                        .padding(10)
-                        .offset(x: 160, y: 120)
+                    HStack{
+                        Spacer()
+                        
+                        MapUserLocationButton(scope: mapScope)
+                            .buttonBorderShape(.circle)
+                            .shadow(radius: 17)
+                            .frame(width: 40, height: 40)
+                            .padding()
+                    }
+                    .padding(.top, 110)
                 }
                 .mapScope(mapScope)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -524,9 +529,4 @@ struct Taxi: View {
             loadUser()
         }
     }
-}
-
-#Preview {
-    Taxi(selection: .constant(2))
-        .modelContainer(for: [UserSD.self, DirectionSD.self, CardSD.self])
 }

@@ -28,8 +28,6 @@ struct WebView: UIViewRepresentable {
         let request = URLRequest(url: url)
         mkwebview.load(request)
         
-        print(mkwebview.url!.absoluteString)
-        
         return mkwebview
     }
     
@@ -102,9 +100,4 @@ struct LoadWebView: View {
             }
         }
     }
-}
-
-#Preview {
-    LoadWebView(url: URL(string: "https://ti-lexa.tech/#/auth/save-card")!)
-        .modelContainer(for: [UserSD.self, DirectionSD.self, CardSD.self, CartSD.self])
 }

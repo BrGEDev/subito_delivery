@@ -135,8 +135,3 @@ struct ModalProducto: View {
         }
     }
 }
-
-#Preview {
-    Eats()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CartSD.self])
-}

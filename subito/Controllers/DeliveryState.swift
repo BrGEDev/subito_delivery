@@ -9,14 +9,15 @@ import Foundation
 import ActivityKit
 
 enum DeliveryState: String, Codable {
-    case pending = "Recolectando"
-    case inProgress = "En reparto"
-    case completed = "Completado"
-    case cancelled = "Cancelado"
+    case pending = "pendiente"
+    case preparation = "en preparación"
+    case inProgress = "en reparto"
+    case completed = "completado"
+    case cancelled = "cancelado"
 }
 
 final class DeliveryActivity {
-    static func startActivity(deliveryStatus: DeliveryState, establishment: String, estimaed: String, time: String) throws -> String {
+    static func startActivity(deliveryStatus: DeliveryState, establishment: String, estimaed: String, time: String = "") throws -> String {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
             return ""
         }

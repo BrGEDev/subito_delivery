@@ -182,7 +182,7 @@ struct PaymentMethod: View {
             LoadWebView(url: URL(string: "https://ti-lexa.tech/#/auth/save-card?token=\(user!.token)")!)
             .edgesIgnoringSafeArea(.all)
         }
-        .sheet(isPresented: $loading, onDismiss: {dismiss()}){
+        .sheet(isPresented: $loading, onDismiss: {dismiss()}){ [selected] in
             CVVCode(alert: $alert, selectCard: selected)
             .presentationDetents([.height(280)])
             .presentationBackgroundInteraction(.disabled)
@@ -204,9 +204,4 @@ struct PaymentMethod: View {
             getPaymentMethod()
         }
     }
-}
-
-#Preview {
-    PaymentMethod()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, CardSD.self, CartSD.self])
 }

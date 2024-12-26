@@ -62,6 +62,7 @@ struct PaymentModal: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
+    var socket: SocketService
     
     @Binding var isPresented: Bool
 
@@ -84,13 +85,11 @@ struct PaymentModal: View {
     @State var subtotal: Float = 0
     @State var envio: Float = 40
     @State var km: Double = 0
+    @State var estimatedTime: String?
 
     @State var modalPropina: Bool = false
     @State var alert: Bool = false
     @State var cvvCode: Bool = false
-
-    @State var currentDeliveryState: DeliveryState = .pending
-    @State var activityIdentifier: String = ""
 
     var body: some View {
         VStack {
@@ -318,9 +317,4 @@ struct PaymentModal: View {
             calcDistance()
         }
     }
-}
-
-#Preview {
-    Eats()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CardSD.self, CartSD.self])
 }

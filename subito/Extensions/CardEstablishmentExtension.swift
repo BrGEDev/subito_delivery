@@ -4,6 +4,8 @@
 //
 //  Created by Brandon Guerra Espinoza  on 13/11/24.
 //
+import Foundation
+import SwiftUI
 
 extension CardEstablishment {
     public func loadProductos() {

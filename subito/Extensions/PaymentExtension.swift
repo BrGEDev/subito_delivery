@@ -63,70 +63,48 @@ extension PaymentModal {
         }
         
         let data: [String: Any] = [
-            "establishment_id": establishments[0].id,
-            "payment": [
-                "type": 3,
-                "card_token": paymentsSelected!.token!,
-                "payment_method_id": paymentsSelected!.token!
-            ],
-            "delivery": [
-                "address": [
-                    "id": directionSelected!.id
+            "data" : [
+                "establishment_id": establishments[0].id,
+                "payment": [
+                    "type": 3,
+                    "card_token": paymentsSelected!.token!,
+                    "payment_method_id": paymentsSelected!.token!
+                ],
+                "delivery": [
+                    "address": [
+                        "id": directionSelected!.id
+                    ]
+                ],
+                "order": [
+                    "products": products,
+                    "total": payment,
+                    "shipping_cost": envio,
+                    "distance_km": km
                 ]
-            ],
-            "order": [
-                "products": products,
-                "total": payment,
-                "shipping_cost": envio,
-                "distance_km": km
             ]
         ]
         
-        print(data)
-        
         let user = FetchDescriptor<UserSD>()
         let userQuery = try! self.context.fetch(user).first!.token
-        api.fetch(url: "payment", method: "POST", body: data, token: userQuery, ofType: PaymentsResponse.self) { res in
+        api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res in
+            if res.status == "success" {
+                isPresented.toggle()
+                socket.socket.emit("orderDelivery", ["orderId": res.data!.orderId, "establishmentId": res.data!.establishmentId])
+
+                let order = TrackingSD(id: UUID(), order: res.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime!)
+                
+                paymentsSelected?.token = nil
+                context.insert(order)
+                try! context.delete(model: CartSD.self)
+                try! context.save()
+            }
             print(res)
-        }
-
-//        do {
-//            currentDeliveryState = .pending
-//            activityIdentifier = try DeliveryActivity.startActivity(
-//                deliveryStatus: .inProgress, establishment: establishments[0].establishment,
-//                estimaed: "11:30 am", time: "8 min")
-//            
-//            
-//            isPresented.toggle()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-    }
-
-    // Actualiza el status del widget
-
-    func updateState() {
-        currentDeliveryState = .inProgress
-
-        Task {
-            await DeliveryActivity.updateActivity(
-                activityIdentifier: activityIdentifier,
-                newStatus: currentDeliveryState,
-                establishment: "Starbucks Coffee", estimated: "11:30 am",
-                time: "8 min")
-        }
-    }
-
-    // Remueve el status del widget
-
-    func removeState() {
-        Task {
-            await DeliveryActivity.endActivity(
-                withActivityIdentifier: activityIdentifier)
         }
     }
     
     func calcDistance() {
+        print("Location: ", establishments[0].latitude, establishments[0].longitude)
+        
         if directionSelected != nil && establishments[0].latitude != "" {
             let request = MKDirections.Request()
             
@@ -138,6 +116,17 @@ extension PaymentModal {
                 let result = try? await MKDirections(request: request).calculate()
                 km = ceil(Double(result?.routes.first?.distance ?? 0) / 1000).decimals(2)
                 envio = Float(km <= 6 ? 40 : ((km - 6) * 7) + 40)
+                let timeExpect = result?.routes.first?.expectedTravelTime ?? 0
+                let hours = Int(timeExpect) / 3600
+                let minutes = (Int(timeExpect) / 60) % 60
+                var calendar = Calendar.current
+                calendar.locale = Locale(identifier: "es_MX")
+                
+                var date = calendar.date(byAdding: .minute, value: minutes, to: Date())
+                date = calendar.date(byAdding: .hour, value: hours, to: date!)
+                estimatedTime = date!.formatted(date: .omitted, time: .shortened)
+                print(estimatedTime)
+                
                 calcTax()
             }
         } else {
@@ -153,30 +142,32 @@ extension PaymentMethod {
             url: "payment-methods", method: "POST", token: user!.token,
             ofType: PaymentMethodResponse.self
         ) { res in
-            if res.data?.count != 0 {
-                for card in res.data! {
-                    let query = cards.first(where: { $0.id == card.id })
-                    
-                    if query == nil {
-                        let newCard = CardSD(
-                            id: card.id, last_four: card.last_four_digits,
-                            card_type: card.payment_method.name == "master"
-                            || card.payment_method.name == "debmaster"
-                            ? "MasterCard"
-                            : (card.payment_method.name == "visa"
-                               || card.payment_method.name == "debvisa"
-                               ? "Visa" : "American Express"),
-                            expiry:
-                                "\(card.expiration_month)/\(card.expiration_year)",
-                            brand: card.payment_method.secure_thumbnail,
-                            name: card.cardholder.name,
-                            token: nil)
+            if res.status == "success" {
+                if res.data!.count != 0 {
+                    for card in res.data! {
+                        let query = cards.first(where: { $0.id == card.id })
                         
-                        contextModel.insert(newCard)
+                        if query == nil {
+                            let newCard = CardSD(
+                                id: card.id, last_four: card.last_four_digits,
+                                card_type: card.payment_method.name == "master"
+                                || card.payment_method.name == "debmaster"
+                                ? "MasterCard"
+                                : (card.payment_method.name == "visa"
+                                   || card.payment_method.name == "debvisa"
+                                   ? "Visa" : "American Express"),
+                                expiry:
+                                    "\(card.expiration_month)/\(card.expiration_year)",
+                                brand: card.payment_method.secure_thumbnail,
+                                name: card.cardholder.name,
+                                token: nil)
+                            
+                            contextModel.insert(newCard)
+                        }
                     }
+                    
+                    try! contextModel.save()
                 }
-                
-                try! contextModel.save()
             }
         }
     }

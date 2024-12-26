@@ -66,3 +66,20 @@ struct PaymentsResponse: Decodable {
     var status: String
     var message: String
 }
+
+struct CheckoutResponse: Decodable {
+    var status: String
+    var message: String
+    var data: CheckoutData?
+}
+
+struct CheckoutData: Decodable {
+    var responseMP: ResponseMP
+    var orderId: Int
+    var establishmentId: Int
+}
+
+struct ResponseMP: Decodable {
+    var status: String
+    var status_detail: String
+}

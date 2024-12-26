@@ -49,7 +49,6 @@
 		4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */; };
 		4BB1BBA92C8F6CD500EB8EA0 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBA82C8F6CD500EB8EA0 /* Login.swift */; };
 		4BB1BBAB2C8F6D0300EB8EA0 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
-		4BB1BBAE2C8F6D5500EB8EA0 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */; };
 		4BB1BBB42C8F6EF400EB8EA0 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB32C8F6EF400EB8EA0 /* CategoryView.swift */; };
 		4BB1BBB62C8F6FB700EB8EA0 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */; };
 		4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB72C8F70A000EB8EA0 /* Account.swift */; };
@@ -73,6 +72,13 @@
 		4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130A2D11CC2900A99B5F /* Payment.swift */; };
 		4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130F2D122C0800A99B5F /* MercadoPago.swift */; };
 		4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB131B2D14893200A99B5F /* TrackingSD.swift */; };
+		4BFB13622D14A9CA00A99B5F /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13612D14A9C700A99B5F /* Orders.swift */; };
+		4BFB13642D14AE6800A99B5F /* OrderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13632D14AE5500A99B5F /* OrderCard.swift */; };
+		4BFB13662D14C07900A99B5F /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13652D14C07300A99B5F /* OrderDetail.swift */; };
+		4BFB13682D14EA3400A99B5F /* OrderDetailExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13672D14EA2D00A99B5F /* OrderDetailExtension.swift */; };
+		4BFB13752D1AFD8E00A99B5F /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4BFB13742D1AFD8E00A99B5F /* SocketIO */; };
+		4BFB13942D1AFE1700A99B5F /* SocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13932D1AFE1300A99B5F /* SocketService.swift */; };
+		4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13952D1B607200A99B5F /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,7 +164,6 @@
 		4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateModel.swift; sourceTree = "<group>"; };
 		4BB1BBA82C8F6CD500EB8EA0 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
-		4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		4BB1BBB32C8F6EF400EB8EA0 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4BB1BBB72C8F70A000EB8EA0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -182,6 +187,12 @@
 		4BFB130A2D11CC2900A99B5F /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		4BFB130F2D122C0800A99B5F /* MercadoPago.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercadoPago.swift; sourceTree = "<group>"; };
 		4BFB131B2D14893200A99B5F /* TrackingSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSD.swift; sourceTree = "<group>"; };
+		4BFB13612D14A9C700A99B5F /* Orders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
+		4BFB13632D14AE5500A99B5F /* OrderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCard.swift; sourceTree = "<group>"; };
+		4BFB13652D14C07300A99B5F /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
+		4BFB13672D14EA2D00A99B5F /* OrderDetailExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailExtension.swift; sourceTree = "<group>"; };
+		4BFB13932D1AFE1300A99B5F /* SocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketService.swift; sourceTree = "<group>"; };
+		4BFB13952D1B607200A99B5F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -214,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2B71352D0A5610003BF403 /* SwiftData.framework in Frameworks */,
+				4BFB13752D1AFD8E00A99B5F /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +290,7 @@
 		4B55D7C42CD17C1D0009EA89 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4BFB13672D14EA2D00A99B5F /* OrderDetailExtension.swift */,
 				4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */,
 				4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */,
 				4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */,
@@ -366,6 +379,7 @@
 		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4BFB13612D14A9C700A99B5F /* Orders.swift */,
 				4BFB130F2D122C0800A99B5F /* MercadoPago.swift */,
 				4BFB130A2D11CC2900A99B5F /* Payment.swift */,
 				4BE716C52D0CAEBB00BE73FC /* Shopping.swift */,
@@ -381,6 +395,8 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4BFB13952D1B607200A99B5F /* Notifications.swift */,
+				4BFB13932D1AFE1300A99B5F /* SocketService.swift */,
 				4BA8B7FF2D0CE520000352FC /* AppDelegate.swift */,
 				4B2B76432CAC6DB700F046EF /* LocationManager.swift */,
 				4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */,
@@ -392,6 +408,8 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4BFB13652D14C07300A99B5F /* OrderDetail.swift */,
+				4BFB13632D14AE5500A99B5F /* OrderCard.swift */,
 				4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */,
 				4BC0801D2D08AC5700216D95 /* Register.swift */,
 				4B1224372CFA579A001057B0 /* AddressRow.swift */,
@@ -404,7 +422,6 @@
 				4BCCD5652CCC0EDB006C962C /* Categories.swift */,
 				4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */,
 				4B2B763E2CAC490400F046EF /* CartModal.swift */,
-				4BB1BBAD2C8F6D5500EB8EA0 /* Splash.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -544,6 +561,9 @@
 				"es-419",
 			);
 			mainGroup = 4BB1BB6B2C8F65C000EB8EA0;
+			packageReferences = (
+				4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+			);
 			productRefGroup = 4BB1BB752C8F65C000EB8EA0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -606,10 +626,13 @@
 			files = (
 				4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */,
 				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
+				4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */,
 				4B73C74E2CE52A3B00997644 /* Products.swift in Sources */,
 				4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */,
+				4BFB13942D1AFE1700A99B5F /* SocketService.swift in Sources */,
 				4BB1BBB62C8F6FB700EB8EA0 /* Wallet.swift in Sources */,
 				4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */,
+				4BFB13622D14A9CA00A99B5F /* Orders.swift in Sources */,
 				4BCCD5682CCC0F7F006C962C /* Category.swift in Sources */,
 				4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */,
 				4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */,
@@ -620,7 +643,6 @@
 				4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */,
 				4BA8B8002D0CE524000352FC /* AppDelegate.swift in Sources */,
 				4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */,
-				4BB1BBAE2C8F6D5500EB8EA0 /* Splash.swift in Sources */,
 				4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
 				4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */,
 				4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */,
@@ -638,6 +660,7 @@
 				4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */,
 				4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */,
 				4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */,
+				4BFB13662D14C07900A99B5F /* OrderDetail.swift in Sources */,
 				4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */,
 				4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */,
 				4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */,
@@ -651,9 +674,11 @@
 				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
 				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,
 				4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */,
+				4BFB13642D14AE6800A99B5F /* OrderCard.swift in Sources */,
 				4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */,
 				4B1224332CFA0833001057B0 /* TaxiExtension.swift in Sources */,
 				4B2B76422CAC6B2500F046EF /* Taxi.swift in Sources */,
+				4BFB13682D14EA3400A99B5F /* OrderDetailExtension.swift in Sources */,
 				4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */,
 				4B2B71302D0A1FF5003BF403 /* DirectionSD.swift in Sources */,
 				4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */,
@@ -1126,6 +1151,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4BFB13742D1AFD8E00A99B5F /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4BB1BB6C2C8F65C000EB8EA0 /* Project object */;
 }

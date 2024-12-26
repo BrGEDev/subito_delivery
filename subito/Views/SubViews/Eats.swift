@@ -1,3 +1,4 @@
+
 //
 //  Eats.swift
 //  subito
@@ -9,15 +10,22 @@ import SwiftUI
 import SwiftData
 
 struct Eats: View {
+    @State var currentDeliveryState: DeliveryState = .pending
+    @State var activityIdentifier: String = ""
+    
+    @Environment(\.modelContext) var context
     @Environment(\.colorScheme) var colorScheme
+    var socket: SocketService
     
     @State var activeID = UUID()
     @State var isExpand: Bool = false
     
     @StateObject var api: ApiCaller = ApiCaller()
+    @StateObject var notifications: Notifications = Notifications()
     
     @State var categories: [ModelCategories] = []
     @State var items: [Item] = []
+    @State var orders: [Orders] = []
     
     @State var searchText: String = ""
     @State var searchableText: Bool = false
@@ -27,14 +35,14 @@ struct Eats: View {
     @State var seeAccount: Bool = false
     
     @Query var userData: [UserSD]
-    private var user: UserSD? { userData.first }
+    var user: UserSD? { userData.first }
     @Query(filter: #Predicate<DirectionSD> { direction in
         direction.status == true
     }) var directions: [DirectionSD]
     private var directionSelected: DirectionSD? { directions.first }
 
     private let adaptiveColumn = [
-        GridItem(.adaptive(minimum: 120))
+        GridItem(.adaptive(minimum: 140))
     ]
     
     var body: some View {
@@ -128,7 +136,7 @@ struct Eats: View {
                                     if categories.count > 0 {
                                         HStack{
                                             ForEach(categories) { item in
-                                                Category(category: item)
+                                                Category(category: item, socket: socket)
                                                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
                                             }
                                         }
@@ -148,6 +156,21 @@ struct Eats: View {
                     .padding([.bottom, .trailing, .leading])
                     .padding(.top, searchableText ? 100 : 0)
                     
+                    if !orders.isEmpty {
+                        if orders.count == 1 {
+                            ForEach(orders, id: \.id_order) { item in
+                                if item.status != "Cancelado" {
+                                    NavigationLink(destination: OrderDetail(order: item)) {
+                                        OrderCard(order: item)
+                                    }
+                                }
+                            }
+                        } else {
+                            NavigationLink(destination: ListOrders(orders: orders)){
+                                ListOrderCard(orders: orders)
+                            }
+                        }
+                    }
                     
                     HomePage()
                     
@@ -178,7 +201,9 @@ struct Eats: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            .toolbar{
+            .toolbar(isExpand == true || searchableText == true ? .hidden : .visible, for: .automatic)
+            .toolbar(isExpand == true ? .hidden : .visible, for: .tabBar)
+            .toolbar {
                 ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
                         directionModal = true
@@ -202,23 +227,23 @@ struct Eats: View {
                 }
             }
             .sheet(isPresented: $cartModal){
-                CartModal(isPresented: $cartModal)
+                CartModal(isPresented: $cartModal, socket: socket)
             }
             .sheet(isPresented: $directionModal){
                 NavigationView{
                     DirectionsModal()
                 }
             }
-            .toolbar(isExpand || searchableText ? .hidden : .visible, for: .navigationBar)
-            .toolbar(isExpand ? .hidden : .visible, for: .tabBar)
             .onAppear{
                 isExpand = false
                 activeID = UUID()
                 loadTypes()
                 loadPopularEstablishments()
-                
+                loadOrders()
+                listeners()
             }
             .refreshable {
+                loadOrders()
                 if !isExpand{
                     loadTypes()
                     loadPopularEstablishments()
@@ -226,9 +251,4 @@ struct Eats: View {
             }
         }
     }
-}
-
-#Preview {
-    Eats()
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CartSD.self])
 }

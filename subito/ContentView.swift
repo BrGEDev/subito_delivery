@@ -10,12 +10,15 @@ import MapKit
 
 struct ContentView: View {
     @Environment(\.navigate) var navigate
-    @EnvironmentObject var vm: UserStateModel
-    @StateObject var locationManager: LocationManager = .init()
     @Environment(\.modelContext) var modelContext
     
-    @State var location: CLLocation = .init()
+    @EnvironmentObject var vm: UserStateModel
+    @ObservedObject var s: SocketService = SocketService()
     
+    @StateObject var locationManager: LocationManager = .init()
+    @StateObject var notifications: Notifications = .init()
+    
+    @State var location: CLLocation = .init()
     @State private var selection = 1
             
     var body: some View {
@@ -26,7 +29,7 @@ struct ContentView: View {
             }
         } else {
             TabView(selection: $selection){
-                Eats()
+                Eats(socket: s)
                     .tabItem {
                         Label("Súbito Delivery", systemImage: "fork.knife")
                     }
@@ -40,16 +43,11 @@ struct ContentView: View {
             }
             .onAppear{
                 locationManager.checkAuthorization()
+                notifications.checkAuthorization()
             }
             .onChange(of: locationManager.coordinates){
                 getDirections(location: locationManager.coordinates)
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: [DirectionSD.self, UserSD.self])
-        .environmentObject(UserStateModel())
 }

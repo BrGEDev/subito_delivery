@@ -131,7 +131,7 @@ struct BodyEstablishmentModal: View {
                             .bold()
                             .foregroundStyle(.white)
                     }
-                    .padding(.top, 100)
+                    .padding(.top,100)
                     .padding(.leading, 20)
                     
                     Spacer()
@@ -207,6 +207,55 @@ struct ProductList: View {
         }
         .sheet(isPresented: $modal) {
             ModalProducto(location: location, data: data)
+        }
+        .contextMenu {
+            Button(action: {
+                modal = true
+            }){
+                Label("Ver producto", systemImage: "eye")
+            }
+            
+            Button(action: {}){
+                Label("Agregar producto", systemImage: "plus")
+            }
+        } preview: {
+            VStack{
+                AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: Screen.width, height: 200)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: Screen.width, height: 200)
+                }
+                
+                HStack(alignment: .bottom){
+                    VStack{
+                        Text(data.pd_name)
+                            .font(.title)
+                            .bold()
+                        
+                        Text(data.pd_description)
+                        
+                        Spacer(minLength: 20)
+                        
+                        HStack{
+                            Text(Float(data.pd_unit_price)!, format: .currency(code: "MXN"))
+                                .font(.system(size: 20))
+                            
+                            Spacer()
+                            
+                            Text("\(Image(systemName: "shippingbox")) \(data.pd_quantity ?? "0")")
+                                .font(.system(size: 20))
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Material.thin)
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 }
@@ -338,7 +387,7 @@ struct CardEstablishment: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .offset(y: searchState ? -400 : 0)
+                        .offset(y: searchState ? 400 : 0)
                     }
                     .padding(.bottom)
                 }
@@ -418,7 +467,7 @@ struct CardEstablishment: View {
                     dragValue = .zero
                 }) : nil
             )
-            .clipShape(RoundedRectangle(cornerRadius: 50))
+            .clipShape(RoundedRectangle(cornerRadius: dragValue.height > 0 ? 50 : 0))
             .scaleEffect(1 - (dragValue.height/1000))
         }
         .frame(width: Screen.width, height: isActive == data.id_restaurant ? Screen.height : Screen.height * 0.45)
@@ -427,8 +476,4 @@ struct CardEstablishment: View {
         .background(isExpand ? AnyShapeStyle(.thinMaterial) : AnyShapeStyle(.clear))
         .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 0)
     }
-}
-
-#Preview {
-    CategoryView(categoryTitle: "Restaurantes", id_category: 13)
 }

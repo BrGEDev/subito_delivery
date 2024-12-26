@@ -22,7 +22,7 @@ struct LoginInfo: Codable{
     let ua_id: Int
     let ua_name: String
     let ua_lastname: String
-    let ua_birthday: String
+    let ua_birthday: String?
     let ua_email: String
     let ua_user_payment: String?
 }

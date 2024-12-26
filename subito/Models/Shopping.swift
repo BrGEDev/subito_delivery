@@ -25,6 +25,8 @@ struct ShoppingResponse: Decodable {
                 var pd_image: String
                 var name_restaurant: String
                 var picture_logo: String
+                var latitude: String
+                var longitude: String
             }
         }
     }

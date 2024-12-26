@@ -65,8 +65,3 @@ struct Stepper: View {
         }
     }
 }
-
-#Preview {
-    CategoryView(categoryTitle: "Restaurantes", id_category: 12)
-}
-

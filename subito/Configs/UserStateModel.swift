@@ -17,7 +17,7 @@ enum UserStateError: Error {
 class UserStateModel: ObservableObject {
     private var models: [any PersistentModel.Type] = [
         UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-        CardSD.self, TrackingSD.self, TrackingClientSD.self, TrackingEstablishmentSD.self
+        CardSD.self, TrackingSD.self
     ]
 
     lazy public var container: ModelContainer = {
@@ -88,7 +88,7 @@ class UserStateModel: ObservableObject {
                         UserSD(
                             id: us!.ua_id, name: us!.ua_name,
                             lastName: us!.ua_lastname, email: us!.ua_email,
-                            birthday: us!.ua_birthday, token: res.data!.token))
+                            birthday: us!.ua_birthday ?? "", token: res.data!.token))
 
                     self.loadCart(token: res.data!.token)
 
@@ -125,7 +125,11 @@ class UserStateModel: ObservableObject {
             if res.status == "success" {
 
                 for model in self.models {
-                    try! self.context.delete(model: model)
+                    do {
+                        try self.context.delete(model: model)
+                    } catch {
+                        print("Error deleting \(model)", error)
+                    }
                 }
 
                 self.loggedIn = false
@@ -144,7 +148,7 @@ class UserStateModel: ObservableObject {
             return .failure(.signOutError)
         }
     }
-
+    
     private func loadCart(token: String) {
         login.fetch(
             url: "shopping/get", method: "GET", token: token,
@@ -154,10 +158,15 @@ class UserStateModel: ObservableObject {
                 try! self.context.delete(model: CartSD.self)
                 let data = res.shopping
 
+                print(data)
+                
                 if data != nil {
                     let cart = CartSD(
                         id: Int(data!.establishment_id)!,
-                        establishment: data!.order.products[0].name_restaurant)
+                        establishment: data!.order.products[0].name_restaurant,
+                        latitude: data!.order.products[0].latitude,
+                        longitude: data!.order.products[0].longitude
+                    )
 
                     for product in data!.order.products {
                         let producto = ProductsSD(
@@ -176,12 +185,4 @@ class UserStateModel: ObservableObject {
             }
         }
     }
-}
-
-#Preview {
-    AppSwitch()
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,CardSD.self,
-        ])
-        .environmentObject(UserStateModel())
 }
