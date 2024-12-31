@@ -34,7 +34,7 @@ extension DirectionsModal {
         }
     }
 
-    func loadDirections() {
+    func loadDirections(string: String? = nil) {
         let query = FetchDescriptor<UserSD>()
         let token = try? context.fetch(query).first?.token
 
@@ -73,6 +73,9 @@ extension DirectionsModal {
 
                         do {
                             try context.save()
+                            if string != nil{
+                                updateSelected(string: string)
+                            }
                         } catch {
                             fatalError("Error saving directions: \(error)")
                         }
@@ -89,15 +92,17 @@ extension DirectionsModal {
                 "latitude": res.latitude,
                 "longitude": res.longitude,
             ]
+            
+            let query = FetchDescriptor<UserSD>()
+            let token = try? context.fetch(query).first?.token
 
             api.fetch(
-                url: "address/add", method: "POST", body: data, token: "",
+                url: "address/add", method: "POST", body: data, token: token! ,
                 ofType: SaveDirectionsResponse.self
             ) { response in
                 if response.status == "success" {
-                    //let newDirection = DirectionSD(id: <#T##Int#>, full_address: String, latitude: <#T##String#>, longitude: <#T##String#>)
-                    //modelContext.insert(Dore)
-                    //dismiss()
+                    DeliveryAddress.searchText = ""
+                    loadDirections(string: "\(address.title) \(address.subtitle)")
                 }
             }
         }
@@ -118,6 +123,19 @@ extension DirectionsModal {
             }
         }
     }
+    
+    func drop(address: DirectionSD) {
+        let query = FetchDescriptor<UserSD>()
+        let token = try? context.fetch(query).first?.token
+        
+        api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res in
+            if res.status == "success" {
+                context.delete(address)
+                try! context.save()
+            }
+        }
+    }
+
 
     func geocodeDirection(
         address: AddressResult,
@@ -144,11 +162,21 @@ extension DirectionsModal {
         }
     }
 
-    func updateSelected(address: DirectionSD) {
+    func updateSelected(address: DirectionSD? = nil, string: String? = nil) {
         for direction in directions {
             direction.status = false
         }
-        address.status = true
+        
+        if string == nil && address != nil {
+            address!.status = true
+        } else {
+            let query = FetchDescriptor<DirectionSD>(predicate: #Predicate{
+                $0.full_address == string!
+            })
+            let add = try! context.fetch(query).first
+            add?.status = true
+        }
+        
         try! context.save()
         dismiss()
     }

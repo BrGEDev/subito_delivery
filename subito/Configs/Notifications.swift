@@ -7,30 +7,38 @@
 
 import Foundation
 import UserNotifications
-import SwiftUI
 
-final class Notifications: NSObject, ObservableObject {
+@MainActor
+final class Notifications: ObservableObject {
+    @Published private(set) var hasPermission: Bool = false
     private let notificationsCenter = UNUserNotificationCenter.current()
     
-    func checkAuthorization() {
-        notificationsCenter.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .notDetermined:
-                self.notificationsCenter.requestAuthorization(options: [.badge, .sound, .alert]) { success, error in
-                    if success {
-                        print("Success")
-                    }
-                }
-            case .denied:
-                print("Denied")
-            case .authorized:
-                print("Authorized")
-            case .provisional:
-                print("Provisional")
-            case .ephemeral:
-                print("Ephemeral")
-            @unknown default:
-                print("Error")
+    init() {
+        Task {
+            await checkAuthorization()
+        }
+    }
+    
+    func request() async {
+        do {
+            try await notificationsCenter.requestAuthorization(options: [.alert, .badge, .sound])
+            await checkAuthorization()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func checkAuthorization() async {
+        let status = await notificationsCenter.notificationSettings()
+        
+        switch status.authorizationStatus {
+        case .authorized, .ephemeral, .provisional:
+            hasPermission = true
+            default:
+            hasPermission = false
+            
+            Task {
+                await request()
             }
         }
     }
@@ -49,7 +57,6 @@ final class Notifications: NSObject, ObservableObject {
             } else {
                 print("Can't dispatch notification!")
                 print("Kono notification settings ni")
-                self.checkAuthorization()
             }
         }
     }

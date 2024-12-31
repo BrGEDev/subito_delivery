@@ -68,7 +68,7 @@ struct PaymentsResponse: Decodable {
 }
 
 struct CheckoutResponse: Decodable {
-    var status: String
+    var status: String?
     var message: String
     var data: CheckoutData?
 }

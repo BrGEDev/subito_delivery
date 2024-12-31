@@ -10,8 +10,32 @@ import SwiftUI
 import Foundation
 
 extension OrderDetail {
+    func listenLocation(){
+        socket.socket.on("sendLocation") { data, ack in
+            if orderDetails != nil {
+                if orderDetails!.order!.id_delivery != nil {
+                    let dataArray = data as NSArray
+                    let dataString = dataArray[0] as! NSDictionary
+                    
+                    let id_order = "\(dataString["orderId"]!)"
+                    
+                    if id_order == String(orderDetails!.order!.id_order) {
+                        print(data)
+                        
+                        repartidorCoords = CLLocationCoordinate2D(
+                            latitude: CLLocationDegrees(Double("\(dataString["latitude"]!)")!),
+                            longitude: CLLocationDegrees(Double("\(dataString["longitude"]!)")!)
+                        )
+                        
+                        coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                    }
+                }
+            }
+        }
+    }
+    
     func detailOrder(){
-        api.fetch(url: "orders/details/\(order.id_order)", method: "GET", token: user!.token, ofType: DetailOrderResponse.self) { res in
+        api.fetch(url: "orders/details/\(order)", method: "GET", token: user!.token, ofType: DetailOrderResponse.self) { res in
             if res.status == "success" {
                 let data = res.data!
                 
@@ -39,6 +63,7 @@ extension OrderDetail {
                 } catch {
                     print("Error parsing date")
                 }
+                listenLocation()
             }
         }
     }

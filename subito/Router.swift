@@ -55,8 +55,3 @@ struct AppSwitch: View {
     }
 }
 
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [UserSD.self, DirectionSD.self, ProductsSD.self, CartSD.self, CardSD.self])
-}

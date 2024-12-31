@@ -71,11 +71,9 @@ struct AddressList: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding([.leading, .trailing], 10)
         .padding([.top, .bottom])
-        .background(address.status == true ? Color.accentColor.opacity(0.5) : (colorScheme == .dark ? .black.opacity(0.35) : .white))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .clipped()
         .padding(.bottom, 8)
     }
 }

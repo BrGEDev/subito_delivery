@@ -31,6 +31,8 @@
 		4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */; };
 		4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */; };
 		4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92732CF644A100E8CD11 /* ContentExtension.swift */; };
+		4B53F01A2D230D0200109997 /* DeliveryExtension.appex in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */; };
+		4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */; };
 		4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7C52CD17C270009EA89 /* EatsExtension.swift */; };
 		4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7E62CD2F8270009EA89 /* Establishments.swift */; };
 		4B73C74E2CE52A3B00997644 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B73C74D2CE52A3800997644 /* Products.swift */; };
@@ -60,6 +62,9 @@
 		4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCEFB342CEE801A00C9843C /* Stepper.swift */; };
 		4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */; };
 		4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */; };
+		4BDC23EF2D1F1DE500EE5A41 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4BDC23EE2D1F1DE500EE5A41 /* FirebaseMessaging */; };
+		4BDC23F92D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */; };
+		4BDC23FA2D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */; };
 		4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDF95BF2CF911D00076ACC3 /* Skeleton.swift */; };
 		4BE716A52D0B769300BE73FC /* ModalProductoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */; };
 		4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */; };
@@ -79,6 +84,7 @@
 		4BFB13752D1AFD8E00A99B5F /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4BFB13742D1AFD8E00A99B5F /* SocketIO */; };
 		4BFB13942D1AFE1700A99B5F /* SocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13932D1AFE1300A99B5F /* SocketService.swift */; };
 		4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13952D1B607200A99B5F /* Notifications.swift */; };
+		4BFB13982D1DFA4200A99B5F /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13972D1DFA4000A99B5F /* Previews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +114,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		4B4F91C32CF4C93600E8CD11 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -132,7 +138,7 @@
 		4B2B76432CAC6DB700F046EF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4B2B76462CAC6F4700F046EF /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		4B2B76482CAC7B5D00F046EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; };
+		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModal.swift; sourceTree = "<group>"; };
 		4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryState.swift; sourceTree = "<group>"; };
 		4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -142,6 +148,7 @@
 		4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModal.swift; sourceTree = "<group>"; };
 		4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentExtension.swift; sourceTree = "<group>"; };
 		4B4F92732CF644A100E8CD11 /* ContentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtension.swift; sourceTree = "<group>"; };
+		4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstablishmentLocated.swift; sourceTree = "<group>"; };
 		4B55D7C52CD17C270009EA89 /* EatsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsExtension.swift; sourceTree = "<group>"; };
 		4B55D7E62CD2F8270009EA89 /* Establishments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Establishments.swift; sourceTree = "<group>"; };
 		4B73C74D2CE52A3800997644 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
@@ -175,6 +182,7 @@
 		4BCEFB342CEE801A00C9843C /* Stepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsComponent.swift; sourceTree = "<group>"; };
 		4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstablishment.swift; sourceTree = "<group>"; };
+		4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4BDF95BF2CF911D00076ACC3 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProductoExtension.swift; sourceTree = "<group>"; };
 		4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModalExtension.swift; sourceTree = "<group>"; };
@@ -193,6 +201,7 @@
 		4BFB13672D14EA2D00A99B5F /* OrderDetailExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailExtension.swift; sourceTree = "<group>"; };
 		4BFB13932D1AFE1300A99B5F /* SocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketService.swift; sourceTree = "<group>"; };
 		4BFB13952D1B607200A99B5F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		4BFB13972D1DFA4000A99B5F /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -224,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDC23EF2D1F1DE500EE5A41 /* FirebaseMessaging in Frameworks */,
 				4B2B71352D0A5610003BF403 /* SwiftData.framework in Frameworks */,
 				4BFB13752D1AFD8E00A99B5F /* SocketIO in Frameworks */,
 			);
@@ -331,6 +341,7 @@
 		4BB1BB762C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXGroup;
 			children = (
+				4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */,
 				4B2B712E2D0A1FA9003BF403 /* SwiftData */,
 				4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */,
 				4B55D7C42CD17C1D0009EA89 /* Extensions */,
@@ -408,6 +419,8 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */,
+				4BFB13972D1DFA4000A99B5F /* Previews.swift */,
 				4BFB13652D14C07300A99B5F /* OrderDetail.swift */,
 				4BFB13632D14AE5500A99B5F /* OrderCard.swift */,
 				4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */,
@@ -563,6 +576,7 @@
 			mainGroup = 4BB1BB6B2C8F65C000EB8EA0;
 			packageReferences = (
 				4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				4BDC23ED2D1F1DE500EE5A41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4BB1BB752C8F65C000EB8EA0 /* Products */;
 			projectDirPath = "";
@@ -581,6 +595,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDC23F92D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +603,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B53F01A2D230D0200109997 /* DeliveryExtension.appex in Resources */,
 				4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */,
+				4BDC23FA2D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */,
 				4B4F92632CF4E4AB00E8CD11 /* Assets.xcassets in Resources */,
 				4BB1BB802C8F65C100EB8EA0 /* Preview Assets.xcassets in Resources */,
 			);
@@ -624,6 +641,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */,
 				4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */,
 				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
 				4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */,
@@ -638,6 +656,7 @@
 				4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */,
 				4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */,
 				4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */,
+				4BFB13982D1DFA4200A99B5F /* Previews.swift in Sources */,
 				4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */,
 				4BFB13082D11BB3600A99B5F /* WebView.swift in Sources */,
 				4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */,
@@ -740,13 +759,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Delivery/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -755,13 +773,18 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = subito.subito.Delivery;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -770,12 +793,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Delivery/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -784,13 +808,18 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = subito.subito.Delivery;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -919,12 +948,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = subito/subito.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"subito/Preview Content\"";
-				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -951,7 +979,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = subito.subito;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -970,11 +998,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = subito/subito.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"subito/Preview Content\"";
-				DEVELOPMENT_TEAM = 6UWH42ZAY5;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1001,8 +1030,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = subito.subito;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1153,6 +1183,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4BDC23ED2D1F1DE500EE5A41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
 		4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
@@ -1164,6 +1202,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4BDC23EE2D1F1DE500EE5A41 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BDC23ED2D1F1DE500EE5A41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		4BFB13742D1AFD8E00A99B5F /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4BFB13732D1AFD8E00A99B5F /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;

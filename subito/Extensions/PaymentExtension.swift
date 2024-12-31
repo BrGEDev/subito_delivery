@@ -51,6 +51,8 @@ extension PaymentModal {
             return
         }
         
+        progress = true
+        
         var products: Array<[String: Any]> = []
         var i = 0
         while establishments[0].products.count > i {
@@ -78,6 +80,7 @@ extension PaymentModal {
                 "order": [
                     "products": products,
                     "total": payment,
+                    "tip": ceil(prepropina),
                     "shipping_cost": envio,
                     "distance_km": km
                 ]
@@ -86,8 +89,11 @@ extension PaymentModal {
         
         let user = FetchDescriptor<UserSD>()
         let userQuery = try! self.context.fetch(user).first!.token
+
         api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res in
+         
             if res.status == "success" {
+                progress = false
                 isPresented.toggle()
                 socket.socket.emit("orderDelivery", ["orderId": res.data!.orderId, "establishmentId": res.data!.establishmentId])
 
@@ -97,13 +103,19 @@ extension PaymentModal {
                 context.insert(order)
                 try! context.delete(model: CartSD.self)
                 try! context.save()
+                
+                pending = true
+            } else {
+                progress = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    error = true
+                })
             }
-            print(res)
         }
     }
     
     func calcDistance() {
-        print("Location: ", establishments[0].latitude, establishments[0].longitude)
         
         if directionSelected != nil && establishments[0].latitude != "" {
             let request = MKDirections.Request()
@@ -125,7 +137,6 @@ extension PaymentModal {
                 var date = calendar.date(byAdding: .minute, value: minutes, to: Date())
                 date = calendar.date(byAdding: .hour, value: hours, to: date!)
                 estimatedTime = date!.formatted(date: .omitted, time: .shortened)
-                print(estimatedTime)
                 
                 calcTax()
             }
@@ -218,6 +229,36 @@ extension CVVCode {
             try! contextModel.save()
             cvv = ""
             dismiss()
+        }
+    }
+}
+
+struct TextEditorWithPlaceholder: View {
+    @Environment(\.colorScheme)var colorScheme
+    @FocusState private var usernameFocus: Bool
+    @Binding var text: String
+        
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if text.isEmpty {
+                VStack {
+                    Text("Necesito que mi pedido...")
+                        .padding(.top, 10)
+                        .padding(.leading, 6)
+                        .opacity(0.6)
+                    Spacer()
+                }
+            }
+            
+            VStack {
+                TextEditor(text: $text)
+                    .padding()
+                    .frame(minHeight: 150)
+                    .opacity(text.isEmpty ? 0.85 : 1)
+                    .focused($usernameFocus)
+                    .background(colorScheme == .dark ? Color.white.opacity(0.1).cornerRadius(20) : Color.black.opacity(0.06).cornerRadius(20))
+                Spacer()
+            }
         }
     }
 }

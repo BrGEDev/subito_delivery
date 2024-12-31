@@ -53,7 +53,7 @@ struct OrderCard: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Tiempo estimado de entrega: \(formatDate(date: order.time_order))")
+            Text("Tiempo estimado de entrega: \(formatDate(date: order.time_order, created_at: order.created_at))")
                 .font(.system(size: 14))
         }
         .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
@@ -66,16 +66,24 @@ struct OrderCard: View {
         .padding()
     }
     
-    private func formatDate(date: String) -> String {
+    private func formatDate(date: String, created_at: String) -> String {
+        let create = try! dateFromString(string: created_at)
         let time = date.split(separator: ":")
         
         let calendar = Calendar.current
-        var newDate = calendar.date(byAdding: .minute, value: Int(time[1])!, to: Date())
+        var newDate = calendar.date(byAdding: .minute, value: Int(time[1])!, to: create!)
         newDate = calendar.date(byAdding: .hour, value: Int(time[0])!, to: newDate!)
         
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter.string(from: newDate!)
+    }
+    
+    private func dateFromString(string: String) throws -> Date? {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "es_MX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSSSS"
+        return formatter.date(from: string)
     }
 }
 
@@ -124,13 +132,12 @@ struct ListOrderCard: View {
 
 struct ListOrders: View{
     var orders: [Orders]
-    
     var body: some View {
         VStack{
             ScrollView {
                 ForEach(orders, id: \.id_order) { item in
                     if item.status != "Cancelado" {
-                        NavigationLink(destination: OrderDetail(order: item)) {
+                        NavigationLink(destination: OrderDetail(order: item.id_order)) {
                             OrderCard(order: item)
                         }
                     }
@@ -141,3 +148,4 @@ struct ListOrders: View{
         .navigationBarTitleDisplayMode(.large)
     }
 }
+

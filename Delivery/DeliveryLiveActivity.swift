@@ -17,7 +17,7 @@ struct DeliveryLiveActivity: Widget {
             // Lock screen/banner UI goes here
             let image: ImageResource = context.state.DeliveryState == .pending || context.state.DeliveryState == .preparation ? .tienda : (context.state.DeliveryState == .inProgress ? .repartidor2 : .logo)
             
-            VStack(alignment: .leading, spacing: 20){
+            VStack(alignment: .leading, spacing: 15){
                 HStack{
                     Image(.subito)
                         .resizable()
@@ -32,24 +32,32 @@ struct DeliveryLiveActivity: Widget {
                 }
                 
                 HStack{
-                    Image(image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: 60, maxHeight: 60)
-                        .padding(.trailing, 5)
+                    VStack {
+                        Image(image)
+                            .resizable()
+                            .scaledToFill()
+                            .padding(.trailing, 5)
+                    }
+                    .frame(maxWidth: 40, maxHeight: 40)
                     
-                    Text("Tu pedido de \(context.state.establishment) está \(context.state.DeliveryState.rawValue)")
-                        .bold()
-                        .font(.title3)
-                        .multilineTextAlignment(.leading)
+                    VStack(alignment: .leading) {
+                        Text("Tu pedido de \(context.state.establishment) está \(context.state.DeliveryState.rawValue)")
+                            .bold()
+                            .font(.title3)
+                    }
+                    .padding(.leading, 10)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 
                 VStack(alignment: .leading){
                     Text("Llegando \(context.state.estimated)")
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.secondary)
                 }
+                
+                ProgressView(value: 30, total: 100).tint(.accent)
             }
             .padding()
             
@@ -83,8 +91,9 @@ struct DeliveryLiveActivity: Widget {
                             .foregroundStyle(.secondary)
                             .bold()
                             .font(.system(size: 15))
+                            .padding(.bottom, 15)
                         
-                        Spacer(minLength: 10)
+                        ProgressView(value: 30, total: 100).tint(.accent)
                     }
                 }
             } compactLeading: {
@@ -112,7 +121,7 @@ extension DeliveryAttributes {
 
 extension DeliveryAttributes.ContentState {
     fileprivate static var smiley: DeliveryAttributes.ContentState {
-        DeliveryAttributes.ContentState(DeliveryState: .pending, establishment: "Toks", estimated: "10:11 p.m.", time: "8 min")
+        DeliveryAttributes.ContentState(DeliveryState: .pending, establishment: "Tacos Bbto", estimated: "10:11 p.m.", time: "8 min")
      }
 }
 

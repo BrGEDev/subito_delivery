@@ -68,6 +68,7 @@ struct productoView: View {
 struct CartModal: View {
     @Environment(\.modelContext) var context
     @Binding var isPresented: Bool
+    @Binding var pending: Bool
     
     @StateObject var api: ApiCaller = ApiCaller()
     var socket: SocketService
@@ -114,7 +115,7 @@ struct CartModal: View {
                     }
                     
                     HStack(spacing: 15){
-                        NavigationLink(destination: PaymentModal(socket: socket, isPresented: $isPresented)){
+                        NavigationLink(destination: PaymentModal(socket: socket, isPresented: $isPresented, pending: $pending)){
                             Text("Pagar \(Text(payment, format: .currency(code: "MXN")))")
                                 .frame(maxWidth: .infinity)
                                 .padding()

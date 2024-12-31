@@ -12,6 +12,8 @@ struct ShoppingResponse: Decodable {
     
     struct Shopping: Decodable {
         var establishment_id: String
+        var establishment_latitude: String
+        var establishment_longitude: String
         var order: Order
         
         struct Order: Decodable {
@@ -25,8 +27,6 @@ struct ShoppingResponse: Decodable {
                 var pd_image: String
                 var name_restaurant: String
                 var picture_logo: String
-                var latitude: String
-                var longitude: String
             }
         }
     }

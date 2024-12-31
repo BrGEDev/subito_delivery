@@ -46,48 +46,39 @@ struct Account: View {
                 .listRowBackground(Color.white.opacity(0))
                 
                 Section(header: Text("Cuenta")){
-                    VStack{
-                        NavigationLink(destination: EmptyView()){
-                            Label("Editar perfil", systemImage: "person.crop.circle.fill")
-                        }
-                        
-                        NavigationLink(destination: EmptyView()){
-                            Label("Contraseña", systemImage: "key.fill")
-                        }
+                    
+                    NavigationLink(destination: EmptyView()){
+                        Label("Mi perfil", systemImage: "person.crop.circle.fill")
                     }
+                
                 }
-                .listRowBackground(Color(colorScheme == .dark ? .white.opacity(0.1) : .white).clipped().cornerRadius(20))
                 
                 Section(header: Text("Pagos")){
-                    VStack{
-                        NavigationLink(destination: Wallet()){
-                            Label("Mis métodos de pago", systemImage: "creditcard.fill")
-                        }
+                    NavigationLink(destination: Wallet()){
+                        Label("Mis métodos de pago", systemImage: "creditcard.fill")
                     }
                 }
-                .listRowBackground(Color(colorScheme == .dark ? .white.opacity(0.1) : .white).clipped().cornerRadius(20))
                 
                 Section(header: Text("Configuración")){
-                    VStack{
-                        NavigationLink(destination: EmptyView()){
-                            Label("Apariencia", systemImage: "circle.lefthalf.striped.horizontal.inverse")
-                        }
-                        
-                        NavigationLink(destination: EmptyView()){
-                            Label("Notificaciones", systemImage: "bell.badge.fill")
-                        }
+                    
+                    NavigationLink(destination: EmptyView()){
+                        Label("Apariencia", systemImage: "circle.lefthalf.striped.horizontal.inverse")
                     }
+                    
+                    NavigationLink(destination: EmptyView()){
+                        Label("Notificaciones", systemImage: "bell.badge.fill")
+                    }
+        
                 }
-                .listRowBackground(Color(colorScheme == .dark ? .white.opacity(0.1) : .white).clipped().cornerRadius(20))
+                .listRowSeparator(.hidden)
                 
                 Section(header: Text("Ayuda")){
-                    VStack{
-                        NavigationLink(destination: EmptyView()){
-                            Label("Soporte técnico", systemImage: "phone.bubble.fill")
-                        }
+                    
+                    NavigationLink(destination: EmptyView()){
+                        Label("Soporte técnico", systemImage: "phone.bubble.fill")
                     }
+                
                 }
-                .listRowBackground(Color(colorScheme == .dark ? .white.opacity(0.1) : .white).clipped().cornerRadius(20))
                 
                 Button("Cerrar sesión"){
                     closeSesion = true
@@ -101,7 +92,6 @@ struct Account: View {
                 }
                 .foregroundColor(.red)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .listRowBackground(Color(colorScheme == .dark ? .white.opacity(0.1) : .white).clipped().cornerRadius(20))
                 
             }
             .navigationTitle("Configuración")

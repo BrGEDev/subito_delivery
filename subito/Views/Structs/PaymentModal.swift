@@ -65,6 +65,7 @@ struct PaymentModal: View {
     var socket: SocketService
     
     @Binding var isPresented: Bool
+    @Binding var pending: Bool
 
     @Query var establishments: [CartSD]
     @Query(
@@ -86,10 +87,16 @@ struct PaymentModal: View {
     @State var envio: Float = 40
     @State var km: Double = 0
     @State var estimatedTime: String?
+    @State var detail: String = ""
 
     @State var modalPropina: Bool = false
     @State var alert: Bool = false
+    @State var error: Bool = false
     @State var cvvCode: Bool = false
+    @State var progress: Bool = false
+    
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
 
     var body: some View {
         VStack {
@@ -201,7 +208,15 @@ struct PaymentModal: View {
                 .listRowBackground(Color.white.opacity(0))
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
-
+                
+                Section(
+                    header: Text("Detalles del pedido"),
+                    footer: Text(
+                        "Puedes especificar los detalles que necesites sobre tu pedido"
+                    )
+                ) {
+                    TextEditorWithPlaceholder(text: $detail)
+                }
             }
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)
@@ -315,6 +330,38 @@ struct PaymentModal: View {
         }
         .onChange(of: directionSelected){
             calcDistance()
+        }
+        .sheet(isPresented: $progress){
+            VStack{
+                Image(.logo)
+                    .resizable()
+                    .frame(width: 90, height: 90)
+                    .scaledToFit()
+                    .rotationEffect(.degrees(rotation))
+                    .scaleEffect(1)
+                    .onAppear {
+                        withAnimation(
+                            Animation
+                                .easeInOut(duration: 2)
+                                .repeatForever(autoreverses: false)
+                        ) {
+                            rotation += 360
+                        }
+                    }
+                
+                Text("Procesando tu pago...")
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                    .padding()
+            }
+            .presentationDetents([.height(280)])
+            .presentationBackgroundInteraction(.disabled)
+            .interactiveDismissDisabled(true)
+            .presentationCornerRadius(35)
+        }
+        .alert(isPresented: $error){
+            Alert(title: Text("Error"), message: Text("Ha ocurrido un error procesando tu pago, por favor intenta de nuevo o contacta con tu banco emisor."), dismissButton: .default(Text("Aceptar")))
         }
     }
 }

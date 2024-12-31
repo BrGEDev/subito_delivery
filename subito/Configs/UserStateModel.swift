@@ -157,15 +157,13 @@ class UserStateModel: ObservableObject {
             if res.status == "success" {
                 try! self.context.delete(model: CartSD.self)
                 let data = res.shopping
-
-                print(data)
                 
                 if data != nil {
                     let cart = CartSD(
                         id: Int(data!.establishment_id)!,
                         establishment: data!.order.products[0].name_restaurant,
-                        latitude: data!.order.products[0].latitude,
-                        longitude: data!.order.products[0].longitude
+                        latitude: data!.establishment_latitude,
+                        longitude: data!.establishment_longitude
                     )
 
                     for product in data!.order.products {

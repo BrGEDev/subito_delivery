@@ -21,6 +21,7 @@ struct Orders: Decodable {
     let name_restaurant: String
     let address: String
     let picture_logo: String
+    let created_at: String
     let payment: String
     let status: String
 }

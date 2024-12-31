@@ -37,4 +37,5 @@ struct Establishments: Codable {
     let longitude: String
     let picture_logo: String?
     let picture_establishment: String?
+    let distance: Float?
 }

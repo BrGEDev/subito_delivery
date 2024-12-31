@@ -43,11 +43,23 @@ struct ContentView: View {
             }
             .onAppear{
                 locationManager.checkAuthorization()
-                notifications.checkAuthorization()
+                
+                Task {
+                    await notifications.checkAuthorization()
+                }
             }
             .onChange(of: locationManager.coordinates){
                 getDirections(location: locationManager.coordinates)
             }
         }
+    }
+}
+
+extension View {
+    func navigationBarTitleColor(_ color: Color) -> some View {
+        let uiColor = UIColor(color)
+        UINavigationBarAppearance().configureWithOpaqueBackground()
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor]
+        return self
     }
 }

@@ -194,43 +194,7 @@ struct ProductListF: View {
                 Label("Agregar producto", systemImage: "plus")
             }
         } preview: {
-            VStack{
-                AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: Screen.width, height: 200)
-                } placeholder: {
-                    ProgressView()
-                        .frame(width: Screen.width, height: 200)
-                }
-                
-                HStack(alignment: .bottom){
-                    VStack{
-                        Text(data.pd_name)
-                            .font(.title)
-                            .bold()
-                        
-                        Text(data.pd_description)
-                        
-                        Spacer(minLength: 20)
-                        
-                        HStack{
-                            Text(Float(data.pd_unit_price)!, format: .currency(code: "MXN"))
-                                .font(.system(size: 20))
-                            
-                            Spacer()
-                            
-                            Text("\(Image(systemName: "shippingbox")) \(data.pd_quantity ?? "0")")
-                                .font(.system(size: 20))
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Material.thin)
-            }
-            .frame(maxWidth: .infinity)
+            PreviewProduct(data: data)
         }
     }
 }

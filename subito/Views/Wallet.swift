@@ -53,15 +53,15 @@ struct Wallet: View {
             
             
             Section("Métodos de pago"){
-                Toggle(isOn: $applepay){
-                    Label("Apple Pay", systemImage: "apple.logo")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
-                
-                Toggle( isOn: $efectivo){
-                    Label("Efectivo", systemImage: "banknote.fill")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+//                Toggle(isOn: $applepay){
+//                    Label("Apple Pay", systemImage: "apple.logo")
+//                }
+//                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+//                
+//                Toggle( isOn: $efectivo){
+//                    Label("Efectivo", systemImage: "banknote.fill")
+//                }
+//                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 
                 NavigationLink(destination: PaymentMethod()){
                     Label("Tarjetas de débito / crédito", systemImage: "creditcard.fill")

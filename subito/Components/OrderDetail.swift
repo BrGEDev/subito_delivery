@@ -13,7 +13,8 @@ struct OrderDetail: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     
-    var order: Orders
+    var order: String
+    @StateObject var socket: SocketService = SocketService()
     @State var orderDetails: OrderDetails?
     @StateObject var api: ApiCaller = ApiCaller()
     @Query var userData: [UserSD]
@@ -23,10 +24,12 @@ struct OrderDetail: View {
     @State var coords: MapCameraPosition = .region(MKCoordinateRegion(center: .Puebla, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
     @State var clientCoords: CLLocationCoordinate2D?
     @State var establishmentCoords: CLLocationCoordinate2D?
+    @State var repartidorCoords: CLLocationCoordinate2D?
     @State var showMap: Bool = false
     @State var modalInfo: Bool = true
     
     @State var estimatedTime: String = ""
+    @State var fraction: PresentationDetent = .fraction(0.18)
     
     var body: some View {
         ZStack{
@@ -75,12 +78,13 @@ struct OrderDetail: View {
                 .clipShape(
                     .rect(
                         topLeadingRadius: 0,
-                        bottomLeadingRadius: 35,
-                        bottomTrailingRadius: 35,
+                        bottomLeadingRadius: fraction == .fraction(0.18) ? 35 : 0,
+                        bottomTrailingRadius: fraction == .fraction(0.18) ? 35 : 0,
                         topTrailingRadius: 0
                     )
                 )
                 .shadow(color: Color.black.opacity(0.15), radius: 15)
+                .animation(Animation.spring(response: 0.8, dampingFraction: 0.9, blendDuration: 0.5))
                 
                 Spacer()
             }
@@ -101,6 +105,14 @@ struct OrderDetail: View {
                     if clientCoords != nil {
                         Annotation("", coordinate: clientCoords!) {
                             Image(.home)
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                        }
+                    }
+                    
+                    if repartidorCoords != nil {
+                        Annotation("", coordinate: repartidorCoords!) {
+                            Image(.repartidor)
                                 .resizable()
                                 .frame(width: 50, height: 50)
                         }
@@ -250,11 +262,11 @@ struct OrderDetail: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 }
-                .presentationDetents([.fraction(0.18), .fraction(0.85)])
+                .presentationDetents([.fraction(0.18), .fraction(0.85)], selection: $fraction)
                 .presentationBackgroundInteraction(.enabled)
                 .presentationDragIndicator(.visible)
                 .interactiveDismissDisabled(true)
-                .presentationCornerRadius(35)
+                .presentationCornerRadius(fraction == .fraction(0.18) ? 35 : 0)
                 .presentationBackground(Material.bar)
             }
         }
@@ -268,6 +280,9 @@ struct OrderDetail: View {
         }
         .onAppear{
             detailOrder()
+        }
+        .onDisappear {
+            socket.disconnect_socket()
         }
     }
 }
