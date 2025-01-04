@@ -217,6 +217,9 @@ struct PaymentModal: View {
                 ) {
                     TextEditorWithPlaceholder(text: $detail)
                 }
+                .listRowBackground(Color.white.opacity(0))
+                .listRowSeparator(.hidden)
+                .listSectionSeparator(.hidden)
             }
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)

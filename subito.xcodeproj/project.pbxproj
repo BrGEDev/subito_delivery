@@ -12,6 +12,10 @@
 		4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224372CFA579A001057B0 /* AddressRow.swift */; };
 		4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1AEC1A2CED205A00887421 /* ModalProducto.swift */; };
+		4B2B56492D2841A4006E505A /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B56482D28419B006E505A /* Support.swift */; };
+		4B2B564B2D286D84006E505A /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B564A2D286D7D006E505A /* Chat.swift */; };
+		4B2B564D2D28AE9C006E505A /* Chats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B564C2D28AE95006E505A /* Chats.swift */; };
+		4B2B564F2D28ECCB006E505A /* ChatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B564E2D28ECC4006E505A /* ChatExtension.swift */; };
 		4B2B71302D0A1FF5003BF403 /* DirectionSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B712F2D0A1FCC003BF403 /* DirectionSD.swift */; };
 		4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B71312D0A358F003BF403 /* UserSD.swift */; };
 		4B2B71342D0A55FB003BF403 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2B71332D0A55FB003BF403 /* SwiftData.framework */; };
@@ -22,6 +26,8 @@
 		4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76462CAC6F4700F046EF /* MapController.swift */; };
 		4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76492CACEAD700F046EF /* Eats.swift */; };
 		4B2B764C2CACF5FB00F046EF /* DirectionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */; };
+		4B4521822D26F0A700B495DC /* TemporalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521812D26F0A100B495DC /* TemporalDirection.swift */; };
+		4B4521842D2833D200B495DC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521832D2833D200B495DC /* SearchView.swift */; };
 		4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */; };
 		4B4F91E32CF4CA5200E8CD11 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */; };
 		4B4F91E42CF4CA5200E8CD11 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */; };
@@ -130,6 +136,10 @@
 		4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAutocomplete.swift; sourceTree = "<group>"; };
 		4B1224372CFA579A001057B0 /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
 		4B1AEC1A2CED205A00887421 /* ModalProducto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProducto.swift; sourceTree = "<group>"; };
+		4B2B56482D28419B006E505A /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		4B2B564A2D286D7D006E505A /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		4B2B564C2D28AE95006E505A /* Chats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chats.swift; sourceTree = "<group>"; };
+		4B2B564E2D28ECC4006E505A /* ChatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatExtension.swift; sourceTree = "<group>"; };
 		4B2B712F2D0A1FCC003BF403 /* DirectionSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionSD.swift; sourceTree = "<group>"; };
 		4B2B71312D0A358F003BF403 /* UserSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSD.swift; sourceTree = "<group>"; };
 		4B2B71332D0A55FB003BF403 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/SwiftData.framework; sourceTree = DEVELOPER_DIR; };
@@ -140,6 +150,8 @@
 		4B2B76482CAC7B5D00F046EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModal.swift; sourceTree = "<group>"; };
+		4B4521812D26F0A100B495DC /* TemporalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporalDirection.swift; sourceTree = "<group>"; };
+		4B4521832D2833D200B495DC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryState.swift; sourceTree = "<group>"; };
 		4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -300,6 +312,7 @@
 		4B55D7C42CD17C1D0009EA89 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4B2B564E2D28ECC4006E505A /* ChatExtension.swift */,
 				4BFB13672D14EA2D00A99B5F /* OrderDetailExtension.swift */,
 				4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */,
 				4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */,
@@ -390,6 +403,8 @@
 		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4B2B564C2D28AE95006E505A /* Chats.swift */,
+				4B4521812D26F0A100B495DC /* TemporalDirection.swift */,
 				4BFB13612D14A9C700A99B5F /* Orders.swift */,
 				4BFB130F2D122C0800A99B5F /* MercadoPago.swift */,
 				4BFB130A2D11CC2900A99B5F /* Payment.swift */,
@@ -406,6 +421,7 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4B4521832D2833D200B495DC /* SearchView.swift */,
 				4BFB13952D1B607200A99B5F /* Notifications.swift */,
 				4BFB13932D1AFE1300A99B5F /* SocketService.swift */,
 				4BA8B7FF2D0CE520000352FC /* AppDelegate.swift */,
@@ -419,6 +435,8 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B2B564A2D286D7D006E505A /* Chat.swift */,
+				4B2B56482D28419B006E505A /* Support.swift */,
 				4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */,
 				4BFB13972D1DFA4000A99B5F /* Previews.swift */,
 				4BFB13652D14C07300A99B5F /* OrderDetail.swift */,
@@ -644,7 +662,9 @@
 				4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */,
 				4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */,
 				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
+				4B2B564F2D28ECCB006E505A /* ChatExtension.swift in Sources */,
 				4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */,
+				4B2B564D2D28AE9C006E505A /* Chats.swift in Sources */,
 				4B73C74E2CE52A3B00997644 /* Products.swift in Sources */,
 				4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */,
 				4BFB13942D1AFE1700A99B5F /* SocketService.swift in Sources */,
@@ -662,6 +682,7 @@
 				4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */,
 				4BA8B8002D0CE524000352FC /* AppDelegate.swift in Sources */,
 				4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */,
+				4B4521822D26F0A700B495DC /* TemporalDirection.swift in Sources */,
 				4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
 				4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */,
 				4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */,
@@ -675,7 +696,9 @@
 				4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */,
 				4BE716A52D0B769300BE73FC /* ModalProductoExtension.swift in Sources */,
 				4BFB13062D10EB8F00A99B5F /* CardSD.swift in Sources */,
+				4B2B56492D2841A4006E505A /* Support.swift in Sources */,
 				4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */,
+				4B2B564B2D286D84006E505A /* Chat.swift in Sources */,
 				4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */,
 				4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */,
 				4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */,
@@ -686,6 +709,7 @@
 				4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */,
 				4BB1BB7A2C8F65C000EB8EA0 /* ContentView.swift in Sources */,
 				4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */,
+				4B4521842D2833D200B495DC /* SearchView.swift in Sources */,
 				4BB1BBA32C8F682800EB8EA0 /* Router.swift in Sources */,
 				4BB1BB782C8F65C000EB8EA0 /* subitoApp.swift in Sources */,
 				4BB1BBB42C8F6EF400EB8EA0 /* CategoryView.swift in Sources */,
@@ -957,7 +981,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = subito/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
@@ -1008,7 +1032,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = subito/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Súbito Delivery";
+				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";

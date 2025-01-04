@@ -243,8 +243,8 @@ struct TextEditorWithPlaceholder: View {
             if text.isEmpty {
                 VStack {
                     Text("Necesito que mi pedido...")
-                        .padding(.top, 10)
-                        .padding(.leading, 6)
+                        .padding()
+                        .background(Color.clear)
                         .opacity(0.6)
                     Spacer()
                 }
@@ -256,7 +256,6 @@ struct TextEditorWithPlaceholder: View {
                     .frame(minHeight: 150)
                     .opacity(text.isEmpty ? 0.85 : 1)
                     .focused($usernameFocus)
-                    .background(colorScheme == .dark ? Color.white.opacity(0.1).cornerRadius(20) : Color.black.opacity(0.06).cornerRadius(20))
                 Spacer()
             }
         }

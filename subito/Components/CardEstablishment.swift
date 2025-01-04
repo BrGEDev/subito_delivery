@@ -17,8 +17,10 @@ struct CardEstablishmentHeaderModal: View {
                     image
                         .resizable()
                 } placeholder: {
-                    Image(.burger)
-                        .resizable()
+                    SkeletonCellView(
+                        width: Screen.width * 0.9, height: Screen.height * 0.45
+                    )
+                    .blinking(duration: 0.75)
                 }
                 .frame(width: Screen.width * 0.9, alignment: .center)
             }
@@ -92,8 +94,10 @@ struct BodyEstablishmentModal: View {
                             image
                                 .resizable()
                         } placeholder: {
-                            Image(.burger)
-                                .resizable()
+                            SkeletonCellView(
+                                width: Screen.width, height: Screen.height * 0.45
+                            )
+                            .blinking(duration: 0.75)
                         }
                     }
                     .scaledToFill()

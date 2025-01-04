@@ -73,8 +73,7 @@ struct Account: View {
                 .listRowSeparator(.hidden)
                 
                 Section(header: Text("Ayuda")){
-                    
-                    NavigationLink(destination: EmptyView()){
+                    NavigationLink(destination: Support()){
                         Label("Soporte técnico", systemImage: "phone.bubble.fill")
                     }
                 

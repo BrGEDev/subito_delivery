@@ -30,9 +30,10 @@ struct HeaderModal: View {
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                     .clipped()
             } placeholder: {
-                ProgressView()
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .frame(height: Screen.width * 0.45)
+                SkeletonCellView(
+                    width: Screen.width * 0.45, height: 200
+                )
+                .blinking(duration: 0.75)
             }
             
             HStack{
@@ -69,7 +70,10 @@ struct BodyModal: View {
                             image
                                 .resizable()
                         } placeholder: {
-                            ProgressView()
+                            SkeletonCellView(
+                                width: isExpand ? Screen.width : Screen.width * 0.4, height: Screen.height * 0.45
+                            )
+                            .blinking(duration: 0.75)
                         }
                     }
                     .scaledToFill()

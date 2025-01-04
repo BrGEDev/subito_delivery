@@ -64,8 +64,10 @@ struct Eats: View {
                             .multilineTextAlignment(.center)
 
                             Button(action: {
-                                searchText = ""
-                                searchableText = false
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5)) {
+                                    searchText = ""
+                                    searchableText = false
+                                }
                             }) {
                                 Text("Cancelar")
                             }
@@ -108,12 +110,13 @@ struct Eats: View {
                                 Button(action: {
                                     seeAccount = true
                                 }) {
-                                    Image(.burger)
+                                    Image(systemName: "person.circle.fill")
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 40, height: 40)
                                         .clipShape(Circle())
                                         .clipped()
+                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
                                 }
                                 .sheet(isPresented: $seeAccount) {
                                     Account()
@@ -121,8 +124,11 @@ struct Eats: View {
                             }
                             .padding([.top, .trailing, .leading])
                             
+                            
                             Button(action: {
-                                searchableText = true
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5)) {
+                                    searchableText = true
+                                }
                             }) {
                                 Text("Buscar en Súbito Delivery")
                                     .padding()
@@ -182,85 +188,93 @@ struct Eats: View {
                         .padding([.bottom, .trailing, .leading])
                         .padding(.top, searchableText ? 100 : 0)
                         
-                        if !orders.isEmpty {
-                            if orders.count == 1 {
-                                ForEach(orders, id: \.id_order) { item in
-                                    if item.status != "Cancelado" {
-                                        NavigationLink(
-                                            destination: {
-                                                OrderDetail(order: item.id_order)
+                        
+                        if !searchableText {
+                            if !orders.isEmpty {
+                                if orders.count == 1 {
+                                    ForEach(orders, id: \.id_order) { item in
+                                        if item.status != "Cancelado" {
+                                            NavigationLink(
+                                                destination: {
+                                                    OrderDetail(order: item.id_order)
+                                                }
+                                            ) {
+                                                OrderCard(order: item)
                                             }
-                                        ) {
-                                            OrderCard(order: item)
                                         }
                                     }
-                                }
-                            } else {
-                                NavigationLink(
-                                    destination: ListOrders(orders: orders)
-                                ) {
-                                    ListOrderCard(orders: orders)
+                                } else {
+                                    NavigationLink(
+                                        destination: ListOrders(orders: orders)
+                                    ) {
+                                        ListOrderCard(orders: orders)
+                                    }
                                 }
                             }
-                        }
-                        
-                        HomePage()
-                        
-                        if locatedEstablishment.count > 0 {
+                            
+                            
+                            HomePage()
+                            
+                            
+                            if locatedEstablishment.count > 0 {
+                                VStack{
+                                    VStack {
+                                        Text("Los más cercanos a ti")
+                                            .font(.title2)
+                                            .bold()
+                                        
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding([.top, .leading, .trailing])
+                                    
+                                    ScrollView(.horizontal) {
+                                        LazyHStack(spacing: 16) {
+                                            ForEach(locatedEstablishment, id: \.id_restaurant) { item in
+                                                NavigationLink(destination: EstablishmentView(data: item)) {
+                                                    VStack(spacing: 8) {
+                                                        ZStack {
+                                                            EstablishmentLocated(data: item)
+                                                                .scrollTransition(
+                                                                    axis: .horizontal
+                                                                ) { content, phase in
+                                                                    return content
+                                                                        .rotationEffect(.degrees(phase.value * 2.5))
+                                                                        .offset(x: phase.value * -250)
+                                                                }
+                                                        }
+                                                        .containerRelativeFrame(.horizontal)
+                                                        .clipShape(
+                                                            RoundedRectangle(
+                                                                cornerRadius: 32))
+                                                        
+                                                        Text(item.name_restaurant)
+                                                            .frame(width: Screen.width * 0.55)
+                                                            .lineLimit(1)
+                                                            .truncationMode(.tail)
+                                                            .font(.title.bold())
+                                                            .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .scrollTargetLayout()
+                                    }
+                                    .contentMargins(.horizontal, 32)
+                                    .scrollTargetBehavior(.paging)
+                                }
+                            }
+                            
                             VStack {
-                                Text("Los más cercanos a ti")
+                                Text("Los favoritos del momento")
                                     .font(.title2)
                                     .bold()
                                 
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.top, .leading, .trailing])
-                            
-                            ScrollView(.horizontal) {
-                                LazyHStack(spacing: 16) {
-                                    ForEach(locatedEstablishment, id: \.id_restaurant) { item in
-                                        NavigationLink(destination: EstablishmentView(data: item)) {
-                                            VStack(spacing: 8) {
-                                                ZStack {
-                                                    EstablishmentLocated(data: item)
-                                                        .scrollTransition(
-                                                            axis: .horizontal
-                                                        ) { content, phase in
-                                                            return content
-                                                                .rotationEffect(.degrees(phase.value * 2.5))
-                                                                .offset(x: phase.value * -250)
-                                                        }
-                                                }
-                                                .containerRelativeFrame(.horizontal)
-                                                .clipShape(
-                                                    RoundedRectangle(
-                                                        cornerRadius: 32))
-                                                
-                                                Text(item.name_restaurant)
-                                                    .frame(width: Screen.width * 0.55)
-                                                    .lineLimit(1)
-                                                    .truncationMode(.tail)
-                                                    .font(.title.bold())
-                                                    .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
-                                            }
-                                        }
-                                    }
-                                }
-                                .scrollTargetLayout()
-                            }
-                            .contentMargins(.horizontal, 32)
-                            .scrollTargetBehavior(.paging)
-                        }
-
-                        VStack {
-                            Text("Los favoritos del momento")
-                                .font(.title2)
-                                .bold()
+                            .padding([.leading, .trailing])
+                            .padding(.top, 20)
                             
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding([.leading, .trailing])
-                        .padding(.top, 20)
                         
                         LazyVGrid(columns: adaptiveColumn, spacing: 10) {
 
@@ -349,9 +363,7 @@ struct Eats: View {
                         socket: socket)
                 }
                 .sheet(isPresented: $directionModal, onDismiss: { loadLocationEstablishments() }) {
-                    NavigationView {
-                        DirectionsModal()
-                    }
+                    DirectionsModal()
                 }
                 .sheet(isPresented: $pendingModal) {
                     PendingOrder()
@@ -371,6 +383,7 @@ struct Eats: View {
                     loadOrders()
                     if !isExpand {
                         loadTypes()
+                        loadLocationEstablishments()
                         loadPopularEstablishments()
                     }
                 }
@@ -380,11 +393,4 @@ struct Eats: View {
 
 }
 
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-            CardSD.self, TrackingSD.self,
-        ])
-}
+

@@ -34,11 +34,8 @@ struct AddressRow: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding([.leading, .trailing], 10)
+        .padding([.leading], 10)
         .padding([.top, .bottom])
-        .background(colorScheme == .dark ? .black.opacity(0.35) : .white)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .clipped()
         .padding(.bottom, 8)
     }
 }

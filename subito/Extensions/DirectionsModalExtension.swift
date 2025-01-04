@@ -93,6 +93,7 @@ extension DirectionsModal {
                 "longitude": res.longitude,
             ]
             
+            
             let query = FetchDescriptor<UserSD>()
             let token = try? context.fetch(query).first?.token
 

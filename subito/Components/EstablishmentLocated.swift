@@ -23,9 +23,11 @@ struct EstablishmentLocated: View {
                         .resizable()
                         .scaledToFill()
                 } placeholder: {
-                    Image(.burger)
-                        .resizable()
-                        .scaledToFill()
+                    SkeletonCellView(
+                        width: Screen.width, height: 250
+                    )
+                    .blinking(duration: 0.75)
+
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 250)
@@ -67,8 +69,10 @@ struct EstablishmentView: View {
                                                     image
                                                         .resizable()
                                                 } placeholder: {
-                                                    Image(.burger)
-                                                        .resizable()
+                                                    SkeletonCellView(
+                                                        width: Screen.width, height: Screen.height * 0.50
+                                                    )
+                                                    .blinking(duration: 0.75)
                                                 }
                                             }
                                             .scaledToFill()
