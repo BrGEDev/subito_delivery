@@ -15,6 +15,9 @@ struct TypeSupport: Hashable, Identifiable {
 }
 
 struct Support: View {
+    @Environment(\.modelContext) var context
+    
+    @StateObject var api: ApiCaller = ApiCaller()
     
     var types: [TypeSupport] = [
         .init(id: 2, icon: "phone.arrow.up.right.fill", title: "Call center", description: "Problemas con un pedido, producto incompleto, etc."),
@@ -54,6 +57,9 @@ struct Support: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationTitle("Centro de soporte")
         .scrollContentBackground(.hidden)
+        .onAppear {
+            loadChats()
+        }
     }
 }
 
@@ -61,4 +67,8 @@ struct Support: View {
     NavigationView {
         Support()
     }
+    .modelContainer(for: [
+        UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
+        CardSD.self, TrackingSD.self,
+    ])
 }

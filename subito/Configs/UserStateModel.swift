@@ -17,7 +17,7 @@ enum UserStateError: Error {
 class UserStateModel: ObservableObject {
     private var models: [any PersistentModel.Type] = [
         UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-        CardSD.self, TrackingSD.self
+        CardSD.self, TrackingSD.self,
     ]
 
     lazy public var container: ModelContainer = {
@@ -88,7 +88,11 @@ class UserStateModel: ObservableObject {
                         UserSD(
                             id: us!.ua_id, name: us!.ua_name,
                             lastName: us!.ua_lastname, email: us!.ua_email,
-                            birthday: us!.ua_birthday ?? "", token: res.data!.token))
+                            phone: us!.ua_phone ?? "",
+                            birthday: us!.ua_birthday ?? "",
+                            token: res.data!.token
+                        )
+                    )
 
                     self.loadCart(token: res.data!.token)
 
@@ -142,22 +146,18 @@ class UserStateModel: ObservableObject {
         }
 
         if response {
-
             return .success(true)
         } else {
             return .failure(.signOutError)
         }
     }
-    
+
     private func loadCart(token: String) {
-        login.fetch(
-            url: "shopping/get", method: "GET", token: token,
-            ofType: ShoppingResponse.self
-        ) { res in
+        login.fetch(url: "shopping/get", method: "GET", token: token, ofType: ShoppingResponse.self) { res in
             if res.status == "success" {
                 try! self.context.delete(model: CartSD.self)
-                let data = res.shopping
-                
+                let data = res.data
+
                 if data != nil {
                     let cart = CartSD(
                         id: Int(data!.establishment_id)!,
@@ -173,7 +173,7 @@ class UserStateModel: ObservableObject {
                             unit_price: Float(product.pd_unit_price)!,
                             amount: Int(product.pd_quantity)!
                         )
-                        
+
                         cart.products.append(producto)
                     }
 

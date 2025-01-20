@@ -49,6 +49,7 @@ struct OrderDetailModel: Decodable {
     var name: String?
     var last_name: String?
     var delivery_phone: String?
+    var id_status: String
     var status: String
     var name_restaurant: String
     var establishment_phone: String
@@ -66,4 +67,17 @@ struct ProductsDetailModel: Decodable {
     var pd_image: String
     var pd_unit_price: String
     var sp_quantity: String
+}
+
+
+struct LocationResponse: Decodable {
+    var status: String
+    let message: String
+    let data: LocationModel?
+}
+
+struct LocationModel: Decodable {
+    let id_delivery: String
+    let latitude: String
+    let longitude: String
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B1224332CFA0833001057B0 /* TaxiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224322CFA082E001057B0 /* TaxiExtension.swift */; };
 		4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224372CFA579A001057B0 /* AddressRow.swift */; };
@@ -21,11 +20,11 @@
 		4B2B71342D0A55FB003BF403 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2B71332D0A55FB003BF403 /* SwiftData.framework */; };
 		4B2B71352D0A5610003BF403 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2B71332D0A55FB003BF403 /* SwiftData.framework */; };
 		4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B763E2CAC490400F046EF /* CartModal.swift */; };
-		4B2B76422CAC6B2500F046EF /* Taxi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76412CAC6B2000F046EF /* Taxi.swift */; };
 		4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76432CAC6DB700F046EF /* LocationManager.swift */; };
 		4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76462CAC6F4700F046EF /* MapController.swift */; };
 		4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B76492CACEAD700F046EF /* Eats.swift */; };
 		4B2B764C2CACF5FB00F046EF /* DirectionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */; };
+		4B3520AD2D2C5A4300978D74 /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3520AC2D2C5A3C00978D74 /* Profiles.swift */; };
 		4B4521822D26F0A700B495DC /* TemporalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521812D26F0A100B495DC /* TemporalDirection.swift */; };
 		4B4521842D2833D200B495DC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521832D2833D200B495DC /* SearchView.swift */; };
 		4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */; };
@@ -75,6 +74,7 @@
 		4BE716A52D0B769300BE73FC /* ModalProductoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */; };
 		4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */; };
 		4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716C52D0CAEBB00BE73FC /* Shopping.swift */; };
+		4BEB0CF02D2C1E9300CB008C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */; };
 		4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */; };
 		4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */; };
 		4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */; };
@@ -132,7 +132,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4B1224322CFA082E001057B0 /* TaxiExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiExtension.swift; sourceTree = "<group>"; };
 		4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAutocomplete.swift; sourceTree = "<group>"; };
 		4B1224372CFA579A001057B0 /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
 		4B1AEC1A2CED205A00887421 /* ModalProducto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProducto.swift; sourceTree = "<group>"; };
@@ -144,12 +143,12 @@
 		4B2B71312D0A358F003BF403 /* UserSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSD.swift; sourceTree = "<group>"; };
 		4B2B71332D0A55FB003BF403 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/SwiftData.framework; sourceTree = DEVELOPER_DIR; };
 		4B2B763E2CAC490400F046EF /* CartModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModal.swift; sourceTree = "<group>"; };
-		4B2B76412CAC6B2000F046EF /* Taxi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taxi.swift; sourceTree = "<group>"; };
 		4B2B76432CAC6DB700F046EF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4B2B76462CAC6F4700F046EF /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		4B2B76482CAC7B5D00F046EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModal.swift; sourceTree = "<group>"; };
+		4B3520AC2D2C5A3C00978D74 /* Profiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		4B4521812D26F0A100B495DC /* TemporalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporalDirection.swift; sourceTree = "<group>"; };
 		4B4521832D2833D200B495DC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryState.swift; sourceTree = "<group>"; };
@@ -199,6 +198,7 @@
 		4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProductoExtension.swift; sourceTree = "<group>"; };
 		4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModalExtension.swift; sourceTree = "<group>"; };
 		4BE716C52D0CAEBB00BE73FC /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
+		4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewExtension.swift; sourceTree = "<group>"; };
 		4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalRestaurants.swift; sourceTree = "<group>"; };
 		4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
@@ -283,7 +283,6 @@
 			isa = PBXGroup;
 			children = (
 				4B2B76492CACEAD700F046EF /* Eats.swift */,
-				4B2B76412CAC6B2000F046EF /* Taxi.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -318,7 +317,6 @@
 				4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */,
 				4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */,
 				4BC080212D08B05600216D95 /* LoginExtension.swift */,
-				4B1224322CFA082E001057B0 /* TaxiExtension.swift */,
 				4B4F92732CF644A100E8CD11 /* ContentExtension.swift */,
 				4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */,
 				4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */,
@@ -403,6 +401,7 @@
 		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4B3520AC2D2C5A3C00978D74 /* Profiles.swift */,
 				4B2B564C2D28AE95006E505A /* Chats.swift */,
 				4B4521812D26F0A100B495DC /* TemporalDirection.swift */,
 				4BFB13612D14A9C700A99B5F /* Orders.swift */,
@@ -435,6 +434,7 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */,
 				4B2B564A2D286D7D006E505A /* Chat.swift */,
 				4B2B56482D28419B006E505A /* Support.swift */,
 				4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */,
@@ -664,6 +664,7 @@
 				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
 				4B2B564F2D28ECCB006E505A /* ChatExtension.swift in Sources */,
 				4BFB13962D1B607600A99B5F /* Notifications.swift in Sources */,
+				4B3520AD2D2C5A4300978D74 /* Profiles.swift in Sources */,
 				4B2B564D2D28AE9C006E505A /* Chats.swift in Sources */,
 				4B73C74E2CE52A3B00997644 /* Products.swift in Sources */,
 				4B2B76472CAC6F4D00F046EF /* MapController.swift in Sources */,
@@ -717,10 +718,9 @@
 				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
 				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,
 				4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */,
+				4BEB0CF02D2C1E9300CB008C /* Profile.swift in Sources */,
 				4BFB13642D14AE6800A99B5F /* OrderCard.swift in Sources */,
 				4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */,
-				4B1224332CFA0833001057B0 /* TaxiExtension.swift in Sources */,
-				4B2B76422CAC6B2500F046EF /* Taxi.swift in Sources */,
 				4BFB13682D14EA3400A99B5F /* OrderDetailExtension.swift in Sources */,
 				4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */,
 				4B2B71302D0A1FF5003BF403 /* DirectionSD.swift in Sources */,

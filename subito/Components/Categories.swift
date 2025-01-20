@@ -10,10 +10,9 @@ import SwiftUI
 struct Category: View{
     @Environment(\.colorScheme) var colorScheme
     @State var category: ModelCategories
-    var socket: SocketService
     
     var body: some View {
-        NavigationLink(destination: CategoryView(categoryTitle: category.texto, id_category: category.id, socket: socket)){
+        NavigationLink(destination: CategoryView(categoryTitle: category.texto, id_category: category.id)){
             VStack{
                 AsyncImage(url: URL(string: category.image)){ image in
                     image

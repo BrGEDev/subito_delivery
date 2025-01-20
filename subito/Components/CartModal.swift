@@ -71,7 +71,6 @@ struct CartModal: View {
     @Binding var pending: Bool
     
     @StateObject var api: ApiCaller = ApiCaller()
-    var socket: SocketService
   
     @Query var establishments: [CartSD]
     @State var payment: Float = 0
@@ -115,7 +114,7 @@ struct CartModal: View {
                     }
                     
                     HStack(spacing: 15){
-                        NavigationLink(destination: PaymentModal(socket: socket, isPresented: $isPresented, pending: $pending)){
+                        NavigationLink(destination: PaymentModal(isPresented: $isPresented, pending: $pending)){
                             Text("Pagar \(Text(payment, format: .currency(code: "MXN")))")
                                 .frame(maxWidth: .infinity)
                                 .padding()

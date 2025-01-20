@@ -62,7 +62,7 @@ struct PaymentModal: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
-    var socket: SocketService
+    @StateObject var socket = SocketService.socketClient
     
     @Binding var isPresented: Bool
     @Binding var pending: Bool

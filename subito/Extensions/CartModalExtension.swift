@@ -26,7 +26,7 @@ extension CartModal {
         }
         let user = try! context.fetch(query).first!
         
-        api.fetch(url: "shopping/remove/cart", method: "POST", token: user.token, ofType: ShoppingResponse.self) { res in
+        api.fetch(url: "shopping/remove/cart", method: "POST", token: user.token, ofType: ShoppingModResponse.self) { res in
             if res.status == "success"{
                 payment = 0
                 try! context.delete(model: CartSD.self)
@@ -51,7 +51,7 @@ extension productoView{
             ]
         ]
         
-        api.fetch(url: "shopping/remove/product", method: "POST", body: data, token: user.token, ofType: ShoppingResponse.self) { res in
+        api.fetch(url: "shopping/remove/product", method: "POST", body: data, token: user.token, ofType: ShoppingModResponse.self) { res in
             if res.status == "success"{
                 context.delete(product)
                 onDelete.toggle()

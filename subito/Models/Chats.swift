@@ -13,3 +13,13 @@ struct ChatResponse: Decodable {
     let id_chat: Int?
     let message: String?
 }
+
+struct SupportResponse: Decodable {
+    let status: String
+    let message: String
+    let data: [SupportData]?
+}
+
+struct SupportData: Decodable {
+    
+}

@@ -27,10 +27,35 @@ extension OrderDetail {
                             longitude: CLLocationDegrees(Double("\(dataString["longitude"]!)")!)
                         )
                         
-                        coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                        if orderDetails!.order!.id_status != "22" {
+                            withAnimation {
+                                coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                            }
+                        }
                     }
                 }
             }
+        }
+        
+        socket.socket.on("orderCanceled") { data, ack in
+            print(data)
+            
+            if orderDetails != nil  {
+                let dataArray = data as NSArray
+                let dataString = dataArray[0] as! NSDictionary
+                
+                let id_order = "\(dataString["orderId"]!)"
+                
+                if orderDetails!.order!.id_order == id_order {
+                    statusString = "Orden cancelada por el establecimiento"
+                    status = 39
+                    reasonCancel = "\(dataString["reason"] as! String)"
+                }
+            }
+        }
+        
+        socket.socket.on("responseAutoAsign") { data, ack in
+            print(data)
         }
     }
     
@@ -39,7 +64,11 @@ extension OrderDetail {
             if res.status == "success" {
                 let data = res.data!
                 
+                print(data)
+                
                 orderDetails = data
+                statusString = orderDetails?.order?.status ?? "Cargando..."
+                
                 clientCoords = CLLocationCoordinate2D(
                     latitude: CLLocationDegrees(Double(data.order!.client_latitude)!),
                     longitude: CLLocationDegrees(Double(data.order!.client_longitude)!)
@@ -50,7 +79,9 @@ extension OrderDetail {
                     longitude: CLLocationDegrees(Double(data.order!.establishment_longitude)!)
                 )
                 
-                coords = .region(MKCoordinateRegion(center: establishmentCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                withAnimation {
+                    coords = .region(MKCoordinateRegion(center: establishmentCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                }
 
                 do {
                     let date = try dateFromString(string: data.order!.created_at)
@@ -64,6 +95,27 @@ extension OrderDetail {
                     print("Error parsing date")
                 }
                 listenLocation()
+                
+                if data.order!.id_delivery != nil {
+                    fetchDelivery(data.order!.id_delivery!)
+                }
+            }
+        }
+    }
+    
+    private func fetchDelivery(_ id: String) {
+        api.fetch(url: "location/delivery/\(id)", method: "GET", ofType: LocationResponse.self) { res in
+            if res.status == "success" {
+                repartidorCoords = CLLocationCoordinate2D(
+                    latitude: CLLocationDegrees(Double(res.data!.latitude)!),
+                    longitude: CLLocationDegrees(Double(res.data!.longitude)!)
+                )
+                
+                if orderDetails!.order!.id_status != "22" {
+                    withAnimation {
+                        coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                    }
+                }
             }
         }
     }

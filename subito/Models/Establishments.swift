@@ -21,6 +21,8 @@ struct PopularEstablishments: Codable {
     let longitude: String
     let picture_logo: String?
     let picture_establishment: String?
+    let apertura: String
+    let cierre: String
 }
 
 struct GetEstablishmentsResponse: Codable{
@@ -38,4 +40,7 @@ struct Establishments: Codable {
     let picture_logo: String?
     let picture_establishment: String?
     let distance: Float?
+    let apertura: String
+    let cierre: String
 }
+

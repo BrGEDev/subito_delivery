@@ -14,13 +14,13 @@ struct Eats: View {
 
     @Environment(\.modelContext) var context
     @Environment(\.colorScheme) var colorScheme
-    @State var socket: SocketService
 
     @State var activeID = UUID()
     @State var isExpand: Bool = false
 
     @StateObject var api: ApiCaller = ApiCaller()
     @StateObject var notifications: Notifications = Notifications()
+    @StateObject var socket = SocketService.socketClient
 
     @State var categories: [ModelCategories] = []
     @State var items: [Item] = []
@@ -35,6 +35,10 @@ struct Eats: View {
     @State var seeAccount: Bool = false
     @State var pendingModal: Bool = false
     @State var path = NavigationPath()
+    
+    @State var alert: Bool = false
+    @State var alertTitle: String = ""
+    @State var alertMessage: String = ""
 
     @Query var userData: [UserSD]
     var user: UserSD? { userData.first }
@@ -156,8 +160,7 @@ struct Eats: View {
                                             HStack {
                                                 ForEach(categories) { item in
                                                     Category(
-                                                        category: item,
-                                                        socket: socket
+                                                        category: item
                                                     )
                                                     .padding(
                                                         EdgeInsets(
@@ -349,6 +352,9 @@ struct Eats: View {
                         }
                     }
                 }
+                .alert(isPresented: $alert) {
+                    Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Aceptar")))
+                }
                 .navigationDestination(
                     for: String.self,
                     destination: { view in
@@ -359,8 +365,7 @@ struct Eats: View {
                 )
                 .sheet(isPresented: $cartModal) {
                     CartModal(
-                        isPresented: $cartModal, pending: $pendingModal,
-                        socket: socket)
+                        isPresented: $cartModal, pending: $pendingModal)
                 }
                 .sheet(isPresented: $directionModal, onDismiss: { loadLocationEstablishments() }) {
                     DirectionsModal()

@@ -24,6 +24,7 @@ struct LoginInfo: Codable{
     let ua_lastname: String
     let ua_birthday: String?
     let ua_email: String
+    let ua_phone: String?
     let ua_user_payment: String?
 }
 
@@ -53,6 +54,7 @@ struct UserData: Decodable {
     let ua_birthday: String
     let ua_email: String
     let ua_token: String
+    let ua_phone: String?
 }
 
 struct ErrorsData: Decodable {

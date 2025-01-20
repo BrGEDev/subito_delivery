@@ -14,6 +14,8 @@ struct DirectionsResponse: Decodable {
 
 struct DirectionsData: Decodable {
     let ad_id: Int
+    let ad_name: String?
+    let ad_reference: String?
     let ad_latitude: String
     let ad_longitude: String
     let ad_full_address: String

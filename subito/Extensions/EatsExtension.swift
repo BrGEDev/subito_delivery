@@ -23,7 +23,6 @@ extension Eats {
                 if query != nil {
                     if dataString["response"] as! NSNumber == 1
                     {
-                        
                         pendingModal = false
                         
                         do {
@@ -45,7 +44,7 @@ extension Eats {
                                 "El establecimiento aceptó tu pedido y está en preparación"
                         )
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             if !path.isEmpty {
                                 path.removeLast()
                             }
@@ -54,6 +53,11 @@ extension Eats {
                         }
                     } else {
                         pendingModal = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            alert = true
+                            alertTitle = "Pedido rechazado"
+                            alertMessage = "El establecimiento rechazó tu pedido. Puedes comunicarte con Call Center para más información o intentarlo más tarde."
+                        }
                     }
                 }
             }
@@ -84,6 +88,7 @@ extension Eats {
         ) { res in
             items.removeAll()
             if res.status == "success" {
+                
                 for establishment in res.data! {
 
                     items.append(
@@ -94,7 +99,11 @@ extension Eats {
                             establishment: establishment.picture_establishment
                                 ?? "", address: establishment.address,
                             latitude: establishment.latitude,
-                            longitude: establishment.longitude))
+                            longitude: establishment.longitude,
+                            apertura: establishment.apertura,
+                            cierre: establishment.cierre
+                        )
+                    )
                 }
             }
         }

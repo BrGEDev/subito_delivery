@@ -98,8 +98,6 @@ extension Chat {
     func listenMessages() {
         let user = try! context.fetch(FetchDescriptor<UserSD>()).first!
         
-        // Envía:  msg, user          , time      , ch, type  , origin = 3, content = "txt"
-        // Recibe: sdf, cliente subito, 06:31 p.m., 26, client, client
         socket.socket.on("new message") { data, ack in
             print(data)
             if id_chat != nil {
@@ -114,6 +112,23 @@ extension Chat {
                         )
                     }
                 }
+            }
+        }
+    }
+}
+
+// Struct de la vista de soporte (previo a chat)
+
+extension Support {
+    func loadChats() {
+        let query = FetchDescriptor<UserSD>()
+        let token = try! context.fetch(query).first!.token
+        
+        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res in
+            print(res)
+            
+            if res.status == "success" {
+                
             }
         }
     }

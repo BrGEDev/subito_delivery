@@ -16,13 +16,15 @@ class UserSD {
     var lastName: String
     var email: String
     var birthday: String
+    var phone: String?
     var token: String
     
-    init(id: Int, name: String, lastName: String, email: String, birthday: String, token: String) {
+    init(id: Int, name: String, lastName: String, email: String, phone: String? = "", birthday: String, token: String) {
         self.id = id
         self.name = name
         self.lastName = lastName
         self.email = email
+        self.phone = phone
         self.birthday = birthday
         self.token = token
     }

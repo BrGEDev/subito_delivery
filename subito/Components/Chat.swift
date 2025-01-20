@@ -87,7 +87,7 @@ struct Chat: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
-    @StateObject var socket: SocketService = SocketService()
+    @StateObject var socket = SocketService.socketClient
 
     var title: String
     var options: ChatOptions
@@ -135,6 +135,9 @@ struct Chat: View {
                             }
                         }
                     }
+                    .onDisappear {
+                        socket.disconnect_socket()
+                    }
                 }
             }
         }
@@ -160,6 +163,7 @@ struct Chat: View {
         }
     }
 }
+
 
 #Preview {
     Chat(title: "Call center", options: .join(id: 1))

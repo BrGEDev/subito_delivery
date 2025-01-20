@@ -53,6 +53,9 @@ struct EstablishmentView: View {
     
     @State var screenTitle: String = ""
     @State var categorySelect: Int = 0
+    @State var estado: StateEstablishment = .closed
+    @State var apertura: String = ""
+    @State var cierre: String = ""
     
     var body: some View {
         ZStack(alignment:.top){
@@ -196,9 +199,9 @@ struct EstablishmentView: View {
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) { producto in
                                         if categorySelect == producto.pg_id {
-                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         } else if categorySelect == 0{
-                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         }
                                     }
                                 } else {
@@ -213,7 +216,7 @@ struct EstablishmentView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .animation(Animation.spring(response: 0.4))
+                        .animation(Animation.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5), value: searchState)
                     }
                     .padding(.bottom)
                 }
@@ -254,6 +257,7 @@ struct EstablishmentView: View {
         .onAppear {
             loadProductos()
             loadCategories()
+            loadInfo()
         }
     }
 }

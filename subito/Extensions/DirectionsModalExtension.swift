@@ -9,6 +9,12 @@ import MapKit
 import SwiftData
 import SwiftUI
 
+
+enum DirectionsOptions {
+    case addDirection(address: AddressResult)
+    case editDirection(address: DirectionSD)
+}
+
 extension DirectionsModal {
 
     func getDirections(location: CLLocation) {
@@ -29,6 +35,8 @@ extension DirectionsModal {
                 context.insert(livelocation)
             } else {
                 existLocation?.full_address = full_address
+                existLocation?.latitude = String(placemark.location!.coordinate.latitude)
+                existLocation?.longitude = String(placemark.location!.coordinate.longitude)
             }
             try! context.save()
         }
@@ -48,7 +56,9 @@ extension DirectionsModal {
                         let direction =
                             DirectionSD(
                                 id: address.ad_id,
+                                name: address.ad_name ?? "",
                                 full_address: address.ad_full_address,
+                                reference: address.ad_reference ?? "",
                                 latitude: address.ad_latitude,
                                 longitude: address.ad_longitude)
 
@@ -66,6 +76,8 @@ extension DirectionsModal {
                                     address.ad_latitude
                                 directionToUpdate!.longitude =
                                     address.ad_longitude
+                                directionToUpdate!.name = address.ad_name ?? ""
+                                directionToUpdate!.reference = address.ad_reference ?? ""
                             } else {
                                 context.insert(direction)
                             }
@@ -80,30 +92,6 @@ extension DirectionsModal {
                             fatalError("Error saving directions: \(error)")
                         }
                     }
-                }
-            }
-        }
-    }
-
-    func createDirection(address: AddressResult) {
-        geocodeDirection(address: address) { res in
-            let data = [
-                "full_address": "\(address.title) \(address.subtitle)",
-                "latitude": res.latitude,
-                "longitude": res.longitude,
-            ]
-            
-            
-            let query = FetchDescriptor<UserSD>()
-            let token = try? context.fetch(query).first?.token
-
-            api.fetch(
-                url: "address/add", method: "POST", body: data, token: token! ,
-                ofType: SaveDirectionsResponse.self
-            ) { response in
-                if response.status == "success" {
-                    DeliveryAddress.searchText = ""
-                    loadDirections(string: "\(address.title) \(address.subtitle)")
                 }
             }
         }
@@ -133,32 +121,6 @@ extension DirectionsModal {
             if res.status == "success" {
                 context.delete(address)
                 try! context.save()
-            }
-        }
-    }
-
-
-    func geocodeDirection(
-        address: AddressResult,
-        completion: @escaping (CLLocationCoordinate2D) -> Void
-    ) {
-        let searchRequest = MKLocalSearch.Request()
-        let title = address.title
-        let subTitle = address.subtitle
-
-        searchRequest.naturalLanguageQuery =
-            subTitle.contains(title)
-            ? subTitle : title + ", " + subTitle
-
-        MKLocalSearch(request: searchRequest).start { response, error in
-            guard let response = response else {
-                print(
-                    "Error: \(error?.localizedDescription ?? "Unknown error").")
-                return
-            }
-
-            for item in response.mapItems {
-                completion(item.placemark.coordinate)
             }
         }
     }

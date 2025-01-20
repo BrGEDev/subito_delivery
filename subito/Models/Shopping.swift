@@ -8,7 +8,7 @@
 struct ShoppingResponse: Decodable {
     var status: String
     var message: String
-    var shopping: Shopping?
+    var data: Shopping?
     
     struct Shopping: Decodable {
         var establishment_id: String
@@ -32,4 +32,7 @@ struct ShoppingResponse: Decodable {
     }
 }
 
-
+struct ShoppingModResponse: Decodable{
+    var status: String
+    var message: String
+}

@@ -11,15 +11,19 @@ import SwiftData
 @Model
 final class DirectionSD {
     @Attribute(.unique) var id: Int
-    
+
+    var name: String
     var full_address: String
+    var reference: String
     var latitude: String
     var longitude: String
     var status: Bool
     
-    init(id: Int, full_address: String, latitude: String, longitude: String, status: Bool = false) {
+    init(id: Int, name: String = "", full_address: String, reference: String = "", latitude: String, longitude: String, status: Bool = false) {
         self.id = id
+        self.name = name
         self.full_address = full_address
+        self.reference = reference
         self.latitude = latitude
         self.longitude = longitude
         self.status = status

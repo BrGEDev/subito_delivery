@@ -78,7 +78,7 @@ struct DirectionsModal: View {
                     ){
                         if isSearching {
                             ForEach(DeliveryAddress.results) { address in
-                                NavigationLink(destination: AddDirection(address: address, reload: $reload)){
+                                NavigationLink(destination: OptionDirection(options: .addDirection(address: address), reload: $reload)){
                                     AddressRow(address: address)
                                 }
                                 .listRowInsets(EdgeInsets())
@@ -151,7 +151,7 @@ struct DirectionsModal: View {
                 loadDirections()
             }
             .navigationDestination(for: DirectionSD.self){ view in
-                EditDirection(address: view)
+                OptionDirection(options: .editDirection(address: view), reload: $reload)
             }
             .onChange(of: reload) { _, value in
                 if value != "" {
@@ -164,107 +164,16 @@ struct DirectionsModal: View {
 }
 
 
-struct EditDirection: View {
-    @Environment(\.colorScheme) var colorScheme
-    var address: DirectionSD
-    
-    @State var coords: MapCameraPosition = .region(MKCoordinateRegion(center: .Puebla, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
-    @State var position: CLLocationCoordinate2D?
-    @State var modalInfo: Bool = true
-    
-    @State private var span: MKCoordinateSpan = .init(latitudeDelta: 0.002, longitudeDelta: 0.002)
-    
-    var body: some View {
-        ZStack{
-            ZStack(alignment: .top){
-                MapReader { proxy in
-                    Map(position: $coords, interactionModes: .all){
-                        if position != nil {
-                            Annotation("", coordinate: position!) {
-                                DraggablePin(coordinate: $position, proxy: proxy) { coordinate in
-                                    let newRegion = MKCoordinateRegion(center: coordinate, span: span)
-                                    print(coordinate)
-                                    withAnimation(.smooth) {
-                                        coords = .region(newRegion)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .safeAreaInset(edge: .bottom){
-                        VStack{
-                            VStack(alignment: .leading, spacing: 10){
-                                Text("Mueve el marcador a la ubicación correcta de tu domicilio. Nos ayudará a entregar tu pedido lo más pronto posible.")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.bottom, 10)
-                                    .fixedSize(horizontal: false, vertical: true)
-    
-                                Text("Dirección")
-                                    .font(.title3.bold())
-                                
-                                Text(address.full_address)
-                            }
-                            .multilineTextAlignment(.leading)
-                            
-                            Button(action: {
-                                
-                            }) {
-                                Text("Actualizar mi dirección")
-                                    .padding()
-                                    .font(.system(size: 18))
-                                    .bold()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.black)
-                            .frame(height: 50)
-                            .background(Color.accentColor)
-                            .cornerRadius(20)
-                            .shadow(color: .black.opacity(0.2), radius: 10)
-                            .padding([.top, .bottom], 33)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Material.bar)
-                        .clipShape(
-                            .rect(
-                                topLeadingRadius: 35,
-                                bottomLeadingRadius: 0,
-                                bottomTrailingRadius: 0,
-                                topTrailingRadius: 35
-                            )
-                        )
-                    }
-                    .mapControlVisibility(.hidden)
-                    .onMapCameraChange(frequency: .continuous) { camera in
-                        span = camera.region.span
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .ignoresSafeArea()
-        }
-        .navigationTitle("Editar dirección")
-        .onAppear {
-            cameraPosition()
-        }
-    }
-    
-    private func cameraPosition(){
-        position = CLLocationCoordinate2D(latitude: Double(address.latitude)!, longitude: Double(address.longitude)!)
-        coords = .region(MKCoordinateRegion(center: position!, span: span))
-    }
-}
-
-struct AddDirection: View {
+struct OptionDirection: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @Environment(\.presentationMode) var presentationMode
     
-    var address: AddressResult
+    var options: DirectionsOptions
     @State var direction: TemporalDirection?
     @Binding var reload: String
     
+    @State var title = "Agregar dirección"
     @State var coords: MapCameraPosition = .region(MKCoordinateRegion(center: .Puebla, span: MKCoordinateSpan(latitudeDelta: 0.006, longitudeDelta: 0.006)))
     @State var position: CLLocationCoordinate2D?
     @State var modalInfo: Bool = true
@@ -275,9 +184,14 @@ struct AddDirection: View {
     
     @State private var span: MKCoordinateSpan = .init(latitudeDelta: 0.006, longitudeDelta: 0.006)
     
+    @State var name_direction: String = ""
+    @State var references: String = ""
+    @State var modal: Bool = true
+    
     var body: some View {
         ZStack{
             ZStack(alignment: .top){
+                
                 MapReader { proxy in
                     Map(position: $coords, interactionModes: .all){
                         if position != nil {
@@ -296,48 +210,66 @@ struct AddDirection: View {
                         }
                     }
                     .safeAreaInset(edge: .bottom){
-                        VStack{
-                            VStack(alignment: .leading, spacing: 10){
-                                Text("Mueve el marcador a la ubicación correcta de tu domicilio. Nos ayudará a entregar tu pedido lo más pronto posible.")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.bottom, 10)
-                                    .fixedSize(horizontal: false, vertical: true)
-    
-                                Text("Dirección")
-                                    .font(.title3.bold())
-                                
-                                Text(direction?.full_address ?? "Cargando...")
+                        ZStack{}
+                            .frame(maxHeight: Screen.height / 2)
+                            .sheet(isPresented: $modal){
+                                VStack{
+                                    VStack{
+                                        ScrollView{
+                                            VStack(alignment: .leading, spacing: 10){
+                                                Text("Dirección")
+                                                    .font(.title3.bold())
+                                                
+                                                Text(direction?.full_address ?? "Cargando...")
+                                                    .padding(.bottom)
+                                                
+                                                TextField("Nombre de dirección. Ejemplo: 'Casa', 'Oficina'", text: $name_direction)
+                                                    .padding()
+                                                    .background(.ultraThinMaterial)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                                
+                                                TextField("Referencias", text: $references)
+                                                    .padding()
+                                                    .background(.ultraThinMaterial)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                                
+                                                Text("Mueve el marcador a la ubicación correcta de tu domicilio. Nos ayudará a entregar tu pedido lo más pronto posible.")
+                                                    .font(.footnote)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                    .shadow(radius: 0.5)
+                                                    .zIndex(20)
+                                            }
+                                            .padding()
+                                            .multilineTextAlignment(.leading)
+                                        }
+                                        .padding([.bottom, .top], 10)
+                                        
+                                        VStack{
+                                            Button(action: {
+                                                saveDirection()
+                                            }) {
+                                                Text("Guardar dirección")
+                                                    .padding()
+                                                    .font(.system(size: 18))
+                                                    .bold()
+                                            }
+                                            .frame(maxWidth: .infinity)
+                                            .foregroundColor(.black)
+                                            .frame(height: 50)
+                                            .background(Color.accentColor)
+                                            .cornerRadius(20)
+                                            .shadow(color: .black.opacity(0.2), radius: 10)
+                                        }
+                                        .padding([.trailing, .leading])
+                                    }
+                                }
+                                .presentationDetents([.fraction(0.52)])
+                                .presentationBackgroundInteraction(.enabled)
+                                .presentationDragIndicator(.hidden)
+                                .interactiveDismissDisabled(true)
+                                .presentationBackground(Material.bar)
+                                .presentationCornerRadius(35)
                             }
-                            .multilineTextAlignment(.leading)
-                            
-                            Button(action: {
-                                createDirection()
-                            }) {
-                                Text("Guardar dirección")
-                                    .padding()
-                                    .font(.system(size: 18))
-                                    .bold()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.black)
-                            .frame(height: 50)
-                            .background(Color.accentColor)
-                            .cornerRadius(20)
-                            .shadow(color: .black.opacity(0.2), radius: 10)
-                            .padding([.top, .bottom], 33)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Material.bar)
-                        .clipShape(
-                            .rect(
-                                topLeadingRadius: 35,
-                                bottomLeadingRadius: 0,
-                                bottomTrailingRadius: 0,
-                                topTrailingRadius: 35
-                            )
-                        )
                     }
                     .mapControlVisibility(.hidden)
                     .onMapCameraChange(frequency: .continuous) { camera in
@@ -345,10 +277,10 @@ struct AddDirection: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .ignoresSafeArea()
+            .frame(maxWidth: .infinity, alignment: .top)
+            .ignoresSafeArea(.all, edges: .bottom)
         }
-        .navigationTitle("Agregar dirección")
+        .navigationTitle(title)
         .onAppear {
             cameraPosition()
         }
@@ -359,36 +291,93 @@ struct AddDirection: View {
                 dismissButton: .default(Text("Aceptar"))
             )
         }
-    }
-    
-    private func createDirection() {
-        let data: [String : Any] = [
-            "full_address": direction!.full_address,
-            "latitude": direction!.latitude,
-            "longitude": direction!.longitude,
-        ]
-
-        let query = FetchDescriptor<UserSD>()
-        let token = try? context.fetch(query).first?.token
-        
-        api.fetch(
-            url: "address/add", method: "POST", body: data, token: token! ,
-            ofType: SaveDirectionsResponse.self
-        ) { response in
-            if response.status == "success" {
-                reload = direction!.full_address
-                presentationMode.wrappedValue.dismiss()
-            } else {
-                alert = true
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading){
+                Button(action: {
+                    modal = false
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack{
+                        Image(systemName: "chevron.left")
+                        Text("Atrás")
+                    }
+                }
             }
         }
     }
     
+    private func saveDirection() {
+        let query = FetchDescriptor<UserSD>()
+        let token = try? context.fetch(query).first?.token
+        
+        switch options {
+            case .addDirection(_):
+                let data: [String : Any] = [
+                    "full_address": direction!.full_address,
+                    "name" : name_direction,
+                    "latitude": direction!.latitude,
+                    "longitude": direction!.longitude,
+                    "reference" : references
+                ]
+                
+                api.fetch(
+                    url: "address/add", method: "POST", body: data, token: token! ,
+                    ofType: SaveDirectionsResponse.self
+                ) { response in
+                    if response.status == "success" {
+                        reload = direction!.full_address
+                        modal = false
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        alert = true
+                    }
+                }
+                
+            case .editDirection(let address):
+                let data: [String : Any] = [
+                    "full_address": direction!.full_address,
+                    "name" : name_direction,
+                    "latitude": direction!.latitude,
+                    "longitude": direction!.longitude,
+                    "reference" : references,
+                    "id_address": address.id
+                ]
+                
+                api.fetch(url: "address/update", method: "POST", body: data, token: token!, ofType: SaveDirectionsResponse.self){ res in
+                    if res.status == "success" {
+                        address.name = name_direction
+                        address.reference = references
+                        address.latitude = String(direction!.latitude)
+                        modal = false
+                        address.longitude = String(direction!.longitude)
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        alert = true
+                    }
+                }
+        }
+    }
+    
     private func cameraPosition(){
-        geocodeDirection(address: address) { res in
-            direction = TemporalDirection(full_address: "\(address.title) \(address.subtitle)", latitude: res.latitude, longitude: res.longitude)
-            
-            position = CLLocationCoordinate2D(latitude: res.latitude, longitude: res.longitude)
+        switch options {
+        case .addDirection(let address):
+            geocodeDirection(address: address) { res in
+                title = "Agregar dirección"
+                span = .init(latitudeDelta: 0.006, longitudeDelta: 0.006)
+                direction = TemporalDirection(full_address: "\(address.title) \(address.subtitle)", latitude: res.latitude, longitude: res.longitude)
+                position = CLLocationCoordinate2D(latitude: res.latitude, longitude: res.longitude)
+                coords = .region(MKCoordinateRegion(center: position!, span: span))
+            }
+                                              
+        case .editDirection(let address):
+            title = "Editar dirección"
+            name_direction = address.name
+            references = address.reference
+            span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+            position = CLLocationCoordinate2D(latitude: Double(address.latitude)!, longitude: Double(address.longitude)!)
+            direction = TemporalDirection(full_address: address.full_address, latitude: position!.latitude, longitude: position!.longitude)
             coords = .region(MKCoordinateRegion(center: position!, span: span))
         }
     }

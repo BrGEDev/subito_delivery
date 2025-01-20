@@ -16,14 +16,33 @@ struct Item: Identifiable{
     var address: String
     var latitude: String
     var longitude: String
+    var apertura: String
+    var cierre: String
 }
 
 struct HeaderModal: View {
     @State var image: String
     @State var title: String
     
+    @Binding var estado: StateEstablishment
+    var apertura: String = ""
+    
     var body: some View {
         ZStack(alignment: .bottom){
+            if estado == .closed {
+                VStack{
+                    ZStack{
+                        Color.black.opacity(0.55).cornerRadius(30)
+                        
+                        Text("Cerrado hasta \(apertura)")
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                    }
+                }
+                .frame(width: Screen.width * 0.45, height: 200)
+                .zIndex(20)
+            }
+            
             AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(image)")) { image in
                 image.resizable()
                     .frame(width: Screen.width * 0.45, height: 200)
@@ -60,6 +79,10 @@ struct HeaderModal: View {
 struct BodyModal: View {
     @Binding var isExpand: Bool
     @State var data: Item
+    
+    @Binding var estado: StateEstablishment
+    var apertura: String = ""
+    var cierre: String = ""
     
     var body: some View {
         VStack{
@@ -111,6 +134,11 @@ struct BodyModal: View {
                             .truncationMode(.tail)
                             .bold()
                             .foregroundStyle(.white)
+                        
+                        if estado == .closed {
+                            Text("Cerrado hasta \(apertura)")
+                                .foregroundColor(.white)
+                        }
                     }
                     .padding(.top, 100)
                     .padding(.leading, 20)
@@ -119,86 +147,6 @@ struct BodyModal: View {
                 }
                 
             }
-        }
-    }
-}
-
-struct ProductListF: View {
-    @Environment(\.colorScheme) var colorScheme
-
-    @State var data: Product
-    @State var location: [String:Any]
-    @State var modal: Bool = false
-    
-    var body: some View {
-        ZStack{
-            Color.gray.opacity(0.05).edgesIgnoringSafeArea(.all)
-            
-            HStack{
-                VStack(spacing: 8){
-                    Text(data.pd_name)
-                        .font(.title2)
-                        .bold()
-                        .frame(maxWidth: 200, alignment: .leading)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                    
-                    Text(data.pd_description)
-                        .frame(maxWidth: 200, alignment: .leading)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
-                        .truncationMode(.tail)
-                    
-                    Text(Float(data.pd_unit_price)!, format: .currency(code: "MXN"))
-                        .frame(maxWidth: 200, alignment: .leading)
-                        .bold()
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                ZStack{
-                    HStack{
-                        Image(systemName: "plus")
-                            .padding(5)
-                            .background(colorScheme == .light ? Color.white : Color.black)
-                            .clipShape(Circle())
-                    }
-                    .zIndex(2)
-                    .offset(x: 30, y: 30)
-                    
-                    AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
-                        image
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 100, height: 100)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding()
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .onTapGesture{
-            modal = true
-        }
-        .sheet(isPresented: $modal) {
-            ModalProducto(location: location, data: data)
-        }
-        .contextMenu {
-            Button(action: {
-                modal = true
-            }){
-                Label("Ver producto", systemImage: "eye")
-            }
-            
-            Button(action: {}){
-                Label("Agregar producto", systemImage: "plus")
-            }
-        } preview: {
-            PreviewProduct(data: data)
         }
     }
 }
@@ -220,7 +168,9 @@ struct ModalRestaurants: View {
     @State var menuSelected: String = "Todos"
     
     @State var categorySelect: Int = 0
-    
+    @State var estado: StateEstablishment = .closed
+    @State var apertura: String = ""
+    @State var cierre: String = ""
 
     var data: Item
     
@@ -237,7 +187,7 @@ struct ModalRestaurants: View {
     
     var body: some View {
         ZStack(alignment:.top){
-            HeaderModal(image: data.image, title: data.title)
+            HeaderModal(image: data.image, title: data.title, estado: $estado, apertura: apertura)
             .onTapGesture {
                 isExpand = true
                 isActive = data.id
@@ -253,7 +203,7 @@ struct ModalRestaurants: View {
                 ScrollView(.vertical){
                     VStack(spacing: 10){
                         if !searchState {
-                            BodyModal(isExpand: $isExpand, data: data)
+                            BodyModal(isExpand: $isExpand, data: data, estado: $estado, apertura: apertura, cierre: cierre)
                         }
                         
                         Spacer()
@@ -321,9 +271,9 @@ struct ModalRestaurants: View {
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) { producto in
                                         if categorySelect == producto.pg_id {
-                                            ProductListF(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         } else if categorySelect == 0{
-                                            ProductListF(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         }
                                     }
                                 } else {
@@ -419,11 +369,16 @@ struct ModalRestaurants: View {
             .scaleEffect(1 - (dragValue.height/1700))
             .frame(width: isActive == data.id ? Screen.width : 200)
         }
+        .onAppear {
+            loadInfo()
+        }
         .frame(width: isActive == data.id ? Screen.width : Screen.width * 0.45, height: isActive == data.id ? Screen.height : 200)
-        .animation(Animation.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5))
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: isExpand)
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: searchState)
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: dragValue)
+        .edgesIgnoringSafeArea(.all)
         .edgesIgnoringSafeArea(.all)
         .background(isExpand ? AnyShapeStyle(.thinMaterial) : AnyShapeStyle(.clear))
         .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 1)
     }
-
 }

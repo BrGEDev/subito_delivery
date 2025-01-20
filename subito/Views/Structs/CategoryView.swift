@@ -14,7 +14,6 @@ struct CategoryView: View {
     @State var id_category: Int
     @State var establishments: [Establishments] = []
     @State var load: Bool = true
-    var socket: SocketService
     
     @State var isExpand: Bool = false
     @State var activeID: String = ""
@@ -72,7 +71,7 @@ struct CategoryView: View {
                         .foregroundStyle(.primary)
                 }
                 .sheet(isPresented: $cartModal){
-                    CartModal(isPresented: $cartModal, pending: $pendingModal, socket: socket)
+                    CartModal(isPresented: $cartModal, pending: $pendingModal)
                 }
             }
         }

@@ -7,6 +7,14 @@
 import Foundation
 import SwiftUI
 
+func timeFromString(string: String) throws -> Date? {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "es_MX")
+    formatter.dateFormat = "d/M/yyyy HH:mm:ss.S"
+    let date = "\(Date.now.formatted(date: .numeric, time: .omitted)) \(string)"
+    return formatter.date(from: date)
+}
+
 extension CardEstablishment {
     public func loadProductos() {
         api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res in
@@ -37,6 +45,27 @@ extension CardEstablishment {
                 }
                 return name.localizedCaseInsensitiveContains(searchProducto)
             }
+        }
+    }
+    
+    public func loadInfo() {
+        do {
+            let aperturaS = try timeFromString(string: data.apertura)
+            let cierreS = try timeFromString(string: data.cierre)
+            
+            let intervalA = Date.now.timeIntervalSince(aperturaS!)
+            let intervalC = Date.now.timeIntervalSince(cierreS!)
+            
+            if intervalA > 0 && intervalC < 0 {
+                estado = .open
+            } else {
+                estado = .closed
+            }
+            
+            apertura = aperturaS!.formatted(date: .omitted, time: .shortened)
+            cierre = cierreS!.formatted(date: .omitted, time: .shortened)
+        } catch {
+            print("Error parsing time: \(error)")
         }
     }
 }
@@ -73,19 +102,40 @@ extension ModalRestaurants {
             }
         }
     }
+    
+    public func loadInfo() {
+        do {
+            let aperturaS = try timeFromString(string: data.apertura)
+            let cierreS = try timeFromString(string: data.cierre)
+            
+            let intervalA = Date.now.timeIntervalSince(aperturaS!)
+            let intervalC = Date.now.timeIntervalSince(cierreS!)
+            
+            if intervalA > 0 && intervalC < 0 {
+                estado = .open
+            } else {
+                estado = .closed
+            }
+            
+            apertura = aperturaS!.formatted(date: .omitted, time: .shortened)
+            cierre = cierreS!.formatted(date: .omitted, time: .shortened)
+        } catch {
+            print("Error parsing time: \(error)")
+        }
+    }
 }
 
 extension EstablishmentView {
     
     func getOffsetY(basedOn geo: GeometryProxy) -> CGFloat {
-
-            let minY = geo.frame(in: .global).minY
-            
-            let emptySpaceAboveSheet: CGFloat = -30
-            if minY <= emptySpaceAboveSheet {
-                return 0
-            }
-            return -minY + emptySpaceAboveSheet
+        
+        let minY = geo.frame(in: .global).minY
+        
+        let emptySpaceAboveSheet: CGFloat = -30
+        if minY <= emptySpaceAboveSheet {
+            return 0
+        }
+        return -minY + emptySpaceAboveSheet
     }
     
     public func loadProductos() {
@@ -117,6 +167,27 @@ extension EstablishmentView {
                 }
                 return name.localizedCaseInsensitiveContains(searchProducto)
             }
+        }
+    }
+    
+    public func loadInfo() {
+        do {
+            let aperturaS = try timeFromString(string: data.apertura)
+            let cierreS = try timeFromString(string: data.cierre)
+            
+            let intervalA = Date.now.timeIntervalSince(aperturaS!)
+            let intervalC = Date.now.timeIntervalSince(cierreS!)
+            
+            if intervalA > 0 && intervalC < 0 {
+                estado = .open
+            } else {
+                estado = .closed
+            }
+            
+            apertura = aperturaS!.formatted(date: .omitted, time: .shortened)
+            cierre = cierreS!.formatted(date: .omitted, time: .shortened)
+        } catch {
+            print("Error parsing time: \(error)")
         }
     }
 }

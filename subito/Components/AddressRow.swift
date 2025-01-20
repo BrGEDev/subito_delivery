@@ -52,7 +52,7 @@ struct AddressList: View {
                 .padding([.trailing, .leading], 5)
             
             VStack(alignment:.leading){
-                Text(address.id == 0 ? "Ubicación actual" : address.full_address)
+                Text(address.id == 0 ? "Ubicación actual" : (address.name != "" ? address.name : address.full_address))
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .multilineTextAlignment(.leading)

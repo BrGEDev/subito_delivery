@@ -47,7 +47,7 @@ struct Account: View {
                 
                 Section(header: Text("Cuenta")){
                     
-                    NavigationLink(destination: EmptyView()){
+                    NavigationLink(destination: Profile()){
                         Label("Mi perfil", systemImage: "person.crop.circle.fill")
                     }
                 

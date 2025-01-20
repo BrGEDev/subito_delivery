@@ -7,11 +7,32 @@
 
 import SwiftUI
 
+enum StateEstablishment {
+    case open
+    case closed
+}
+
 struct CardEstablishmentHeaderModal: View {
-    @State var data: Establishments
+    var data: Establishments
+    @Binding var estado: StateEstablishment
+    var apertura: String = ""
     
     var body: some View {
         ZStack(alignment: .bottom){
+            if estado == .closed {
+                VStack{
+                    ZStack{
+                        Color.black.opacity(0.55).cornerRadius(30)
+                        
+                        Text("Cerrado hasta \(apertura)")
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                    }
+                }
+                .frame(width: Screen.width * 0.9, height: Screen.height * 0.45)
+                .zIndex(20)
+            }
+            
             VStack{
                 AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
                     image
@@ -84,6 +105,9 @@ struct BodyEstablishmentModal: View {
     @Binding var isExpand: Bool
     @State var data: Establishments
     @State var productosC: [ProductCategory]
+    @Binding var estado: StateEstablishment
+    var apertura: String = ""
+    var cierre: String = ""
     
     var body: some View {
         VStack{
@@ -134,6 +158,11 @@ struct BodyEstablishmentModal: View {
                             .truncationMode(.tail)
                             .bold()
                             .foregroundStyle(.white)
+                        
+                        if estado == .closed {
+                            Text("Cerrado hasta \(apertura)")
+                                .foregroundColor(.white)
+                        }
                     }
                     .padding(.top,100)
                     .padding(.leading, 20)
@@ -150,10 +179,16 @@ struct BodyEstablishmentModal: View {
 
 struct ProductList: View {
     @Environment(\.colorScheme) var colorScheme
-
+    @Environment(\.modelContext) var modelContext
+    @StateObject var api = ApiCaller()
+    
     @State var data: Product
     @State var location: [String:Any]
     @State var modal: Bool = false
+    
+    @State var advertencia: Bool = false
+    
+    @Binding var estado: StateEstablishment
     
     var body: some View {
         ZStack{
@@ -190,7 +225,16 @@ struct ProductList: View {
                     .zIndex(2)
                     .offset(x: 30, y: 30)
                     
-                    VStack {
+                    ZStack {
+                        if estado == .closed {
+                            Color.black.opacity(0.55).cornerRadius(25)
+                                .zIndex(20)
+                            Text("No disponible")
+                                .foregroundStyle(.white)
+                                .font(.footnote)
+                                .zIndex(20)
+                        }
+                        
                         AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
                             image
                                 .resizable()
@@ -207,10 +251,19 @@ struct ProductList: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .onTapGesture{
-            modal = true
+            if estado == .open{
+                modal = true
+            }
         }
         .sheet(isPresented: $modal) {
             ModalProducto(location: location, data: data)
+        }
+        .alert(isPresented: $advertencia){
+            Alert(title: Text("Advertencia"), message: Text("Tienes productos de otro establecimiento, ¿deseas eliminar los productos anteriores y agregar los nuevos?"), primaryButton: .default(Text("Agregar nuevos")){
+                saveanyway(api: api, context: modelContext, data: data, location: location) { result in
+                    
+                }
+            }, secondaryButton: .destructive(Text("Cancelar")))
         }
         .contextMenu {
             Button(action: {
@@ -218,13 +271,25 @@ struct ProductList: View {
             }){
                 Label("Ver producto", systemImage: "eye")
             }
+            .disabled(estado == .open ? false : true)
             
-            Button(action: {}){
+            Button(action: {
+                saveproduct(context: modelContext, data: data, location: location, api: api) { result in
+                    if result == false {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            advertencia = true
+                        }
+                    }
+                }
+            }){
                 Label("Agregar producto", systemImage: "plus")
             }
+            .disabled(estado == .open ? false : true)
+            
         } preview: {
             PreviewProduct(data: data)
         }
+        .zIndex(20)
     }
 }
 
@@ -247,10 +312,13 @@ struct CardEstablishment: View {
     @Binding var isExpand: Bool
     
     @State var categorySelect: Int = 0
+    @State var estado: StateEstablishment = .closed
+    @State var apertura: String = ""
+    @State var cierre: String = ""
     
     var body: some View {
         ZStack(alignment:.top){
-            CardEstablishmentHeaderModal(data: data)
+            CardEstablishmentHeaderModal(data: data, estado: $estado, apertura: apertura)
                 .onTapGesture {
                     isExpand = true
                     isActive = data.id_restaurant
@@ -268,7 +336,7 @@ struct CardEstablishment: View {
                     
                     VStack(spacing: 5){
                         if !searchState {
-                            BodyEstablishmentModal(isExpand: $isExpand, data: data, productosC: productosC)
+                            BodyEstablishmentModal(isExpand: $isExpand, data: data, productosC: productosC, estado: $estado, apertura: apertura, cierre: cierre)
                         }
                         
                         Spacer()
@@ -337,9 +405,9 @@ struct CardEstablishment: View {
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) { producto in
                                         if categorySelect == producto.pg_id {
-                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         } else if categorySelect == 0{
-                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude])
+                                            ProductList(data: producto, location: ["latitude": data.latitude, "longitude": data.longitude], estado: $estado)
                                         }
                                     }
                                 } else {
@@ -436,8 +504,13 @@ struct CardEstablishment: View {
             .clipShape(RoundedRectangle(cornerRadius: dragValue.height > 0 ? 50 : 0))
             .scaleEffect(1 - (dragValue.height/1000))
         }
+        .onAppear{
+            loadInfo()
+        }
         .frame(width: Screen.width, height: isActive == data.id_restaurant ? Screen.height : Screen.height * 0.45)
-        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6))
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: isExpand)
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: searchState)
+        .animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.6), value: dragValue)
         .edgesIgnoringSafeArea(.all)
         .background(isExpand ? AnyShapeStyle(.thinMaterial) : AnyShapeStyle(.clear))
         .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 0)
