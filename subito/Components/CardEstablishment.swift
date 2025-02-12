@@ -27,6 +27,7 @@ struct CardEstablishmentHeaderModal: View {
                         Text("Cerrado hasta \(apertura)")
                             .foregroundStyle(.white)
                             .multilineTextAlignment(.center)
+                           
                     }
                 }
                 .frame(width: Screen.width * 0.9, height: Screen.height * 0.45)
@@ -34,9 +35,12 @@ struct CardEstablishmentHeaderModal: View {
             }
             
             VStack{
-                AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
+                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
                     image
                         .resizable()
+                        .scaledToFill()
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .clipped()
                 } placeholder: {
                     SkeletonCellView(
                         width: Screen.width * 0.9, height: Screen.height * 0.45
@@ -46,14 +50,14 @@ struct CardEstablishmentHeaderModal: View {
                 .frame(width: Screen.width * 0.9, alignment: .center)
             }
             .frame(width: Screen.width * 0.9, height: Screen.height * 0.45)
-            .scaledToFill()
             .clipShape(RoundedRectangle(cornerRadius: 30))
+            .clipped()
             
             ZStack(alignment: .bottom){
                 HStack {
                     VStack{
                         VStack(alignment: .leading){
-                            AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
+                            AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
                                 image.resizable()
                             } placeholder: {
                                 ProgressView()
@@ -114,7 +118,7 @@ struct BodyEstablishmentModal: View {
             ZStack(alignment: .top){
                 ZStack(alignment: .bottom){
                     VStack {
-                        AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
+                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
                             image
                                 .resizable()
                         } placeholder: {
@@ -131,7 +135,7 @@ struct BodyEstablishmentModal: View {
                     HStack{
                         VStack(alignment: .center){
                             VStack {
-                                AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
+                                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
                                     image
                                         .resizable()
                                 } placeholder: {
@@ -197,8 +201,7 @@ struct ProductList: View {
             HStack{
                 VStack(spacing: 8){
                     Text(data.pd_name)
-                        .font(.title2)
-                        .bold()
+                        .font(.title2.bold())
                         .frame(maxWidth: 200, alignment: .leading)
                         .lineLimit(1)
                         .truncationMode(.tail)
@@ -235,13 +238,14 @@ struct ProductList: View {
                                 .zIndex(20)
                         }
                         
-                        AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
+                        AsyncImageCache(url: URL(string: data.pd_image ?? "")){ image in
                             image
                                 .resizable()
                         } placeholder: {
                             ProgressView()
                         }
                     }
+                    .scaledToFill()
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                 }
@@ -265,6 +269,7 @@ struct ProductList: View {
                 }
             }, secondaryButton: .destructive(Text("Cancelar")))
         }
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
         .contextMenu {
             Button(action: {
                 modal = true

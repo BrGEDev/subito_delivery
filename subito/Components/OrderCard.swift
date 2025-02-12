@@ -1,10 +1,3 @@
-//
-//  OrderCard.swift
-//  subito
-//
-//  Created by Brandon Guerra Espinoza  on 19/12/24.
-//
-
 import SwiftUI
 
 struct OrderCard: View {
@@ -15,7 +8,7 @@ struct OrderCard: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
                 VStack {
-                    AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
+                    AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
                         image
                             .resizable()
                     } placeholder: {
@@ -52,9 +45,6 @@ struct OrderCard: View {
                     .frame(width: 75, height: 75)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text("Tiempo estimado de entrega: \(formatDate(date: order.time_order, created_at: order.created_at))")
-                .font(.system(size: 14))
         }
         .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -100,7 +90,7 @@ struct ListOrderCard: View {
             HStack{
                 ForEach(orders.prefix(upTo: orders.count >= 4 ? 4 : orders.count), id: \.id_order) { order in
                     if order.status != "Cancelado" {
-                        AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
+                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
                             
                             image
                                 .resizable()

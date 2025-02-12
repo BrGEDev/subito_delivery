@@ -71,14 +71,14 @@ struct Wallet: View {
             .padding(20)
             .listRowInsets(EdgeInsets())
             
-            Section("Promociones"){
-                NavigationLink(destination: EmptyView()){
-                    Label("Mis cupones", systemImage: "ticket.fill")
-                }
-            }
-            .listSectionSeparatorTint(Color.white.opacity(0))
-            .padding(20)
-            .listRowInsets(EdgeInsets())
+//            Section("Promociones"){
+//                NavigationLink(destination: EmptyView()){
+//                    Label("Mis cupones", systemImage: "ticket.fill")
+//                }
+//            }
+//            .listSectionSeparatorTint(Color.white.opacity(0))
+//            .padding(20)
+//            .listRowInsets(EdgeInsets())
         }
         .listStyle(.grouped)
         .scrollContentBackground(.hidden)

@@ -118,23 +118,9 @@ extension Eats {
         locatedEstablishment = []
         api.fetch(url: "establishmentForLocation", method: "POST", body: data, ofType: GetEstablishmentsResponse.self) { res in
             if res.status == "success" {
-                locatedEstablishment = res.data!
-            }
-        }
-    }
-
-    var filteredLocales: [Item] {
-        let establishments = items
-
-        if searchText.isEmpty {
-            return establishments
-        } else {
-            return establishments.filter {
-                let name = $0.title
-                if name.isEmpty {
-                    return false
+                withAnimation {
+                    locatedEstablishment = res.data!
                 }
-                return name.localizedCaseInsensitiveContains(searchText)
             }
         }
     }
@@ -145,7 +131,9 @@ extension Eats {
             token: user!.token, ofType: OrdersResponse.self
         ) { res in
             if res.status == "success" {
-                orders = res.data!
+                withAnimation {
+                    orders = res.data!
+                }
             }
         }
     }

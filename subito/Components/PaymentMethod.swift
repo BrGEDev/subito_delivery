@@ -190,7 +190,7 @@ struct PaymentMethod: View {
             LoadWebView(
                 url: URL(
                     string:
-                        "https://ti-lexa.tech/#/auth/save-card?token=\(user!.token)"
+                        "https://subito.com.mx/marketplace#/auth/save-card?token=\(user!.token)"
                 )!
             )
             .edgesIgnoringSafeArea(.all)

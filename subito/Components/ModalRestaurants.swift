@@ -37,14 +37,16 @@ struct HeaderModal: View {
                         Text("Cerrado hasta \(apertura)")
                             .foregroundStyle(.white)
                             .multilineTextAlignment(.center)
+                            .padding()
                     }
                 }
                 .frame(width: Screen.width * 0.45, height: 200)
                 .zIndex(20)
             }
             
-            AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(image)")) { image in
+            AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(image)")) { image in
                 image.resizable()
+                    .scaledToFill()
                     .frame(width: Screen.width * 0.45, height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                     .clipped()
@@ -89,7 +91,7 @@ struct BodyModal: View {
             ZStack(alignment: .top){
                 ZStack(alignment: .bottom){
                     VStack{
-                        AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.establishment)")) { image in
+                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.establishment)")) { image in
                             image
                                 .resizable()
                         } placeholder: {
@@ -106,7 +108,7 @@ struct BodyModal: View {
                     HStack{
                         VStack{
                             VStack(alignment: .center){
-                                AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.image)")) { image in
+                                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.image)")) { image in
                                     image.resizable()
                                 } placeholder: {
                                     ProgressView()

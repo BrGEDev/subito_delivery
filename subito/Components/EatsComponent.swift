@@ -38,7 +38,7 @@ struct HomePage: View {
                         GeometryReader { proxy in
                             TabView(selection: $selectedNum){
                                 ForEach(ads, id: \.self) { url in
-                                    AsyncImage(url: URL(string: url)){ image in
+                                    AsyncImageCache(url: URL(string: url)){ image in
                                         image
                                             .resizable()
                                             .scaledToFill()

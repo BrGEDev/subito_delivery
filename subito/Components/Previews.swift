@@ -13,7 +13,7 @@ struct PreviewProduct: View {
     var body: some View {
         ZStack(alignment: .top){
             VStack{
-                AsyncImage(url: URL(string: data.pd_image ?? "")){ image in
+                AsyncImageCache(url: URL(string: data.pd_image ?? "")){ image in
                     image
                         .resizable()
                         .scaledToFill()

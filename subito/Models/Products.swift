@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ProductsResponse: Codable{
+struct ProductsResponse: Decodable{
     var status: String
     var message: String
     var data: [Product]?
 }
 
-struct Product: Codable {
+struct Product: Decodable {
     var pg_id: Int
     var pg_name: String
     var pg_description: String
@@ -37,4 +37,8 @@ struct Product: Codable {
     var pd_net_content: String?
     var pd_disabled: String?
     var pd_delivery_time: String?
+    var apertura: String?
+    var cierre: String?
+    var latitude: String?
+    var longitude: String?
 }

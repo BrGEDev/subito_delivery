@@ -31,6 +31,8 @@ extension CartModal {
                 payment = 0
                 try! context.delete(model: CartSD.self)
                 try! context.save()
+            } else  {
+                print(res.message)
             }
         }
     }

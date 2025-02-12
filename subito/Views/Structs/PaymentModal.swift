@@ -18,7 +18,7 @@ struct productoPayment: View {
         VStack {
             HStack {
                 VStack {
-                    AsyncImage(url: URL(string: product.image)) { image in
+                    AsyncImageCache(url: URL(string: product.image)) { image in
                         image
                             .resizable()
                     } placeholder: {
@@ -143,6 +143,7 @@ struct PaymentModal: View {
                     }
                     .labelsHidden()
                     .pickerStyle(.segmented)
+                    .colorMultiply(Color.accentColor)
                 }
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
@@ -250,7 +251,7 @@ struct PaymentModal: View {
                 .background(paymentsSelected == nil ? Color.accentColor.opacity(0.8) : Color.accentColor)
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.2), radius: 10)
-                .disabled(paymentsSelected == nil ? true : false)
+                .disabled(paymentsSelected == nil || directionSelected == nil ? true : false)
             }
             .padding()
         }

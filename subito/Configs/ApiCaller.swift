@@ -37,7 +37,7 @@ final class ApiCaller: ObservableObject {
     }
     
     func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T) -> Void){
-        let urlfetch = URL(string: "https://lexatax.com.mx/api/delivery-drive/" + url)!
+        let urlfetch = URL(string: "https://qa-dev-pw.mx/api/delivery-drive/" + url)!
         var request = URLRequest(url: urlfetch)
         
         request.httpMethod = method

@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-enum ChatOptions {
+enum ChatOptions: Hashable, Equatable {
     case create(support: Int)
     case join(id: Int)
 }
@@ -63,12 +63,11 @@ struct MessageView: View {
             }
             
             VStack(alignment: message.isCurrentUser ? .trailing : .leading){
-                MessageStruct(
-                    content: message.content, isCurrent: message.isCurrentUser)
-                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 25))
-                .contextMenu {
-                    Label((message.isCurrentUser ? "Enviado" : "Recibido") + ": \(message.time)", systemImage: "clock")
-                }
+                MessageStruct(content: message.content, isCurrent: message.isCurrentUser)
+                    .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 25))
+                    .contextMenu {
+                        Label((message.isCurrentUser ? "Enviado" : "Recibido") + ": \(message.time)", systemImage: "clock")
+                    }
                 
                 if visibleImage {
                     Text(message.time)

@@ -91,7 +91,15 @@ struct DirectionsModal: View {
                                 ForEach(directions){ address in
                                     AddressList(address: address)
                                         .onTapGesture {
-                                            updateSelected(address: address)
+                                            if address.id != 0 {
+                                                updateSelected(address: address)
+                                            } else {
+                                                if !path.isEmpty {
+                                                    path.removeLast()
+                                                }
+                                                
+                                                path.append(address)
+                                            }
                                         }
                                         .contextMenu {
                                             Button {
@@ -106,18 +114,20 @@ struct DirectionsModal: View {
                                                 Label("Editar dirección", systemImage: "pencil")
                                             }
                                             
-                                            Button {
-                                                updateSelected(address: address)
-                                            } label: {
-                                                Label("Seleccionar esta dirección", systemImage: "mappin")
-                                            }
-                                            
-                                            Divider()
-                                            
-                                            Button(role: .destructive) {
-                                                drop(address: address)
-                                            } label: {
-                                                Label("Eliminar", systemImage: "trash")
+                                            if address.id != 0 {
+                                                Button {
+                                                    updateSelected(address: address)
+                                                } label: {
+                                                    Label("Seleccionar esta dirección", systemImage: "mappin")
+                                                }
+                                                
+                                                Divider()
+                                                
+                                                Button(role: .destructive) {
+                                                    drop(address: address)
+                                                } label: {
+                                                    Label("Eliminar", systemImage: "trash")
+                                                }
                                             }
                                         }
                                         .listRowBackground(address.status == true ? Color.accentColor.opacity(0.5) : (colorScheme == .dark ? .black.opacity(0.35) : .white))
@@ -345,16 +355,35 @@ struct OptionDirection: View {
                     "id_address": address.id
                 ]
                 
-                api.fetch(url: "address/update", method: "POST", body: data, token: token!, ofType: SaveDirectionsResponse.self){ res in
-                    if res.status == "success" {
-                        address.name = name_direction
-                        address.reference = references
-                        address.latitude = String(direction!.latitude)
-                        modal = false
-                        address.longitude = String(direction!.longitude)
-                        presentationMode.wrappedValue.dismiss()
-                    } else {
-                        alert = true
+                if address.id == 0 {
+                    api.fetch(
+                        url: "address/add", method: "POST", body: data, token: token! ,
+                        ofType: SaveDirectionsResponse.self
+                    ) { response in
+                        if response.status == "success" {
+                            reload = direction!.full_address
+                            modal = false
+                        
+                            context.delete(address)
+                            try! context.save()
+                                
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
+                            alert = true
+                        }
+                    }
+                } else {
+                    api.fetch(url: "address/update", method: "POST", body: data, token: token!, ofType: SaveDirectionsResponse.self){ res in
+                        if res.status == "success" {
+                            address.name = name_direction
+                            address.reference = references
+                            address.latitude = String(direction!.latitude)
+                            modal = false
+                            address.longitude = String(direction!.longitude)
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
+                            alert = true
+                        }
                     }
                 }
         }

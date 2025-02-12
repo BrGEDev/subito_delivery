@@ -23,7 +23,7 @@ struct Account: View {
         NavigationView{
             List {
                 VStack{
-                    Image(.burger)
+                    Image(systemName: "person.circle.fill")
                         .resizable()
                         .frame(width: 90, height: 90)
                         .clipShape(Circle())

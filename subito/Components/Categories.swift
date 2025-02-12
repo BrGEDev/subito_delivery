@@ -14,7 +14,7 @@ struct Category: View{
     var body: some View {
         NavigationLink(destination: CategoryView(categoryTitle: category.texto, id_category: category.id)){
             VStack{
-                AsyncImage(url: URL(string: category.image)){ image in
+                AsyncImageCache(url: URL(string: category.image)){ image in
                     image
                         .resizable()
                         .scaledToFit()

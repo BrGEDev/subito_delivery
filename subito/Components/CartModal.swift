@@ -21,7 +21,7 @@ struct productoView: View {
         VStack{
             HStack{
                 VStack{
-                    AsyncImage(url: URL(string: product.image)){ image in
+                    AsyncImageCache(url: URL(string: product.image)){ image in
                         image
                             .resizable()
                     } placeholder: {

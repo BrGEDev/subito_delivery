@@ -23,14 +23,12 @@ extension DirectionsModal {
 
             let full_address =
                 "\(placemark.name ?? "") \(placemark.subLocality ?? "") \(placemark.locality ?? "") \(placemark.administrativeArea ?? "")"
-            let query = directions.last(where: { $0.status == true })
             let existLocation = directions.first(where: { $0.id == 0 })
             if existLocation == nil {
                 let livelocation = DirectionSD(
                     id: 0, full_address: full_address,
                     latitude: String(placemark.location!.coordinate.latitude),
-                    longitude: String(placemark.location!.coordinate.longitude),
-                    status: query == nil ? true : false
+                    longitude: String(placemark.location!.coordinate.longitude)
                 )
                 context.insert(livelocation)
             } else {
@@ -104,12 +102,10 @@ extension DirectionsModal {
         for index in offsets {
             let address = directions[index]
             
-            api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res in
-                if res.status == "success" {
-                    context.delete(address)
-                    try! context.save()
-                }
-            }
+            api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res in }
+            
+            context.delete(address)
+            try! context.save()
         }
     }
     

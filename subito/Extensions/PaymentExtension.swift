@@ -187,13 +187,10 @@ extension PaymentMethod {
         for index in offsets {
             let card = cards[index]
             
-            api.fetch(url: "payment-methods/delete", method: "POST", body: ["payment_method_id": card.id], token: user!.token, ofType: PaymentsResponse.self) { res in
-                if res.status == "success" {
-                    contextModel.delete(card)
-                    try! contextModel.save()
-                }
-            }
+            api.fetch(url: "payment-methods/delete", method: "POST", body: ["payment_method_id": card.id], token: user!.token, ofType: PaymentsResponse.self) { res in }
             
+                contextModel.delete(card)
+                try! contextModel.save()
         }
     }
     

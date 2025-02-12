@@ -23,7 +23,7 @@ extension Chat {
               ? (messages[Int(index)! + 1].isCurrentUser != message.isCurrentUser
                  ? true : false)
               : true)
-           : false)
+           : messages.count > Int(index)! + 1 ? (messages[Int(index)! + 1].isCurrentUser == message.isCurrentUser ? false : true) : true)
     }
 
     func getMessages() {
@@ -59,25 +59,24 @@ extension Chat {
             }
 
         case .join(let id):
-            let data: [String: Any] = [
-                "id_chat": id
-            ]
-
-            listenMessages()
-
-            if messages.isEmpty {
-                let calendar = Date()
-                let date = calendar.formatted(date: .omitted, time: .shortened)
                 
-                messages.append(
-                    Message(
-                        content:
-                            "Bienvenido al chat de \(title.lowercased()). En breve, uno de nuestros agentes se contactará con usted. Por favor, escriba su pregunta o consulta.",
-                        time: date,
-                        isCurrentUser: false
-                    )
-                )
+            id_chat = id
+            
+                api.fetch(url: "client_chat/get/\(id)", method: "GET", token: user.token, ofType: MessagesResponse.self) { res in
+                listenMessages()
+                if res.data != nil {
+                    res.data!.forEach { message in
+                        messages.append(
+                            Message(
+                                content: message.mc_message,
+                                time: message.mc_time_at,
+                                isCurrentUser: message.mc_user == "\(user.name) \(user.lastName)"
+                            )
+                        )
+                    }
+                }
             }
+                
         }
     }
 
@@ -124,11 +123,9 @@ extension Support {
         let query = FetchDescriptor<UserSD>()
         let token = try! context.fetch(query).first!.token
         
-        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res in
-            print(res)
-            
+        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res in            
             if res.status == "success" {
-                
+                chats = res.data!
             }
         }
     }

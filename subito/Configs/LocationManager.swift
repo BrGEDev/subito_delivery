@@ -14,8 +14,8 @@ class LocationManager: NSObject, ObservableObject, MKMapViewDelegate, CLLocation
         manager.delegate = self
         manager.requestWhenInUseAuthorization()
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.allowsBackgroundLocationUpdates = true
-        manager.pausesLocationUpdatesAutomatically = false
+        manager.allowsBackgroundLocationUpdates = false
+        manager.pausesLocationUpdatesAutomatically = true
     }
     
     nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

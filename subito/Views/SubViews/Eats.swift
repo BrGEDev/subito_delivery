@@ -17,8 +17,12 @@ struct Eats: View {
 
     @State var activeID = UUID()
     @State var isExpand: Bool = false
+    
+    @State var searchExpand: Bool = false
+    @FocusState var searchfocusable: Bool
 
     @StateObject var api: ApiCaller = ApiCaller()
+    @StateObject var searchModel = SearchViewModel()
     @StateObject var notifications: Notifications = Notifications()
     @StateObject var socket = SocketService.socketClient
 
@@ -27,7 +31,6 @@ struct Eats: View {
     @State var orders: [Orders] = []
     @State var locatedEstablishment: [Establishments] = []
 
-    @State var searchText: String = ""
     @State var searchableText: Bool = false
 
     @State var cartModal: Bool = false
@@ -35,7 +38,7 @@ struct Eats: View {
     @State var seeAccount: Bool = false
     @State var pendingModal: Bool = false
     @State var path = NavigationPath()
-    
+
     @State var alert: Bool = false
     @State var alertTitle: String = ""
     @State var alertMessage: String = ""
@@ -57,33 +60,62 @@ struct Eats: View {
             NavigationView {
                 ZStack(alignment: .top) {
                     if searchableText {
-                        HStack {
-                            TextField(
-                                "Buscar en Súbito Delivery", text: $searchText
-                            )
+                        VStack {
+                            ZStack {
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+
+                                    TextField(
+                                        "Tacos, Pollo, Hamburguesas...",
+                                        text: $searchModel.searchText
+                                    )
+                                    .focused($searchfocusable)
+                                    .onReceive(searchModel.$searchText) { (text) in
+                                        withAnimation {
+                                            if text == "" {
+                                                searchExpand = false
+                                            } else {
+                                                searchExpand = true
+                                            }
+                                        }
+                                    }
+
+                                    Button(action: {
+                                        withAnimation(
+                                            .spring(
+                                                response: 0.5,
+                                                dampingFraction: 0.9,
+                                                blendDuration: 0.5)
+                                        ) {
+                                            searchModel.searchText = ""
+                                            searchableText = false
+                                            searchfocusable = false
+                                        }
+                                    }) {
+                                        Text("Cancelar")
+                                            .font(.caption)
+                                    }
+                                    .foregroundStyle(Color.primary)
+                                }
+                            }
                             .padding()
                             .frame(height: 50)
-                            .background(.regularMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .multilineTextAlignment(.center)
-
-                            Button(action: {
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5)) {
-                                    searchText = ""
-                                    searchableText = false
-                                }
-                            }) {
-                                Text("Cancelar")
+                            .background(searchExpand ? Color.white.opacity(0) : Color.secondary.opacity(0.25))
+                            .clipShape(.capsule)
+                            .padding([.leading, .trailing])
+                            
+                            if searchExpand {
+                                Divider().frame(height: 2).background(Color.primary).padding([.leading, .trailing])
+                                
+                                SearchItems(searchModel: searchModel)
                             }
-                            .foregroundStyle(Color.accentColor)
                         }
                         .zIndex(20)
-                        .padding()
                         .background(Material.bar)
                     }
 
                     ScrollView {
-                        
+
                         if !searchableText {
                             HStack(alignment: .center) {
                                 VStack {
@@ -96,7 +128,7 @@ struct Eats: View {
                                         .frame(
                                             maxWidth: .infinity,
                                             alignment: .leading)
-                                    
+
                                     Text(Date.now, style: .date)
                                         .font(.headline)
                                         .lineLimit(1)
@@ -108,9 +140,9 @@ struct Eats: View {
                                             maxWidth: .infinity,
                                             alignment: .leading)
                                 }
-                                
+
                                 Spacer()
-                                
+
                                 Button(action: {
                                     seeAccount = true
                                 }) {
@@ -120,18 +152,20 @@ struct Eats: View {
                                         .frame(width: 40, height: 40)
                                         .clipShape(Circle())
                                         .clipped()
-                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
+                                        .foregroundStyle(
+                                            colorScheme == .dark
+                                                ? .white : .black)
                                 }
                                 .sheet(isPresented: $seeAccount) {
                                     Account()
                                 }
                             }
                             .padding([.top, .trailing, .leading])
-                            
-                            
+
                             Button(action: {
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.9, blendDuration: 0.5)) {
+                                withAnimation {
                                     searchableText = true
+                                    searchfocusable = true
                                 }
                             }) {
                                 Text("Buscar en Súbito Delivery")
@@ -139,9 +173,7 @@ struct Eats: View {
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 50)
                                     .background(.ultraThinMaterial)
-                                    .clipShape(
-                                        RoundedRectangle(cornerRadius: 20)
-                                    )
+                                    .clipShape(Capsule())
                                     .multilineTextAlignment(.center)
                                     .foregroundStyle(Color.gray.opacity(0.6))
                             }
@@ -149,7 +181,7 @@ struct Eats: View {
                             .padding(.top, 15)
                             .padding([.bottom, .trailing, .leading])
                         }
-                        
+
                         LazyVStack {
                             ZStack {
                                 VStack {
@@ -190,99 +222,120 @@ struct Eats: View {
                         }
                         .padding([.bottom, .trailing, .leading])
                         .padding(.top, searchableText ? 100 : 0)
-                        
-                        
-                        if !searchableText {
-                            if !orders.isEmpty {
-                                if orders.count == 1 {
-                                    ForEach(orders, id: \.id_order) { item in
-                                        if item.status != "Cancelado" {
-                                            NavigationLink(
-                                                destination: {
-                                                    OrderDetail(order: item.id_order)
-                                                }
-                                            ) {
-                                                OrderCard(order: item)
+
+                        if !orders.isEmpty {
+                            if orders.count == 1 {
+                                ForEach(orders, id: \.id_order) { item in
+                                    if item.status != "Cancelado" {
+                                        NavigationLink(
+                                            destination: {
+                                                OrderDetail(
+                                                    order: item.id_order)
                                             }
+                                        ) {
+                                            OrderCard(order: item)
                                         }
                                     }
-                                } else {
-                                    NavigationLink(
-                                        destination: ListOrders(orders: orders)
-                                    ) {
-                                        ListOrderCard(orders: orders)
-                                    }
+                                }
+                            } else {
+                                NavigationLink(
+                                    destination: ListOrders(orders: orders)
+                                ) {
+                                    ListOrderCard(orders: orders)
                                 }
                             }
-                            
-                            
-                            HomePage()
-                            
-                            
-                            if locatedEstablishment.count > 0 {
-                                VStack{
-                                    VStack {
-                                        Text("Los más cercanos a ti")
-                                            .font(.title2)
-                                            .bold()
-                                        
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding([.top, .leading, .trailing])
-                                    
-                                    ScrollView(.horizontal) {
-                                        LazyHStack(spacing: 16) {
-                                            ForEach(locatedEstablishment, id: \.id_restaurant) { item in
-                                                NavigationLink(destination: EstablishmentView(data: item)) {
-                                                    VStack(spacing: 8) {
-                                                        ZStack {
-                                                            EstablishmentLocated(data: item)
-                                                                .scrollTransition(
-                                                                    axis: .horizontal
-                                                                ) { content, phase in
-                                                                    return content
-                                                                        .rotationEffect(.degrees(phase.value * 2.5))
-                                                                        .offset(x: phase.value * -250)
-                                                                }
-                                                        }
-                                                        .containerRelativeFrame(.horizontal)
-                                                        .clipShape(
-                                                            RoundedRectangle(
-                                                                cornerRadius: 32))
-                                                        
-                                                        Text(item.name_restaurant)
-                                                            .frame(width: Screen.width * 0.55)
-                                                            .lineLimit(1)
-                                                            .truncationMode(.tail)
-                                                            .font(.title.bold())
-                                                            .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        .scrollTargetLayout()
-                                    }
-                                    .contentMargins(.horizontal, 32)
-                                    .scrollTargetBehavior(.paging)
-                                }
-                            }
-                            
-                            VStack {
-                                Text("Los favoritos del momento")
-                                    .font(.title2)
-                                    .bold()
-                                
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.leading, .trailing])
-                            .padding(.top, 20)
-                            
                         }
-                        
+
+                        HomePage()
+
+                        if locatedEstablishment.count > 0 {
+                            VStack {
+                                VStack {
+                                    Text("Los más cercanos a ti")
+                                        .font(.title2)
+                                        .bold()
+
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.top, .leading, .trailing])
+
+                                ScrollView(.horizontal) {
+                                    LazyHStack(spacing: 16) {
+                                        ForEach(
+                                            locatedEstablishment,
+                                            id: \.id_restaurant
+                                        ) { item in
+                                            NavigationLink(
+                                                destination: EstablishmentView(
+                                                    data: item)
+                                            ) {
+                                                VStack(spacing: 8) {
+                                                    ZStack {
+                                                        EstablishmentLocated(
+                                                            data: item
+                                                        )
+                                                        .scrollTransition(
+                                                            axis: .horizontal
+                                                        ) { content, phase in
+                                                            return
+                                                                content
+                                                                .rotationEffect(
+                                                                    .degrees(
+                                                                        phase
+                                                                            .value
+                                                                            * 2.5
+                                                                    )
+                                                                )
+                                                                .offset(
+                                                                    x: phase
+                                                                        .value
+                                                                        * -250)
+                                                        }
+                                                    }
+                                                    .containerRelativeFrame(
+                                                        .horizontal
+                                                    )
+                                                    .clipShape(
+                                                        RoundedRectangle(
+                                                            cornerRadius: 32))
+
+                                                    Text(item.name_restaurant)
+                                                        .frame(
+                                                            width: Screen.width
+                                                                * 0.55
+                                                        )
+                                                        .lineLimit(1)
+                                                        .truncationMode(.tail)
+                                                        .font(.title.bold())
+                                                        .foregroundStyle(
+                                                            colorScheme == .dark
+                                                                ? Color.white
+                                                                : Color.black)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .scrollTargetLayout()
+                                }
+                                .contentMargins(.horizontal, 32)
+                                .scrollTargetBehavior(.paging)
+                            }
+                        }
+
+                        VStack {
+                            Text("Los favoritos del momento")
+                                .font(.title2)
+                                .bold()
+
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.leading, .trailing])
+                        .padding(.top, 20)
+
                         LazyVGrid(columns: adaptiveColumn, spacing: 10) {
 
-                            if filteredLocales.count > 0 {
-                                ForEach(filteredLocales) { item in
+                            if items.count > 0 {
+                                ForEach(items) { item in
                                     GeometryReader { reader in
                                         ModalRestaurants(
                                             isExpand: $isExpand,
@@ -353,7 +406,9 @@ struct Eats: View {
                     }
                 }
                 .alert(isPresented: $alert) {
-                    Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Aceptar")))
+                    Alert(
+                        title: Text(alertTitle), message: Text(alertMessage),
+                        dismissButton: .default(Text("Aceptar")))
                 }
                 .navigationDestination(
                     for: String.self,
@@ -367,7 +422,10 @@ struct Eats: View {
                     CartModal(
                         isPresented: $cartModal, pending: $pendingModal)
                 }
-                .sheet(isPresented: $directionModal, onDismiss: { loadLocationEstablishments() }) {
+                .sheet(
+                    isPresented: $directionModal,
+                    onDismiss: { loadLocationEstablishments() }
+                ) {
                     DirectionsModal()
                 }
                 .sheet(isPresented: $pendingModal) {
@@ -397,5 +455,3 @@ struct Eats: View {
     }
 
 }
-
-

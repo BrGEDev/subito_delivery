@@ -135,12 +135,14 @@ struct OrderDetail: View {
                         Spacer(minLength: 20)
                         HStack{
                             VStack{
-                                AsyncImage(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(orderDetails?.order?.picture_logo ?? "")")) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                } placeholder : {
-                                    ProgressView()
+                                if orderDetails != nil {
+                                    AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(orderDetails?.order?.picture_logo ?? "")")) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder : {
+                                        ProgressView()
+                                    }
                                 }
                             }
                             .frame(width: 80, height: 80)

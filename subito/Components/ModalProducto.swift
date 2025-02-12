@@ -26,7 +26,7 @@ struct ModalProducto: View {
                     GeometryReader { imageGeo in
                         let image = URL(string: data.pd_image ?? "")
                         
-                        AsyncImage(url: image) { image in
+                        AsyncImageCache(url: image) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
