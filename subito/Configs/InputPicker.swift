@@ -47,7 +47,7 @@ class DatePickerYearMonth: UITextField {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("Has no implemented")
+        fatalError("No se implementó el coder")
     }
     
     private lazy var pickerView: UIDatePicker = {
