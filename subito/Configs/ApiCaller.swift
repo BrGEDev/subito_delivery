@@ -9,7 +9,7 @@ import Foundation
 
 final class ApiCaller: ObservableObject {
     
-    func mercagoPago<T:Decodable>(url: String, method: String, body: [String:Any] = [:], ofType type: T.Type, _ completion: @escaping (T) -> Void) {
+    func mercagoPago<T:Decodable>(url: String, method: String, body: [String:Any] = [:], ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void) {
         let urlfetch = URL(string: "https://api.mercadopago.com/v1/\(url)?public_key=TEST-4099973f-8403-4c13-8252-5bb42032987e")!
         var request = URLRequest(url: urlfetch)
         
@@ -27,9 +27,10 @@ final class ApiCaller: ObservableObject {
                 DispatchQueue.main.async {
                     do {
                         let model = try JSONDecoder().decode(T.self, from: data)
-                        completion(model)
+                        completion(model, true)
                     } catch {
-                        print(error)
+                        print(error, data)
+                        completion(nil, false)
                     }
                 }
             }

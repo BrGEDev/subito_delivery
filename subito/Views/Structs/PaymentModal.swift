@@ -248,7 +248,7 @@ struct PaymentModal: View {
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.black)
                 .frame(height: 50)
-                .background(paymentsSelected == nil ? Color.accentColor.opacity(0.8) : Color.accentColor)
+                .background(paymentsSelected == nil || directionSelected == nil ? Color.accentColor.opacity(0.8) : Color.accentColor)
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.2), radius: 10)
                 .disabled(paymentsSelected == nil || directionSelected == nil ? true : false)

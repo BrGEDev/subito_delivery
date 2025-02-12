@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4B0E46462D5BDD2100E5BDAB /* AsyncImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E46452D5BDD1A00E5BDAB /* AsyncImagesCache.swift */; };
+		4B0E46482D5D055700E5BDAB /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E46472D5D055300E5BDAB /* AddCard.swift */; };
+		4B0E464A2D5D520B00E5BDAB /* InputPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E46492D5D51FE00E5BDAB /* InputPicker.swift */; };
 		4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224372CFA579A001057B0 /* AddressRow.swift */; };
@@ -83,7 +85,6 @@
 		4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */; };
 		4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */; };
 		4BFB13062D10EB8F00A99B5F /* CardSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13052D10EB8A00A99B5F /* CardSD.swift */; };
-		4BFB13082D11BB3600A99B5F /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13072D11BB3200A99B5F /* WebView.swift */; };
 		4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130A2D11CC2900A99B5F /* Payment.swift */; };
 		4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130F2D122C0800A99B5F /* MercadoPago.swift */; };
 		4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB131B2D14893200A99B5F /* TrackingSD.swift */; };
@@ -137,6 +138,8 @@
 
 /* Begin PBXFileReference section */
 		4B0E46452D5BDD1A00E5BDAB /* AsyncImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImagesCache.swift; sourceTree = "<group>"; };
+		4B0E46472D5D055300E5BDAB /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
+		4B0E46492D5D51FE00E5BDAB /* InputPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPicker.swift; sourceTree = "<group>"; };
 		4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAutocomplete.swift; sourceTree = "<group>"; };
 		4B1224372CFA579A001057B0 /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
 		4B1AEC1A2CED205A00887421 /* ModalProducto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProducto.swift; sourceTree = "<group>"; };
@@ -211,7 +214,6 @@
 		4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalRestaurants.swift; sourceTree = "<group>"; };
 		4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		4BFB13052D10EB8A00A99B5F /* CardSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSD.swift; sourceTree = "<group>"; };
-		4BFB13072D11BB3200A99B5F /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		4BFB130A2D11CC2900A99B5F /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		4BFB130F2D122C0800A99B5F /* MercadoPago.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercadoPago.swift; sourceTree = "<group>"; };
 		4BFB131B2D14893200A99B5F /* TrackingSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSD.swift; sourceTree = "<group>"; };
@@ -298,7 +300,6 @@
 		4B2B76452CAC6F3400F046EF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4BFB13072D11BB3200A99B5F /* WebView.swift */,
 				4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */,
 				4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */,
 				4B2B76462CAC6F4700F046EF /* MapController.swift */,
@@ -429,6 +430,7 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4B0E46492D5D51FE00E5BDAB /* InputPicker.swift */,
 				4B0E46452D5BDD1A00E5BDAB /* AsyncImagesCache.swift */,
 				4B4521832D2833D200B495DC /* SearchView.swift */,
 				4BFB13952D1B607200A99B5F /* Notifications.swift */,
@@ -445,6 +447,7 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B0E46472D5D055300E5BDAB /* AddCard.swift */,
 				4BDCD8162D5BC6E10068A550 /* SearchItems.swift */,
 				4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */,
 				4B2B564A2D286D7D006E505A /* Chat.swift */,
@@ -691,8 +694,8 @@
 				4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */,
 				4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */,
 				4BFB13982D1DFA4200A99B5F /* Previews.swift in Sources */,
+				4B0E46482D5D055700E5BDAB /* AddCard.swift in Sources */,
 				4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */,
-				4BFB13082D11BB3600A99B5F /* WebView.swift in Sources */,
 				4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */,
 				4BA8B8002D0CE524000352FC /* AppDelegate.swift in Sources */,
 				4B2B764A2CACEAD900F046EF /* Eats.swift in Sources */,
@@ -733,6 +736,7 @@
 				4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */,
 				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
 				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,
+				4B0E464A2D5D520B00E5BDAB /* InputPicker.swift in Sources */,
 				4BFB131C2D14893600A99B5F /* TrackingSD.swift in Sources */,
 				4BEB0CF02D2C1E9300CB008C /* Profile.swift in Sources */,
 				4BFB13642D14AE6800A99B5F /* OrderCard.swift in Sources */,

@@ -8,7 +8,7 @@
 struct CardTokens:Decodable {
     var id: String
     var public_key: String
-    var card_id: String
+    var card_id: String?
     var status: String
     var date_created: String
     var date_last_updated: String

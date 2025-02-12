@@ -215,17 +215,19 @@ extension CVVCode {
             "security_code" : cvv
         ]
         
-        api.mercagoPago(url: "card_tokens", method: "POST", body: mercadoPagoData, ofType: CardTokens.self) { res in
-            for card in cards {
-                card.status = false
-                card.token = nil
+        api.mercagoPago(url: "card_tokens", method: "POST", body: mercadoPagoData, ofType: CardTokens.self) { res, status in
+            if status {
+                for card in cards {
+                    card.status = false
+                    card.token = nil
+                }
+                
+                cardselect.token = res!.id
+                cardselect.status = true
+                try! contextModel.save()
+                cvv = ""
+                dismiss()
             }
-            
-            cardselect.token = res.id
-            cardselect.status = true
-            try! contextModel.save()
-            cvv = ""
-            dismiss()
         }
     }
 }

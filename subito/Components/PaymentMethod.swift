@@ -187,13 +187,9 @@ struct PaymentMethod: View {
             .padding()
         }
         .sheet(isPresented: $webview, onDismiss: { getPaymentMethod() }) {
-            LoadWebView(
-                url: URL(
-                    string:
-                        "https://subito.com.mx/marketplace#/auth/save-card?token=\(user!.token)"
-                )!
-            )
-            .edgesIgnoringSafeArea(.all)
+            if user != nil {
+                AddCard(user: user!)
+            }
         }
         .sheet(isPresented: $loading, onDismiss: { dismiss() }) { [selected] in
             CVVCode(alert: $alert, selectCard: selected)
