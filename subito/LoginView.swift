@@ -22,7 +22,7 @@ struct PrincipalView: View{
     @State private var message: String = ""
     
     @State private var opacity: Double = 0
-    @State private var showingSheet = false
+    @State private var forgotPassword = false
     @State private var register: Bool = false
     
     var body: some View {
@@ -108,7 +108,7 @@ struct PrincipalView: View{
                             .font(.system(size: 16))
                             
                             Button("Olvidé mi contraseña"){
-                                showingSheet = true
+                                forgotPassword = true
                             }
                             .foregroundColor(.red)
                             .font(.system(size: 16))
@@ -133,6 +133,11 @@ struct PrincipalView: View{
             }
             .sheet(isPresented: $register){
                 Register()
+            }
+            .sheet(isPresented: $forgotPassword) {
+                RecoveryPassword()
+                    .presentationDetents([.medium])
+                    .presentationCornerRadius(35)
             }
         }
     }

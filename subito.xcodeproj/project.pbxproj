@@ -30,6 +30,7 @@
 		4B3520AD2D2C5A4300978D74 /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3520AC2D2C5A3C00978D74 /* Profiles.swift */; };
 		4B4521822D26F0A700B495DC /* TemporalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521812D26F0A100B495DC /* TemporalDirection.swift */; };
 		4B4521842D2833D200B495DC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4521832D2833D200B495DC /* SearchView.swift */; };
+		4B482B142D65165B00869C05 /* RecoveryPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B482B132D65165500869C05 /* RecoveryPassword.swift */; };
 		4B4F91A12CF4C6BF00E8CD11 /* DeliveryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */; };
 		4B4F91E32CF4CA5200E8CD11 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */; };
 		4B4F91E42CF4CA5200E8CD11 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */; };
@@ -159,6 +160,7 @@
 		4B3520AC2D2C5A3C00978D74 /* Profiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		4B4521812D26F0A100B495DC /* TemporalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporalDirection.swift; sourceTree = "<group>"; };
 		4B4521832D2833D200B495DC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		4B482B132D65165500869C05 /* RecoveryPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPassword.swift; sourceTree = "<group>"; };
 		4B4F91A02CF4C6BC00E8CD11 /* DeliveryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryState.swift; sourceTree = "<group>"; };
 		4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -447,6 +449,7 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B482B132D65165500869C05 /* RecoveryPassword.swift */,
 				4B0E46472D5D055300E5BDAB /* AddCard.swift */,
 				4BDCD8162D5BC6E10068A550 /* SearchItems.swift */,
 				4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */,
@@ -733,6 +736,7 @@
 				4BB1BBA32C8F682800EB8EA0 /* Router.swift in Sources */,
 				4BB1BB782C8F65C000EB8EA0 /* subitoApp.swift in Sources */,
 				4BB1BBB42C8F6EF400EB8EA0 /* CategoryView.swift in Sources */,
+				4B482B142D65165B00869C05 /* RecoveryPassword.swift in Sources */,
 				4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */,
 				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
 				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,

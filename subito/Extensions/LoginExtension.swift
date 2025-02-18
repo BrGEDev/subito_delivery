@@ -32,7 +32,7 @@ extension Register{
             if res.status == "success" {
                 alert = true
                 title = "¡Listo!"
-                errorMessage = "Se completó el registro, puedes iniciar sesión."
+                errorMessage = "Se completó el registro, ingresa a tu correo y sigue las instrucciones para verificar tu cuenta."
             } else {
                 alert = true
                 title = "Error"

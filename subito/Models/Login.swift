@@ -64,3 +64,8 @@ struct ErrorsData: Decodable {
     let ua_email: [String]?
     let password: [String]?
 }
+
+struct RecoverResponse: Decodable {
+    let status: String
+    let message: String
+}

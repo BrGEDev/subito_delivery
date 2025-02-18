@@ -10,7 +10,7 @@ import SwiftUI
 func timeFromString(string: String) throws -> Date? {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "es_MX")
-    formatter.dateFormat = "d/M/yyyy HH:mm:ss.S"
+    formatter.dateFormat = "d/M/yyyy HH:mm:ss"
     let date = "\(Date.now.formatted(date: .numeric, time: .omitted)) \(string)"
     return formatter.date(from: date)
 }
