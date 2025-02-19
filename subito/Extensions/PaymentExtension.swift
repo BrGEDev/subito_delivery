@@ -170,7 +170,7 @@ extension PaymentMethod {
                                 expiry:
                                     "\(card.expiration_month)/\(card.expiration_year)",
                                 brand: card.payment_method.secure_thumbnail,
-                                name: card.cardholder.name,
+                                name: card.cardholder.name ?? "",
                                 token: nil)
                             
                             contextModel.insert(newCard)
