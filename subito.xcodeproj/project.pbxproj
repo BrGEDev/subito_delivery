@@ -1005,7 +1005,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1055,7 +1054,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
