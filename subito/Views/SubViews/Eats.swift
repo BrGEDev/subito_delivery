@@ -72,7 +72,7 @@ struct Eats: View {
                                     .focused($searchfocusable)
                                     .onReceive(searchModel.$searchText) { (text) in
                                         withAnimation {
-                                            if text == "" {
+                                            if text.isEmpty {
                                                 searchExpand = false
                                             } else {
                                                 searchExpand = true
