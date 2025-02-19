@@ -59,18 +59,18 @@ struct Account: View {
                     }
                 }
                 
-                Section(header: Text("Configuración")){
-                    
-                    NavigationLink(destination: EmptyView()){
-                        Label("Apariencia", systemImage: "circle.lefthalf.striped.horizontal.inverse")
-                    }
-                    
-                    NavigationLink(destination: EmptyView()){
-                        Label("Notificaciones", systemImage: "bell.badge.fill")
-                    }
-        
-                }
-                .listRowSeparator(.hidden)
+//                Section(header: Text("Configuración")){
+//                    
+//                    NavigationLink(destination: EmptyView()){
+//                        Label("Apariencia", systemImage: "circle.lefthalf.striped.horizontal.inverse")
+//                    }
+//                    
+//                    NavigationLink(destination: EmptyView()){
+//                        Label("Notificaciones", systemImage: "bell.badge.fill")
+//                    }
+//        
+//                }
+//                .listRowSeparator(.hidden)
                 
                 Section(header: Text("Ayuda")){
                     NavigationLink(destination: Support()){

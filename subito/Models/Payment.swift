@@ -45,13 +45,13 @@ struct PaymentMethodResponse: Decodable {
         }
 
         struct Issuer: Decodable {
-            var id: Int
-            var name: String
+            var id: Int?
+            var name: String?
         }
 
         struct CardHolder: Decodable {
-            var name: String
-            var identification: IdentificationHolder
+            var name: String?
+            var identification: IdentificationHolder?
             
             struct IdentificationHolder: Decodable{
                 var type: String?
