@@ -108,17 +108,21 @@ extension ModalRestaurants {
             let aperturaS = try timeFromString(string: data.apertura)
             let cierreS = try timeFromString(string: data.cierre)
             
-            let intervalA = Date.now.timeIntervalSince(aperturaS!)
-            let intervalC = Date.now.timeIntervalSince(cierreS!)
-            
-            if intervalA > 0 && intervalC < 0 {
-                estado = .open
+            if aperturaS != nil && cierreS != nil {
+                let intervalA = Date.now.timeIntervalSince(aperturaS!)
+                let intervalC = Date.now.timeIntervalSince(cierreS!)
+                
+                apertura = aperturaS!.formatted(date: .omitted, time: .shortened)
+                cierre = cierreS!.formatted(date: .omitted, time: .shortened)
+                if intervalA > 0 && intervalC < 0 {
+                    estado = .open
+                } else {
+                    estado = .closed
+                }
             } else {
-                estado = .closed
+                estado = .open
             }
             
-            apertura = aperturaS!.formatted(date: .omitted, time: .shortened)
-            cierre = cierreS!.formatted(date: .omitted, time: .shortened)
         } catch {
             print("Error parsing time: \(error)")
         }

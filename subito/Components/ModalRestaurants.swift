@@ -44,7 +44,7 @@ struct HeaderModal: View {
                 .zIndex(20)
             }
             
-            AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(image)")) { image in
+            AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(image)")) { image in
                 image.resizable()
                     .scaledToFill()
                     .frame(width: Screen.width * 0.45, height: 200)
@@ -91,7 +91,7 @@ struct BodyModal: View {
             ZStack(alignment: .top){
                 ZStack(alignment: .bottom){
                     VStack{
-                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.establishment)")) { image in
+                        AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.establishment)")) { image in
                             image
                                 .resizable()
                         } placeholder: {
@@ -103,12 +103,13 @@ struct BodyModal: View {
                     }
                     .scaledToFill()
                     .frame(width: isExpand ? Screen.width : Screen.width * 0.4, height: Screen.height * 0.45)
+                    .clipped()
                     .brightness(-0.3)
                     
                     HStack{
                         VStack{
                             VStack(alignment: .center){
-                                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.image)")) { image in
+                                AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.image)")) { image in
                                     image.resizable()
                                 } placeholder: {
                                     ProgressView()
@@ -269,7 +270,7 @@ struct ModalRestaurants: View {
                                 }
                             }
                             
-                            VStack(spacing: 20){
+                            LazyVStack(spacing: 20){
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) { producto in
                                         if categorySelect == producto.pg_id {

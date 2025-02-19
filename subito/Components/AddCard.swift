@@ -236,8 +236,6 @@ struct AddCard: View {
                 "name": name
             ],
         ]
-        
-        print(mercadoPagoData)
 
         api.mercagoPago(
             url: "card_tokens", method: "POST", body: mercadoPagoData,

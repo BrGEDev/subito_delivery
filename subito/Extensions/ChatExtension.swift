@@ -98,7 +98,6 @@ extension Chat {
         let user = try! context.fetch(FetchDescriptor<UserSD>()).first!
         
         socket.socket.on("new message") { data, ack in
-            print(data)
             if id_chat != nil {
                 if id_chat == Int("\(data[3])") {
                     if data[1] as! String != "\(user.name) \(user.lastName)" {

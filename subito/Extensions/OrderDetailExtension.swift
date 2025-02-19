@@ -20,7 +20,7 @@ extension OrderDetail {
                     let id_order = "\(dataString["orderId"]!)"
                     
                     if id_order == String(orderDetails!.order!.id_order) {
-                        print(data)
+      
                         
                         repartidorCoords = CLLocationCoordinate2D(
                             latitude: CLLocationDegrees(Double("\(dataString["latitude"]!)")!),
@@ -38,7 +38,7 @@ extension OrderDetail {
         }
         
         socket.socket.on("orderCanceled") { data, ack in
-            print(data)
+
             
             if orderDetails != nil  {
                 let dataArray = data as NSArray
@@ -64,7 +64,6 @@ extension OrderDetail {
             if res.status == "success" {
                 let data = res.data!
                 
-                print(data)
                 
                 orderDetails = data
                 statusString = orderDetails?.order?.status ?? "Cargando..."

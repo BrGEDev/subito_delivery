@@ -40,7 +40,6 @@
 		4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */; };
 		4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */; };
 		4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92732CF644A100E8CD11 /* ContentExtension.swift */; };
-		4B53F01A2D230D0200109997 /* DeliveryExtension.appex in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */; };
 		4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */; };
 		4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7C52CD17C270009EA89 /* EatsExtension.swift */; };
 		4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7E62CD2F8270009EA89 /* Establishments.swift */; };
@@ -154,7 +153,6 @@
 		4B2B763E2CAC490400F046EF /* CartModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModal.swift; sourceTree = "<group>"; };
 		4B2B76432CAC6DB700F046EF /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4B2B76462CAC6F4700F046EF /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
-		4B2B76482CAC7B5D00F046EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B2B76492CACEAD700F046EF /* Eats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eats.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModal.swift; sourceTree = "<group>"; };
 		4B3520AC2D2C5A3C00978D74 /* Profiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 				4B2B712E2D0A1FA9003BF403 /* SwiftData */,
 				4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */,
 				4B55D7C42CD17C1D0009EA89 /* Extensions */,
-				4B2B76482CAC7B5D00F046EF /* Info.plist */,
 				4B2B76452CAC6F3400F046EF /* Controllers */,
 				4BB1BBAF2C8F6E7900EB8EA0 /* Views */,
 				4BB1BBAC2C8F6D4900EB8EA0 /* Components */,
@@ -639,7 +636,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B53F01A2D230D0200109997 /* DeliveryExtension.appex in Resources */,
 				4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */,
 				4BDC23FA2D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */,
 				4B4F92632CF4E4AB00E8CD11 /* Assets.xcassets in Resources */,
@@ -1022,11 +1018,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1073,11 +1068,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

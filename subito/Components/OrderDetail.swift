@@ -136,7 +136,7 @@ struct OrderDetail: View {
                         HStack{
                             VStack{
                                 if orderDetails != nil {
-                                    AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(orderDetails?.order?.picture_logo ?? "")")) { image in
+                                    AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(orderDetails?.order?.picture_logo ?? "")")) { image in
                                         image
                                             .resizable()
                                             .scaledToFill()

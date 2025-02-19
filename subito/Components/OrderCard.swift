@@ -8,7 +8,7 @@ struct OrderCard: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack{
                 VStack {
-                    AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
+                    AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
                         image
                             .resizable()
                     } placeholder: {
@@ -90,7 +90,7 @@ struct ListOrderCard: View {
             HStack{
                 ForEach(orders.prefix(upTo: orders.count >= 4 ? 4 : orders.count), id: \.id_order) { order in
                     if order.status != "Cancelado" {
-                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
+                        AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
                             
                             image
                                 .resizable()

@@ -16,7 +16,7 @@ struct EstablishmentSearchable: View {
             AsyncImageCache(
                 url: URL(
                     string:
-                        "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
+                        "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
                 )
             ) { image in
                 image.resizable()
@@ -61,7 +61,7 @@ struct EstablishmentLocated: View {
                 AsyncImageCache(
                     url: URL(
                         string:
-                            "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? data.picture_logo!)"
+                            "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? data.picture_logo!)"
                     )
                 ) { image in
                     image
@@ -81,7 +81,7 @@ struct EstablishmentLocated: View {
                 AsyncImageCache(
                     url: URL(
                         string:
-                            "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
+                            "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
                     )
                 ) { image in
                     image.resizable()
@@ -136,7 +136,7 @@ struct EstablishmentView: View {
                                                 AsyncImageCache(
                                                     url: URL(
                                                         string:
-                                                            "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")"
+                                                            "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")"
                                                     )
                                                 ) { image in
                                                     image
@@ -152,6 +152,7 @@ struct EstablishmentView: View {
                                             }
                                             .scaledToFill()
                                             .frame(height: Screen.height * 0.50)
+                                            .clipped()
                                             .brightness(-0.3)
 
                                             HStack {
@@ -160,7 +161,7 @@ struct EstablishmentView: View {
                                                         AsyncImageCache(
                                                             url: URL(
                                                                 string:
-                                                                    "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
+                                                                    "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
                                                             )
                                                         ) { image in
                                                             image
@@ -302,7 +303,7 @@ struct EstablishmentView: View {
                                 }
                             }
 
-                            VStack(spacing: 20) {
+                            LazyVStack(spacing: 20) {
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) {
                                         producto in

@@ -32,7 +32,6 @@ extension CartModal {
                 try! context.delete(model: CartSD.self)
                 try! context.save()
             } else  {
-                print(res.message)
             }
         }
     }

@@ -35,7 +35,7 @@ struct CardEstablishmentHeaderModal: View {
             }
             
             VStack{
-                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
+                AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
                     image
                         .resizable()
                         .scaledToFill()
@@ -47,7 +47,7 @@ struct CardEstablishmentHeaderModal: View {
                     )
                     .blinking(duration: 0.75)
                 }
-                .frame(width: Screen.width * 0.9, alignment: .center)
+                .frame(width: Screen.width * 0.9, height: Screen.height * 0.45, alignment: .center)
             }
             .frame(width: Screen.width * 0.9, height: Screen.height * 0.45)
             .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -57,7 +57,7 @@ struct CardEstablishmentHeaderModal: View {
                 HStack {
                     VStack{
                         VStack(alignment: .leading){
-                            AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
+                            AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
                                 image.resizable()
                             } placeholder: {
                                 ProgressView()
@@ -118,7 +118,7 @@ struct BodyEstablishmentModal: View {
             ZStack(alignment: .top){
                 ZStack(alignment: .bottom){
                     VStack {
-                        AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
+                        AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")")) { image in
                             image
                                 .resizable()
                         } placeholder: {
@@ -130,12 +130,13 @@ struct BodyEstablishmentModal: View {
                     }
                     .scaledToFill()
                     .frame(height: Screen.height * 0.45)
+                    .clipped()
                     .brightness(-0.3)
                     
                     HStack{
                         VStack(alignment: .center){
                             VStack {
-                                AsyncImageCache(url: URL(string: "https://dev-da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
+                                AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")")) { image in
                                     image
                                         .resizable()
                                 } placeholder: {
@@ -406,7 +407,7 @@ struct CardEstablishment: View {
                                 }
                             }
                             
-                            VStack(spacing: 20){
+                            LazyVStack(spacing: 20){
                                 if filteredLocales.count != 0 {
                                     ForEach(filteredLocales, id: \.pd_id) { producto in
                                         if categorySelect == producto.pg_id {

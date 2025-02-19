@@ -16,7 +16,7 @@ struct SearchItems: View {
     var body: some View {
         ScrollView {
             if searchModel.results != nil {
-                VStack(alignment: .leading, spacing: 15) {
+                LazyVStack(alignment: .leading, spacing: 15) {
                     // Categorías encontradas
 
                     if searchModel.results!.type_establishments!.count > 0 {
