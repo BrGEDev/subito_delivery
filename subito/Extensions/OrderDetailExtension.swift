@@ -60,59 +60,63 @@ extension OrderDetail {
     }
     
     func detailOrder(){
-        api.fetch(url: "orders/details/\(order)", method: "GET", token: user!.token, ofType: DetailOrderResponse.self) { res in
-            if res.status == "success" {
-                let data = res.data!
-                
-                
-                orderDetails = data
-                statusString = orderDetails?.order?.status ?? "Cargando..."
-                
-                clientCoords = CLLocationCoordinate2D(
-                    latitude: CLLocationDegrees(Double(data.order!.client_latitude)!),
-                    longitude: CLLocationDegrees(Double(data.order!.client_longitude)!)
-                )
-                
-                establishmentCoords = CLLocationCoordinate2D(
-                    latitude: CLLocationDegrees(Double(data.order!.establishment_latitude)!),
-                    longitude: CLLocationDegrees(Double(data.order!.establishment_longitude)!)
-                )
-                
-                withAnimation {
-                    coords = .region(MKCoordinateRegion(center: establishmentCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-                }
+        api.fetch(url: "orders/details/\(order)", method: "GET", token: user!.token, ofType: DetailOrderResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    let data = res!.data!
+                    
+                    
+                    orderDetails = data
+                    statusString = orderDetails?.order?.status ?? "Cargando..."
+                    
+                    clientCoords = CLLocationCoordinate2D(
+                        latitude: CLLocationDegrees(Double(data.order!.client_latitude)!),
+                        longitude: CLLocationDegrees(Double(data.order!.client_longitude)!)
+                    )
+                    
+                    establishmentCoords = CLLocationCoordinate2D(
+                        latitude: CLLocationDegrees(Double(data.order!.establishment_latitude)!),
+                        longitude: CLLocationDegrees(Double(data.order!.establishment_longitude)!)
+                    )
+                    
+                    withAnimation {
+                        coords = .region(MKCoordinateRegion(center: establishmentCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                    }
 
-                do {
-                    let date = try dateFromString(string: data.order!.created_at)
-                    let time = data.order!.time_order.split(separator: ":")
-                    var cal = Calendar.current
-                    cal.locale = Locale(identifier: "es_MX")
-                    var newtime = cal.date(byAdding: .hour, value: Int(time[0])!, to: date!)!
-                    newtime = cal.date(byAdding: .minute, value: Int(time[1])!, to: newtime)!
-                    fetchRoute(client: clientCoords!, establishment: establishmentCoords!, editDate: newtime)
-                } catch {
-                    print("Error parsing date")
-                }
-                listenLocation()
-                
-                if data.order!.id_delivery != nil {
-                    fetchDelivery(data.order!.id_delivery!)
+                    do {
+                        let date = try dateFromString(string: data.order!.created_at)
+                        let time = data.order!.time_order.split(separator: ":")
+                        var cal = Calendar.current
+                        cal.locale = Locale(identifier: "es_MX")
+                        var newtime = cal.date(byAdding: .hour, value: Int(time[0])!, to: date!)!
+                        newtime = cal.date(byAdding: .minute, value: Int(time[1])!, to: newtime)!
+                        fetchRoute(client: clientCoords!, establishment: establishmentCoords!, editDate: newtime)
+                    } catch {
+                        print("Error parsing date")
+                    }
+                    listenLocation()
+                    
+                    if data.order!.id_delivery != nil {
+                        fetchDelivery(data.order!.id_delivery!)
+                    }
                 }
             }
         }
     }
     
     private func fetchDelivery(_ id: String) {
-        api.fetch(url: "location/delivery/\(id)", method: "GET", ofType: LocationResponse.self) { res in
-            if res.status == "success" {
-                repartidorCoords = CLLocationCoordinate2D(
-                    latitude: CLLocationDegrees(Double(res.data!.latitude)!),
-                    longitude: CLLocationDegrees(Double(res.data!.longitude)!)
-                )
-                
-                if orderDetails!.order!.id_status != "22" {
-                    withAnimation {
-                        coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        api.fetch(url: "location/delivery/\(id)", method: "GET", ofType: LocationResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    repartidorCoords = CLLocationCoordinate2D(
+                        latitude: CLLocationDegrees(Double(res!.data!.latitude)!),
+                        longitude: CLLocationDegrees(Double(res!.data!.longitude)!)
+                    )
+                    
+                    if orderDetails!.order!.id_status != "22" {
+                        withAnimation {
+                            coords = .region(MKCoordinateRegion(center: repartidorCoords!, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+                        }
                     }
                 }
             }

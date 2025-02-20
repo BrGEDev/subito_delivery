@@ -335,13 +335,15 @@ struct OptionDirection: View {
                 api.fetch(
                     url: "address/add", method: "POST", body: data, token: token! ,
                     ofType: SaveDirectionsResponse.self
-                ) { response in
-                    if response.status == "success" {
-                        reload = direction!.full_address
-                        modal = false
-                        presentationMode.wrappedValue.dismiss()
-                    } else {
-                        alert = true
+                ) { response, status in
+                    if status {
+                        if response!.status == "success" {
+                            reload = direction!.full_address
+                            modal = false
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
+                            alert = true
+                        }
                     }
                 }
                 
@@ -359,30 +361,34 @@ struct OptionDirection: View {
                     api.fetch(
                         url: "address/add", method: "POST", body: data, token: token! ,
                         ofType: SaveDirectionsResponse.self
-                    ) { response in
-                        if response.status == "success" {
-                            reload = direction!.full_address
-                            modal = false
-                        
-                            context.delete(address)
-                            try! context.save()
-                                
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            alert = true
+                    ) { response, status in
+                        if status {
+                            if response!.status == "success" {
+                                reload = direction!.full_address
+                                modal = false
+                            
+                                context.delete(address)
+                                try! context.save()
+                                    
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                alert = true
+                            }
                         }
                     }
                 } else {
-                    api.fetch(url: "address/update", method: "POST", body: data, token: token!, ofType: SaveDirectionsResponse.self){ res in
-                        if res.status == "success" {
-                            address.name = name_direction
-                            address.reference = references
-                            address.latitude = String(direction!.latitude)
-                            modal = false
-                            address.longitude = String(direction!.longitude)
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            alert = true
+                    api.fetch(url: "address/update", method: "POST", body: data, token: token!, ofType: SaveDirectionsResponse.self){ res, status in
+                        if status{
+                            if res!.status == "success" {
+                                address.name = name_direction
+                                address.reference = references
+                                address.latitude = String(direction!.latitude)
+                                modal = false
+                                address.longitude = String(direction!.longitude)
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                alert = true
+                            }
                         }
                     }
                 }

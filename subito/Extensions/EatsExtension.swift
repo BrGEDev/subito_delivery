@@ -68,14 +68,16 @@ extension Eats {
         api.fetch(
             url: "type_establishments", method: "GET",
             ofType: TypeEstablishmentsResponse.self
-        ) { res in
+        ) { res, status in
             categories.removeAll()
-            if res.status == "success" {
-                for category in res.data! {
-                    categories.append(
-                        ModelCategories(
-                            id: category.dc_id, image: category.dc_path,
-                            texto: category.dc_name))
+            if status {
+                if res!.status == "success" {
+                    for category in res!.data! {
+                        categories.append(
+                            ModelCategories(
+                                id: category.dc_id, image: category.dc_path,
+                                texto: category.dc_name))
+                    }
                 }
             }
         }
@@ -85,25 +87,28 @@ extension Eats {
         api.fetch(
             url: "mostPopularEstablishments", method: "GET",
             ofType: PopularEstablishmentsResponse.self
-        ) { res in
+        ) { res, status in
             items.removeAll()
-            if res.status == "success" {
                 
-                for establishment in res.data! {
+            if status {
+                if res!.status == "success" {
+                    
+                    for establishment in res!.data! {
 
-                    items.append(
-                        Item(
-                            id_restaurant: establishment.id_restaurant,
-                            title: establishment.name_restaurant,
-                            image: establishment.picture_logo ?? "",
-                            establishment: establishment.picture_establishment
-                                ?? "", address: establishment.address,
-                            latitude: establishment.latitude,
-                            longitude: establishment.longitude,
-                            apertura: establishment.apertura,
-                            cierre: establishment.cierre
+                        items.append(
+                            Item(
+                                id_restaurant: establishment.id_restaurant,
+                                title: establishment.name_restaurant,
+                                image: establishment.picture_logo ?? "",
+                                establishment: establishment.picture_establishment
+                                    ?? "", address: establishment.address,
+                                latitude: establishment.latitude,
+                                longitude: establishment.longitude,
+                                apertura: establishment.apertura,
+                                cierre: establishment.cierre
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
@@ -116,10 +121,12 @@ extension Eats {
         ]
         
         locatedEstablishment = []
-        api.fetch(url: "establishmentForLocation", method: "POST", body: data, ofType: GetEstablishmentsResponse.self) { res in
-            if res.status == "success" {
-                withAnimation {
-                    locatedEstablishment = res.data!
+        api.fetch(url: "establishmentForLocation", method: "POST", body: data, ofType: GetEstablishmentsResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    withAnimation {
+                        locatedEstablishment = res!.data!
+                    }
                 }
             }
         }
@@ -129,10 +136,12 @@ extension Eats {
         api.fetch(
             url: "orders_in_progress/\(user!.id)", method: "GET",
             token: user!.token, ofType: OrdersResponse.self
-        ) { res in
-            if res.status == "success" {
-                withAnimation {
-                    orders = res.data!
+        ) { res, status in
+            if status {
+                if res!.status == "success" {
+                    withAnimation {
+                        orders = res!.data!
+                    }
                 }
             }
         }

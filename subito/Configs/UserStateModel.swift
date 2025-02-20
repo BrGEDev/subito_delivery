@@ -71,39 +71,40 @@ class UserStateModel: ObservableObject {
 
         login.fetch(
             url: "login", method: "POST", body: data, ofType: Login.self
-        ) { res in
-
-            if res.status == "error" {
-                self.loggedIn = false
-                self.isBusy = false
-                self.alert = true
-                self.message = "Usuario y/o contraseña incorrectos."
-
-                response = false
-            } else {
-                let us = res.data?.user
-
-                do {
-                    self.context.insert(
-                        UserSD(
-                            id: us!.ua_id, name: us!.ua_name,
-                            lastName: us!.ua_lastname, email: us!.ua_email,
-                            phone: us!.ua_phone ?? "",
-                            birthday: us!.ua_birthday ?? "",
-                            token: res.data!.token
-                        )
-                    )
-
-                    self.loadCart(token: res.data!.token)
-
-                    try self.context.save()
-
-                    self.loggedIn = true
+        ) { res, status in
+            if status {
+                if res!.status == "error" {
+                    self.loggedIn = false
                     self.isBusy = false
+                    self.alert = true
+                    self.message = "Usuario y/o contraseña incorrectos."
 
-                    response = true
-                } catch {
-                    print("Error saving context: \(error)")
+                    response = false
+                } else {
+                    let us = res!.data?.user
+
+                    do {
+                        self.context.insert(
+                            UserSD(
+                                id: us!.ua_id, name: us!.ua_name,
+                                lastName: us!.ua_lastname, email: us!.ua_email,
+                                phone: us!.ua_phone ?? "",
+                                birthday: us!.ua_birthday ?? "",
+                                token: res!.data!.token
+                            )
+                        )
+
+                        self.loadCart(token: res!.data!.token)
+
+                        try self.context.save()
+
+                        self.loggedIn = true
+                        self.isBusy = false
+
+                        response = true
+                    } catch {
+                        print("Error saving context: \(error)")
+                    }
                 }
             }
         }
@@ -125,22 +126,27 @@ class UserStateModel: ObservableObject {
         login.fetch(
             url: "logout", method: "POST", token: userQuery,
             ofType: LogoutResponse.self
-        ) { res in
-            if res.status == "success" {
+        ) { res, status in
+            if status {
+                if res!.status == "success" {
 
-                for model in self.models {
-                    do {
-                        try self.context.delete(model: model)
-                    } catch {
-                        print("Error deleting \(model)", error)
+                    for model in self.models {
+                        do {
+                            try self.context.delete(model: model)
+                        } catch {
+                            print("Error deleting \(model)", error)
+                        }
                     }
+
+                    self.loggedIn = false
+                    self.isBusy = false
+
+                    response = true
+                } else {
+                    response = false
                 }
-
-                self.loggedIn = false
-                self.isBusy = false
-
-                response = true
             } else {
+                self.isBusy = false
                 response = false
             }
         }
@@ -153,32 +159,34 @@ class UserStateModel: ObservableObject {
     }
 
     private func loadCart(token: String) {
-        login.fetch(url: "shopping/get", method: "GET", token: token, ofType: ShoppingResponse.self) { res in
-            if res.status == "success" {
-                try! self.context.delete(model: CartSD.self)
-                let data = res.data
+        login.fetch(url: "shopping/get", method: "GET", token: token, ofType: ShoppingResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    try! self.context.delete(model: CartSD.self)
+                    let data = res!.data
 
-                if data != nil {
-                    let cart = CartSD(
-                        id: Int(data!.establishment_id)!,
-                        establishment: data!.order.products[0].name_restaurant,
-                        latitude: data!.establishment_latitude,
-                        longitude: data!.establishment_longitude
-                    )
-
-                    for product in data!.order.products {
-                        let producto = ProductsSD(
-                            id: Int(product.pd_id)!, product: product.pd_name,
-                            image: product.pd_image, descript: "",
-                            unit_price: Float(product.pd_unit_price)!,
-                            amount: Int(product.pd_quantity)!
+                    if data != nil {
+                        let cart = CartSD(
+                            id: Int(data!.establishment_id)!,
+                            establishment: data!.order.products[0].name_restaurant,
+                            latitude: data!.establishment_latitude,
+                            longitude: data!.establishment_longitude
                         )
 
-                        cart.products.append(producto)
-                    }
+                        for product in data!.order.products {
+                            let producto = ProductsSD(
+                                id: Int(product.pd_id)!, product: product.pd_name,
+                                image: product.pd_image, descript: "",
+                                unit_price: Float(product.pd_unit_price)!,
+                                amount: Int(product.pd_quantity)!
+                            )
 
-                    self.context.insert(cart)
-                    try! self.context.save()
+                            cart.products.append(producto)
+                        }
+
+                        self.context.insert(cart)
+                        try! self.context.save()
+                    }
                 }
             }
         }

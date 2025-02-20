@@ -90,27 +90,29 @@ extension PaymentModal {
         let user = FetchDescriptor<UserSD>()
         let userQuery = try! self.context.fetch(user).first!.token
 
-        api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res in
-         
-            if res.status == "success" {
-                progress = false
-                isPresented.toggle()
-                socket.socket.emit("orderDelivery", ["orderId": res.data!.orderId, "establishmentId": res.data!.establishmentId])
+        api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    progress = false
+                    isPresented.toggle()
+                    socket.socket.emit("orderDelivery", ["orderId": res!.data!.orderId, "establishmentId": res!.data!.establishmentId])
 
-                let order = TrackingSD(id: UUID(), order: res.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime!)
-                
-                paymentsSelected?.token = nil
-                context.insert(order)
-                try! context.delete(model: CartSD.self)
-                try! context.save()
-                
-                pending = true
-            } else {
-                progress = false
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    error = true
-                })
+                    let order = TrackingSD(id: UUID(), order: res!.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime!)
+                    
+                    paymentsSelected?.token = nil
+                    context.insert(order)
+                    try! context.delete(model: CartSD.self)
+                    try! context.save()
+                    
+                    pending = true
+                    dismiss()
+                } else {
+                    progress = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        error = true
+                    })
+                }
             }
         }
     }
@@ -152,32 +154,34 @@ extension PaymentMethod {
         api.fetch(
             url: "payment-methods", method: "POST", token: user!.token,
             ofType: PaymentMethodResponse.self
-        ) { res in
-            if res.status == "success" {
-                if res.data!.count != 0 {
-                    for card in res.data! {
-                        let query = cards.first(where: { $0.id == card.id })
-                        
-                        if query == nil {
-                            let newCard = CardSD(
-                                id: card.id, last_four: card.last_four_digits,
-                                card_type: card.payment_method.name == "master"
-                                || card.payment_method.name == "debmaster"
-                                ? "MasterCard"
-                                : (card.payment_method.name == "visa"
-                                   || card.payment_method.name == "debvisa"
-                                   ? "Visa" : "American Express"),
-                                expiry:
-                                    "\(card.expiration_month)/\(card.expiration_year)",
-                                brand: card.payment_method.secure_thumbnail,
-                                name: card.cardholder.name ?? "",
-                                token: nil)
+        ) { res, status in
+            if status {
+                if res!.status == "success" {
+                    if res!.data!.count != 0 {
+                        for card in res!.data! {
+                            let query = cards.first(where: { $0.id == card.id })
                             
-                            contextModel.insert(newCard)
+                            if query == nil {
+                                let newCard = CardSD(
+                                    id: card.id, last_four: card.last_four_digits,
+                                    card_type: card.payment_method.name == "master"
+                                    || card.payment_method.name == "debmaster"
+                                    ? "MasterCard"
+                                    : (card.payment_method.name == "visa"
+                                       || card.payment_method.name == "debvisa"
+                                       ? "Visa" : "American Express"),
+                                    expiry:
+                                        "\(card.expiration_month)/\(card.expiration_year)",
+                                    brand: card.payment_method.secure_thumbnail,
+                                    name: card.cardholder.name ?? "",
+                                    token: nil)
+                                
+                                contextModel.insert(newCard)
+                            }
                         }
+                        
+                        try! contextModel.save()
                     }
-                    
-                    try! contextModel.save()
                 }
             }
         }
@@ -187,7 +191,7 @@ extension PaymentMethod {
         for index in offsets {
             let card = cards[index]
             
-            api.fetch(url: "payment-methods/delete", method: "POST", body: ["payment_method_id": card.id], token: user!.token, ofType: PaymentsResponse.self) { res in }
+            api.fetch(url: "payment-methods/delete", method: "POST", body: ["payment_method_id": card.id], token: user!.token, ofType: PaymentsResponse.self) { res, status in }
             
                 contextModel.delete(card)
                 try! contextModel.save()

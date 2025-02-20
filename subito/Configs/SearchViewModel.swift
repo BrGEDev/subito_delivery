@@ -20,11 +20,13 @@ final class SearchViewModel: ObservableObject {
                     "search" : $0
                 ]
                 
-                self.api.fetch(url: "search", method: "POST", body: data, ofType: SearchResponse.self) { res in
+                self.api.fetch(url: "search", method: "POST", body: data, ofType: SearchResponse.self) { res, status in
                     self.results = nil
                     
-                    if res.status == "success" {
-                        self.results = res.data!
+                    if status {
+                        if res!.status == "success" {
+                            self.results = res!.data!
+                        }
                     }
                 }
             }

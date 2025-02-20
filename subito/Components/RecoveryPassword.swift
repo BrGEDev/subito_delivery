@@ -75,11 +75,17 @@ struct RecoveryPassword: View {
             api.fetch(
                 url: "recover_password", method: "POST",
                 body: ["email": correo], ofType: RecoverResponse.self
-            ) { res in
-                if res.status == "success" {
-                    alert = true
-                    title = "¡Listo!"
-                    message = "Revisa tu correo electrónico y sigue las instrucciones para continuar."
+            ) { res, status in
+                if status {
+                    if res!.status == "success" {
+                        alert = true
+                        title = "¡Listo!"
+                        message = "Revisa tu correo electrónico y sigue las instrucciones para continuar."
+                    } else {
+                        alert = true
+                        title = "Error"
+                        message = "Esta cuenta no existe, verifica tu correo electrónico e intenta nuevamente."
+                    }
                 } else {
                     alert = true
                     title = "Error"

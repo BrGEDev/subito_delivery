@@ -17,17 +17,21 @@ func timeFromString(string: String) throws -> Date? {
 
 extension CardEstablishment {
     public func loadProductos() {
-        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res in
-            if res.status == "success" {
-                productos = res.data!
+        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productos = res!.data!
+                }
             }
         }
     }
     
     public func loadCategories() {
-        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res in
-            if res.status == "success" {
-                productosC = res.data!
+        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productosC = res!.data!
+                }
             }
         }
     }
@@ -72,17 +76,21 @@ extension CardEstablishment {
 
 extension ModalRestaurants {
     public func loadProductos() {
-        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res in
-            if res.status == "success" {
-                productos = res.data!
+        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productos = res!.data!
+                }
             }
         }
     }
     
     public func loadCategories() {
-        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res in
-            if res.status == "success" {
-                productosC = res.data!
+        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productosC = res!.data!
+                }
             }
         }
     }
@@ -143,17 +151,21 @@ extension EstablishmentView {
     }
     
     public func loadProductos() {
-        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res in
-            if res.status == "success" {
-                productos = res.data!
+        api.fetch(url: "products/\(data.id_restaurant)", method: "GET", ofType: ProductsResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productos = res!.data!
+                }
             }
         }
     }
     
     public func loadCategories() {
-        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res in
-            if res.status == "success" {
-                productosC = res.data!
+        api.fetch(url: "products/categories/\(data.id_restaurant)", method: "GET", ofType: ProductCategoryResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    productosC = res!.data!
+                }
             }
         }
     }

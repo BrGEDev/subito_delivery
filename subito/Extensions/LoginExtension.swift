@@ -28,15 +28,21 @@ extension Register{
             "password" : password,
         ]
         
-        api.fetch(url: "register", method: "POST", body: data, ofType: RegisterResponse.self){ res in
-            if res.status == "success" {
-                alert = true
-                title = "¡Listo!"
-                errorMessage = "Se completó el registro, ingresa a tu correo y sigue las instrucciones para verificar tu cuenta."
+        api.fetch(url: "register", method: "POST", body: data, ofType: RegisterResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    alert = true
+                    title = "¡Listo!"
+                    errorMessage = "Se completó el registro, ingresa a tu correo y sigue las instrucciones para verificar tu cuenta."
+                } else {
+                    alert = true
+                    title = "Error"
+                    errorMessage = res!.errors?.ua_email ?? "Ya tiene una cuenta registrada con ese correo, inicie sesión o ingresa otro correo"
+                }
             } else {
                 alert = true
                 title = "Error"
-                errorMessage = res.errors?.ua_email![0] ?? "No se pudo completar el registro"
+                errorMessage = res!.errors?.ua_email ?? "Ocurrió un error de conexión, intente más tarde."
             }
         }
     }

@@ -246,14 +246,24 @@ struct AddCard: View {
                     let token = [
                         "token": res!.id
                     ]
+                    
+                    print(res!.id, user.token)
 
                     api.fetch(
                         url: "savePayment", method: "POST", body: token,
                         token: user.token, ofType: PaymentsResponse.self
-                    ) { res in
-                        if res.status == "success" {
+                    ) { res, status in
+                        
+                        if(status) {
+                            
+                            if res!.status == "success" {
+                                progress = false
+                                dismiss()
+                            }
+                            
+                        } else {
                             progress = false
-                            dismiss()
+                            alert = true
                         }
                     }
                 } else {

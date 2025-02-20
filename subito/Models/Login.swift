@@ -58,11 +58,11 @@ struct UserData: Decodable {
 }
 
 struct ErrorsData: Decodable {
-    let name: [String]?
-    let lastname: [String]?
-    let birthday: [String]?
-    let ua_email: [String]?
-    let password: [String]?
+    let name: String?
+    let lastname: String?
+    let birthday: String?
+    let ua_email: String?
+    let password: String?
 }
 
 struct RecoverResponse: Decodable {

@@ -59,11 +59,12 @@ struct productoPayment: View {
 }
 
 struct PaymentModal: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
     @StateObject var socket = SocketService.socketClient
-    
+
     @Binding var isPresented: Bool
     @Binding var pending: Bool
 
@@ -94,40 +95,46 @@ struct PaymentModal: View {
     @State var error: Bool = false
     @State var cvvCode: Bool = false
     @State var progress: Bool = false
-    
+
     @State private var rotation: Double = 0
     @State private var scale: CGFloat = 1.0
+    @State var directionModal: Bool = false
 
     var body: some View {
-        VStack {
+        NavigationView{
             List {
                 Section(header: Text("Dirección de envío")) {
-                    NavigationLink(
-                        destination:
-                            DirectionsModal()
-                    ) {
+                    Button(action: {
+                        directionModal = true
+                    }) {
                         Label(
                             directionSelected?.full_address
-                                ?? "Selecciona una dirección",
-                            systemImage: "mappin.circle.fill")
+                            ?? "Selecciona una dirección",
+                            systemImage: "mappin.circle.fill"
+                        )
+                        .foregroundStyle(colorScheme == .dark ? .white : .black)
                     }
                 }
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowBackground(Color.white.opacity(0))
-
+                
                 Section(header: Text("Método de pago")) {
                     NavigationLink(
                         destination:
                             PaymentMethod()
                     ) {
-                        Label(paymentsSelected == nil ? "Selecciona un método de pago" : "\(paymentsSelected!.card_type) \(paymentsSelected!.last_four)", systemImage: "creditcard.fill")
+                        Label(
+                            paymentsSelected == nil
+                            ? "Selecciona un método de pago"
+                            : "\(paymentsSelected!.card_type) \(paymentsSelected!.last_four)",
+                            systemImage: "creditcard.fill")
                     }
                 }
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowBackground(Color.white.opacity(0))
-
+                
                 Section(
                     header: Text("¿Deseas agregar propina?"),
                     footer: Text(
@@ -148,7 +155,7 @@ struct PaymentModal: View {
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowBackground(Color.white.opacity(0))
-
+                
                 ForEach(establishments) { est in
                     VStack {
                         HStack {
@@ -156,11 +163,11 @@ struct PaymentModal: View {
                                 .font(.title3)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-
+                            
                             Spacer()
                         }
                         .padding()
-
+                        
                         ForEach(est.products) { prod in
                             productoPayment(
                                 product: prod, establishment: est.id)
@@ -174,34 +181,37 @@ struct PaymentModal: View {
                     .listRowSeparator(.hidden)
                     .listSectionSeparator(.hidden)
                 }
-
+                
                 Section {
                     HStack {
                         Text("Total de productos")
-
+                        
                         Spacer()
-
+                        
                         Text(subtotal, format: .currency(code: "MXN"))
                     }
-
+                    
                     HStack {
-                        VStack(alignment: .leading){
+                        VStack(alignment: .leading) {
                             Text("Costo de envío")
-                            Text(Measurement(value: km, unit: UnitLength.kilometers), format: .measurement(width: .abbreviated))
-                                .font(.footnote)
+                            Text(
+                                Measurement(value: km, unit: UnitLength.kilometers),
+                                format: .measurement(width: .abbreviated)
+                            )
+                            .font(.footnote)
                         }
-
+                        
                         Spacer()
-
+                        
                         Text(envio, format: .currency(code: "MXN"))
                     }
-
+                    
                     if prepropina > 0 {
                         HStack {
                             Text("Propina")
-
+                            
                             Spacer()
-
+                            
                             Text(prepropina, format: .currency(code: "MXN"))
                         }
                     }
@@ -224,148 +234,165 @@ struct PaymentModal: View {
             }
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)
-
-            VStack {
-                HStack {
-                    Text("Total:")
-                        .font(.largeTitle)
-                        .bold()
-
-                    Spacer()
-
-                    Text(payment, format: .currency(code: "MXN"))
-                        .font(.largeTitle)
-                        .bold()
-                }
-                Button(action: {
-                    buyCart()
-                }) {
-                    Text("Continuar y pagar")
-                        .padding()
-                        .font(.system(size: 18))
-                        .bold()
-                }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.black)
-                .frame(height: 50)
-                .background(paymentsSelected == nil || directionSelected == nil ? Color.accentColor.opacity(0.8) : Color.accentColor)
-                .cornerRadius(20)
-                .shadow(color: .black.opacity(0.2), radius: 10)
-                .disabled(paymentsSelected == nil || directionSelected == nil ? true : false)
-            }
-            .padding()
-        }
-        .sheet(isPresented: $modalPropina) {
-            NavigationView {
+            .navigationBarTitle("Enviar pedido")
+            .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom) {
                 VStack {
-                    TextField("Propina", value: $propina, format: .number)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(
-                            colorScheme == .dark
+                    HStack {
+                        Text("Total:")
+                            .font(.largeTitle)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Text(payment, format: .currency(code: "MXN"))
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    Button(action: {
+                        buyCart()
+                    }) {
+                        Text("Continuar y pagar")
+                            .padding()
+                            .font(.system(size: 18))
+                            .bold()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.black)
+                    .frame(height: 50)
+                    .background(
+                        paymentsSelected == nil || directionSelected == nil
+                        ? Color.accentColor.opacity(0.8) : Color.accentColor
+                    )
+                    .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.2), radius: 10)
+                    .disabled(
+                        paymentsSelected == nil || directionSelected == nil
+                        ? true : false)
+                }
+                .padding()
+                .background(colorScheme == .dark ? Color.black : Color.white)
+            }
+            .sheet(isPresented: $modalPropina) {
+                NavigationView {
+                    VStack {
+                        TextField("Propina", value: $propina, format: .number)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(
+                                colorScheme == .dark
                                 ? Color.white.opacity(0.1).cornerRadius(20)
                                 : Color.black.opacity(0.06).cornerRadius(20)
-                        )
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(propina)) { value in
-                            propina = value > 40 ? 40 : value
+                            )
+                            .keyboardType(.numberPad)
+                            .onReceive(Just(propina)) { value in
+                                propina = value > 40 ? 40 : value
+                            }
+                        
+                        Button(action: {
+                            if propina <= 0 {
+                                alert = true
+                            } else {
+                                modalPropina = false
+                                calcTax()
+                            }
+                        }) {
+                            Text("Continuar")
                         }
-
-                    Button(action: {
-                        if propina <= 0 {
-                            alert = true
-                        } else {
+                        .foregroundColor(.black)
+                        .frame(width: 200, height: 50)
+                        .background(Color.accentColor)
+                        .cornerRadius(20)
+                        .padding()
+                        .alert(isPresented: $alert) {
+                            Alert(
+                                title: Text("Error"),
+                                message: Text("La propina debe ser mayor al 0%"),
+                                dismissButton: .default(Text("Aceptar")))
+                        }
+                        
+                        Button(action: {
                             modalPropina = false
+                            propina = 0
+                            segment = 0
                             calcTax()
+                        }) {
+                            Text("Sin propina")
                         }
-                    }) {
-                        Text("Continuar")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .frame(width: 200, height: 50)
+                        .background(Material.bar)
+                        .cornerRadius(20)
                     }
-                    .foregroundColor(.black)
-                    .frame(width: 200, height: 50)
-                    .background(Color.accentColor)
-                    .cornerRadius(20)
-                    .padding()
-                    .alert(isPresented: $alert) {
-                        Alert(
-                            title: Text("Error"),
-                            message: Text("La propina debe ser mayor al 0%"),
-                            dismissButton: .default(Text("Aceptar")))
-                    }
-
-                    Button(action: {
-                        modalPropina = false
-                        propina = 0
-                        segment = 0
-                        calcTax()
-                    }) {
-                        Text("Sin propina")
-                    }
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .frame(width: 200, height: 50)
-                    .background(Material.bar)
-                    .cornerRadius(20)
+                    .navigationTitle("Propina")
+                    .navigationBarTitleDisplayMode(.inline)
                 }
-                .navigationTitle("Propina")
-                .navigationBarTitleDisplayMode(.inline)
+                .presentationDetents([.height(280)])
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+                .presentationCornerRadius(35)
             }
-            .presentationDetents([.height(280)])
-            .presentationBackgroundInteraction(.disabled)
-            .interactiveDismissDisabled(true)
-            .presentationCornerRadius(35)
-        }
-        .sheet(isPresented: $cvvCode){
-            CVVCode(title: "Ingrese su CVV antes de continuar", alert: $alert, selectCard: paymentsSelected)
-            .presentationDetents([.height(280)])
-            .presentationBackgroundInteraction(.disabled)
-            .interactiveDismissDisabled(true)
-            .presentationCornerRadius(35)
-        }
-        .navigationBarTitle("Enviar pedido")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            calcDistance()
-            loadPayment()
-            loadTaxes()
-        }
-        .onChange(of: segment) {
-            loadTaxes()
-        }
-        .onChange(of: directionSelected){
-            calcDistance()
-        }
-        .sheet(isPresented: $progress){
-            VStack{
-                Image(.logo)
-                    .resizable()
-                    .frame(width: 90, height: 90)
-                    .scaledToFit()
-                    .rotationEffect(.degrees(rotation))
-                    .scaleEffect(1)
-                    .onAppear {
-                        withAnimation(
-                            Animation
-                                .easeInOut(duration: 2)
-                                .repeatForever(autoreverses: false)
-                        ) {
-                            rotation += 360
+            .sheet(isPresented: $cvvCode) {
+                CVVCode(
+                    title: "Ingrese su CVV antes de continuar", alert: $alert,
+                    selectCard: paymentsSelected
+                )
+                .presentationDetents([.height(280)])
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+                .presentationCornerRadius(35)
+            }
+            .sheet(isPresented: $directionModal) {
+                DirectionsModal()
+            }
+            .onAppear {
+                calcDistance()
+                loadPayment()
+                loadTaxes()
+            }
+            .onChange(of: segment) {
+                loadTaxes()
+            }
+            .onChange(of: directionSelected) {
+                calcDistance()
+            }
+            .sheet(isPresented: $progress) {
+                VStack {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 90, height: 90)
+                        .scaledToFit()
+                        .rotationEffect(.degrees(rotation))
+                        .scaleEffect(1)
+                        .onAppear {
+                            withAnimation(
+                                Animation
+                                    .easeInOut(duration: 2)
+                                    .repeatForever(autoreverses: false)
+                            ) {
+                                rotation += 360
+                            }
                         }
-                    }
-                
-                Text("Procesando tu pago...")
-                    .multilineTextAlignment(.center)
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
-                    .padding()
+                    
+                    Text("Procesando tu pago...")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                        .padding()
+                }
+                .presentationDetents([.height(280)])
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+                .presentationCornerRadius(35)
             }
-            .presentationDetents([.height(280)])
-            .presentationBackgroundInteraction(.disabled)
-            .interactiveDismissDisabled(true)
-            .presentationCornerRadius(35)
-        }
-        .alert(isPresented: $error){
-            Alert(title: Text("Error"), message: Text("Ha ocurrido un error procesando tu pago, por favor intenta de nuevo o contacta con tu banco emisor."), dismissButton: .default(Text("Aceptar")))
+            .alert(isPresented: $error) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(
+                        "Ha ocurrido un error procesando tu pago, por favor intenta de nuevo o contacta con tu banco emisor."
+                    ), dismissButton: .default(Text("Aceptar")))
+            }
         }
     }
 }

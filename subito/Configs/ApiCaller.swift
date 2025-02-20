@@ -37,7 +37,7 @@ final class ApiCaller: ObservableObject {
         }.resume()
     }
     
-    func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T) -> Void){
+    func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void){
         let urlfetch = URL(string: "https://qa-dev-pw.mx/api/delivery-drive/" + url)!
         var request = URLRequest(url: urlfetch)
         
@@ -56,9 +56,10 @@ final class ApiCaller: ObservableObject {
                 DispatchQueue.main.async {
                     do {
                         let model = try JSONDecoder().decode(T.self, from: data)
-                        completion(model)
+                        completion(model, true)
                     } catch{
                         print(error)
+                        completion(nil, false)
                     }
                 }
                 

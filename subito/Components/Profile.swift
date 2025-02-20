@@ -133,14 +133,18 @@ struct Profile: View {
             "phone" : phone as Any
         ]
         
-        api.fetch(url: "profile/update", method: "POST", body: data, token: user!.token, ofType: ProfileResponse.self) { res in
-            if res.status == "success" {
-                showAlert(title: "Datos guardados", message: "Se actualizaron los datos correctamente")
-                
-                user!.lastName = lastName
-                user!.name = name
-                user!.email = email
-                user!.birthday = birthday
+        api.fetch(url: "profile/update", method: "POST", body: data, token: user!.token, ofType: ProfileResponse.self) { res, status in
+            if status {
+                if res!.status == "success" {
+                    showAlert(title: "Datos guardados", message: "Se actualizaron los datos correctamente")
+                    
+                    user!.lastName = lastName
+                    user!.name = name
+                    user!.email = email
+                    user!.birthday = birthday
+                } else {
+                    showAlert(title: "Error", message: "No se pudo actualizar los datos, intente más tarde.")
+                }
             } else {
                 showAlert(title: "Error", message: "No se pudo actualizar los datos, intente más tarde.")
             }

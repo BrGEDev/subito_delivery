@@ -10,9 +10,9 @@ import SwiftUI
 extension CategoryView {
     func loadEstablishments(){
         load = true
-        api.fetch(url: "establishments/\(id_category)", method: "GET", ofType: GetEstablishmentsResponse.self){ res in
+        api.fetch(url: "establishments/\(id_category)", method: "GET", ofType: GetEstablishmentsResponse.self){ res, status in
             load = false
-            establishments = res.data ?? []
+            establishments = res!.data ?? []
         }
     }
     

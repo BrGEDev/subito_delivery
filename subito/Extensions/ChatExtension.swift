@@ -39,22 +39,24 @@ extension Chat {
             api.fetch(
                 url: "new_chat", method: "POST", body: data, token: user.token,
                 ofType: ChatResponse.self
-            ) { res in
-                if res.status == true {
-                    let calendar = Date()
-                    let date = calendar.formatted(date: .omitted, time: .shortened)
-                    
-                    listenMessages()
-                    
-                    id_chat = res.id_chat
-                    messages.append(
-                        Message(
-                            content:
-                                "Bienvenido al chat de \(title.lowercased()). En breve, uno de nuestros agentes se contactará con usted. Por favor, escriba su pregunta o consulta.",
-                            time: date,
-                            isCurrentUser: false
+            ) { res, status in
+                if status {
+                    if res!.status == true {
+                        let calendar = Date()
+                        let date = calendar.formatted(date: .omitted, time: .shortened)
+                        
+                        listenMessages()
+                        
+                        id_chat = res!.id_chat
+                        messages.append(
+                            Message(
+                                content:
+                                    "Bienvenido al chat de \(title.lowercased()). En breve, uno de nuestros agentes se contactará con usted. Por favor, escriba su pregunta o consulta.",
+                                time: date,
+                                isCurrentUser: false
+                            )
                         )
-                    )
+                    }
                 }
             }
 
@@ -62,17 +64,20 @@ extension Chat {
                 
             id_chat = id
             
-                api.fetch(url: "client_chat/get/\(id)", method: "GET", token: user.token, ofType: MessagesResponse.self) { res in
+            api.fetch(url: "client_chat/get/\(id)", method: "GET", token: user.token, ofType: MessagesResponse.self) { res, status in
                 listenMessages()
-                if res.data != nil {
-                    res.data!.forEach { message in
-                        messages.append(
-                            Message(
-                                content: message.mc_message,
-                                time: message.mc_time_at,
-                                isCurrentUser: message.mc_user == "\(user.name) \(user.lastName)"
+                
+                if status {
+                    if res!.data != nil {
+                        res!.data!.forEach { message in
+                            messages.append(
+                                Message(
+                                    content: message.mc_message,
+                                    time: message.mc_time_at,
+                                    isCurrentUser: message.mc_user == "\(user.name) \(user.lastName)"
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -122,9 +127,11 @@ extension Support {
         let query = FetchDescriptor<UserSD>()
         let token = try! context.fetch(query).first!.token
         
-        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res in            
-            if res.status == "success" {
-                chats = res.data!
+        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res, status in
+            if status {
+                if res!.status == "success" {
+                    chats = res!.data!
+                }
             }
         }
     }

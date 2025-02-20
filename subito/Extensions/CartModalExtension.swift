@@ -26,12 +26,14 @@ extension CartModal {
         }
         let user = try! context.fetch(query).first!
         
-        api.fetch(url: "shopping/remove/cart", method: "POST", token: user.token, ofType: ShoppingModResponse.self) { res in
-            if res.status == "success"{
-                payment = 0
-                try! context.delete(model: CartSD.self)
-                try! context.save()
-            } else  {
+        api.fetch(url: "shopping/remove/cart", method: "POST", token: user.token, ofType: ShoppingModResponse.self) { res, status in
+            if status {
+                if res!.status == "success"{
+                    payment = 0
+                    try! context.delete(model: CartSD.self)
+                    try! context.save()
+                } else  {
+                }
             }
         }
     }
@@ -52,24 +54,26 @@ extension productoView{
             ]
         ]
         
-        api.fetch(url: "shopping/remove/product", method: "POST", body: data, token: user.token, ofType: ShoppingModResponse.self) { res in
-            if res.status == "success"{
-                context.delete(product)
-                onDelete.toggle()
-                try! context.save()
-                
-                var est: FetchDescriptor<CartSD>{
-                    let descriptor = FetchDescriptor<CartSD>(predicate: #Predicate{
-                        $0.id == establishment
-                    })
-                    return descriptor
-                }
-                
-                let query = try! context.fetch(est).first!
-                
-                if query.products.count == 0{
-                    try! context.delete(model: CartSD.self)
+        api.fetch(url: "shopping/remove/product", method: "POST", body: data, token: user.token, ofType: ShoppingModResponse.self) { res, status in
+            if status {
+                if res!.status == "success"{
+                    context.delete(product)
+                    onDelete.toggle()
                     try! context.save()
+                    
+                    var est: FetchDescriptor<CartSD>{
+                        let descriptor = FetchDescriptor<CartSD>(predicate: #Predicate{
+                            $0.id == establishment
+                        })
+                        return descriptor
+                    }
+                    
+                    let query = try! context.fetch(est).first!
+                    
+                    if query.products.count == 0{
+                        try! context.delete(model: CartSD.self)
+                        try! context.save()
+                    }
                 }
             }
         }

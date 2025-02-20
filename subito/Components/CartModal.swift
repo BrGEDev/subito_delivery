@@ -76,9 +76,11 @@ struct CartModal: View {
     @State var payment: Float = 0
     @State var onDelete: Bool = false
     
+    @State var paymentModal: Bool = false
+        
     var body: some View {
         NavigationView{
-            VStack{
+            Group{
                 if establishments.count != 0{
                     ScrollView{
                         ForEach(establishments){ est in
@@ -112,23 +114,6 @@ struct CartModal: View {
                             .padding()
                         }
                     }
-                    
-                    HStack(spacing: 15){
-                        NavigationLink(destination: PaymentModal(isPresented: $isPresented, pending: $pending)){
-                            Text("Pagar \(Text(payment, format: .currency(code: "MXN")))")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .font(.system(size: 18))
-                                .bold()
-                        }
-                        .foregroundColor(.black)
-                        .frame(height: 50)
-                        .background(.accent)
-                        .cornerRadius(20)
-                        .shadow(color: .black.opacity(0.2), radius: 10)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
                 } else {
                     VStack{
                         Image(.logo)
@@ -144,6 +129,25 @@ struct CartModal: View {
                 }
             }
             .navigationTitle("Mi carrito")
+            .safeAreaInset(edge: .bottom) {
+                if establishments.count != 0{
+                    Button(action: {
+                        paymentModal = true
+                    }) {
+                        Text("Pagar \(Text(payment, format: .currency(code: "MXN")))")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .font(.system(size: 18))
+                            .bold()
+                    }
+                    .foregroundColor(.black)
+                    .frame(height: 50)
+                    .background(.accent)
+                    .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.2), radius: 10)
+                    .padding()
+                }
+            }
             .toolbar {
                 Button(action: {
                     isPresented = false
@@ -161,6 +165,9 @@ struct CartModal: View {
             }
             .onChange(of: onDelete) { oldValue, newValue in
                 loadPayment()
+            }
+            .sheet(isPresented: $paymentModal){
+                PaymentModal(isPresented: $isPresented, pending: $pending)
             }
         }
     }

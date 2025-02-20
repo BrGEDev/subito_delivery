@@ -48,46 +48,48 @@ extension DirectionsModal {
             api.fetch(
                 url: "address/get", method: "GET", token: token!,
                 ofType: DirectionsResponse.self
-            ) { res in
-                if res.status == "success" {
-                    for address in res.data! {
-                        let direction =
-                            DirectionSD(
-                                id: address.ad_id,
-                                name: address.ad_name ?? "",
-                                full_address: address.ad_full_address,
-                                reference: address.ad_reference ?? "",
-                                latitude: address.ad_latitude,
-                                longitude: address.ad_longitude)
+            ) { res, status in
+                if status {
+                    if res!.status == "success" {
+                        for address in res!.data! {
+                            let direction =
+                                DirectionSD(
+                                    id: address.ad_id,
+                                    name: address.ad_name ?? "",
+                                    full_address: address.ad_full_address,
+                                    reference: address.ad_reference ?? "",
+                                    latitude: address.ad_latitude,
+                                    longitude: address.ad_longitude)
 
-                        if directions.count == 0 {
-                            context.insert(direction)
-                        } else {
-                            let id: Int = address.ad_id
-                            let directionToUpdate = directions.first(where: {
-                                $0.id == id
-                            })
-                            if directionToUpdate != nil {
-                                directionToUpdate!.full_address =
-                                    address.ad_full_address
-                                directionToUpdate!.latitude =
-                                    address.ad_latitude
-                                directionToUpdate!.longitude =
-                                    address.ad_longitude
-                                directionToUpdate!.name = address.ad_name ?? ""
-                                directionToUpdate!.reference = address.ad_reference ?? ""
-                            } else {
+                            if directions.count == 0 {
                                 context.insert(direction)
+                            } else {
+                                let id: Int = address.ad_id
+                                let directionToUpdate = directions.first(where: {
+                                    $0.id == id
+                                })
+                                if directionToUpdate != nil {
+                                    directionToUpdate!.full_address =
+                                        address.ad_full_address
+                                    directionToUpdate!.latitude =
+                                        address.ad_latitude
+                                    directionToUpdate!.longitude =
+                                        address.ad_longitude
+                                    directionToUpdate!.name = address.ad_name ?? ""
+                                    directionToUpdate!.reference = address.ad_reference ?? ""
+                                } else {
+                                    context.insert(direction)
+                                }
                             }
-                        }
 
-                        do {
-                            try context.save()
-                            if string != nil{
-                                updateSelected(string: string)
+                            do {
+                                try context.save()
+                                if string != nil{
+                                    updateSelected(string: string)
+                                }
+                            } catch {
+                                fatalError("Error saving directions: \(error)")
                             }
-                        } catch {
-                            fatalError("Error saving directions: \(error)")
                         }
                     }
                 }
@@ -102,7 +104,7 @@ extension DirectionsModal {
         for index in offsets {
             let address = directions[index]
             
-            api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res in }
+            api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res, status in }
             
             context.delete(address)
             try! context.save()
@@ -113,10 +115,12 @@ extension DirectionsModal {
         let query = FetchDescriptor<UserSD>()
         let token = try? context.fetch(query).first?.token
         
-        api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res in
-            if res.status == "success" {
-                context.delete(address)
-                try! context.save()
+        api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res, status in
+            if status {
+                if res!.status == "success" {
+                    context.delete(address)
+                    try! context.save()
+                }
             }
         }
     }
