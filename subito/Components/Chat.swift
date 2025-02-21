@@ -135,7 +135,7 @@ struct Chat: View {
                         }
                     }
                     .onDisappear {
-                        socket.disconnect_socket()
+                        socket.clearListener(listener: "new message")
                     }
                 }
             }

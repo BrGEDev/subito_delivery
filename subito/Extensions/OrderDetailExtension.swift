@@ -38,8 +38,6 @@ extension OrderDetail {
         }
         
         socket.socket.on("orderCanceled") { data, ack in
-
-            
             if orderDetails != nil  {
                 let dataArray = data as NSArray
                 let dataString = dataArray[0] as! NSDictionary

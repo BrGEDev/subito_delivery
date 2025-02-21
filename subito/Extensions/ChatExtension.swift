@@ -66,7 +66,6 @@ extension Chat {
             
             api.fetch(url: "client_chat/get/\(id)", method: "GET", token: user.token, ofType: MessagesResponse.self) { res, status in
                 listenMessages()
-                
                 if status {
                     if res!.data != nil {
                         res!.data!.forEach { message in
@@ -127,6 +126,7 @@ extension Support {
         let query = FetchDescriptor<UserSD>()
         let token = try! context.fetch(query).first!.token
         
+        chats = []
         api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res, status in
             if status {
                 if res!.status == "success" {
