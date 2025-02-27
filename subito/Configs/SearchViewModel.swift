@@ -16,16 +16,18 @@ final class SearchViewModel: ObservableObject {
     private func searchSubito() {
         $searchText.debounce(for: 0.500, scheduler: RunLoop.main)
             .sink {
-                let data = [
-                    "search" : $0
-                ]
-                
-                self.api.fetch(url: "search", method: "POST", body: data, ofType: SearchResponse.self) { res, status in
-                    self.results = nil
+                if !$0.isEmpty {
+                    let data = [
+                        "search" : $0
+                    ]
                     
-                    if status {
-                        if res!.status == "success" {
-                            self.results = res!.data!
+                    self.api.fetch(url: "search", method: "POST", body: data, ofType: SearchResponse.self) { res, status in
+                        self.results = nil
+                        
+                        if status {
+                            if res!.status == "success" {
+                                self.results = res!.data!
+                            }
                         }
                     }
                 }

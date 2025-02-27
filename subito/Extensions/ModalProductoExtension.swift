@@ -12,7 +12,7 @@ func saveproduct(context: ModelContext, data: Product, location: [String:Any], a
     let query = FetchDescriptor<UserSD>()
     let token = try! context.fetch(query).first!.token
     
-    let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: 1)
+    let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description ?? data.pd_name, unit_price: Float(data.pd_unit_price)!, amount: 1)
     let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
     let id = Int(data.pg_establishments_id)!
     
@@ -106,7 +106,7 @@ func saveanyway(api: ApiCaller, context: ModelContext, data: Product, location: 
             if response!.status == "success" {
                 try! context.delete(model: CartSD.self)
                 
-                let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: 1)
+                let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description ?? data.pd_name, unit_price: Float(data.pd_unit_price)!, amount: 1)
                 let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
                 
                 context.insert(establishment)
@@ -151,7 +151,7 @@ extension ModalProducto {
     }
     
     func addToCart(){
-        let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: count)
+        let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description ?? data.pd_name, unit_price: Float(data.pd_unit_price)!, amount: count)
         let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
         let id = Int(data.pg_establishments_id)!
         
@@ -242,7 +242,7 @@ extension ModalProducto {
                 if response!.status == "success" {
                     try! context.delete(model: CartSD.self)
                     
-                    let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description, unit_price: Float(data.pd_unit_price)!, amount: count)
+                    let producto = ProductsSD(id: Int(data.pd_id)!, product: data.pd_name, image: data.pd_image ?? "", descript: data.pd_description ?? data.pd_name, unit_price: Float(data.pd_unit_price)!, amount: count)
                     let establishment = CartSD(id: Int(data.pg_establishments_id)!, establishment: data.name_restaurant, latitude: location["latitude"] as! String, longitude: location["longitude"] as! String)
                     
                     context.insert(establishment)

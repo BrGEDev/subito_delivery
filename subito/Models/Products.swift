@@ -27,7 +27,7 @@ struct Product: Decodable {
     var ps_products_categories_id: String
     var pd_id: String
     var pd_name: String
-    var pd_description: String
+    var pd_description: String?
     var pd_image: String?
     var pd_unit_price: String
     var pd_product_subcategories_id: String?

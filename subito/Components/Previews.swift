@@ -34,7 +34,7 @@ struct PreviewProduct: View {
                             .font(.title)
                             .bold()
                         
-                        Text(data.pd_description)
+                        Text(data.pd_description ?? data.pd_name)
                             .lineLimit(2)
                             .truncationMode(.tail)
                         

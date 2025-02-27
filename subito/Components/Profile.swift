@@ -142,6 +142,7 @@ struct Profile: View {
                     user!.name = name
                     user!.email = email
                     user!.birthday = birthday
+                    user!.phone = phone
                 } else {
                     showAlert(title: "Error", message: "No se pudo actualizar los datos, intente más tarde.")
                 }
@@ -157,13 +158,3 @@ struct Profile: View {
         alert = true
     }
 }
-
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-            CardSD.self, TrackingSD.self,
-        ])
-}
-

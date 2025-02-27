@@ -18,6 +18,45 @@ extension Double {
 }
 
 extension PaymentModal {
+    func prePurchase() {
+        
+        var id_products: [Int] = []
+        establishments.forEach { est in
+            est.products.forEach { product in
+                id_products.append(product.id)
+            }
+        }
+        
+        let datos: [String:Any] = [
+            "data" : [
+                "id_establishment": establishments[0].id,
+                "id_products" : id_products
+            ]
+        ]
+        
+        
+        let user = FetchDescriptor<UserSD>()
+        let userQuery = try! self.context.fetch(user).first!.token
+        
+        api.fetch(url: "pre_purchase", method: "POST", body: datos, token: userQuery, ofType: PrePurchaseResponse.self) { res, status in
+            if status {
+                withAnimation {
+                    loading = false
+                }
+                
+                if res!.status == "success" {
+                    if res!.data!.establishment.percent == "0" {
+                        envio = 0
+                    }
+                    
+                    calcDistance()
+                    loadPayment()
+                    loadTaxes()
+                }
+            }
+        }
+    }
+    
     func loadPayment() {
         var sum: Float = 0
         
@@ -82,7 +121,8 @@ extension PaymentModal {
                     "total": payment,
                     "tip": ceil(prepropina),
                     "shipping_cost": envio,
-                    "distance_km": km
+                    "distance_km": km,
+                    "text_detail": detail
                 ]
             ]
         ]
@@ -113,6 +153,12 @@ extension PaymentModal {
                         error = true
                     })
                 }
+            } else {
+                progress = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    error = true
+                })
             }
         }
     }
@@ -129,7 +175,11 @@ extension PaymentModal {
             Task {
                 let result = try? await MKDirections(request: request).calculate()
                 km = ceil(Double(result?.routes.first?.distance ?? 0) / 1000).decimals(2)
-                envio = Float(km <= 6 ? 40 : ((km - 6) * 7) + 40)
+                    
+                if envio != 0 {
+                    envio = Float(km <= km_base ? price_base_km : ((km - km_base) * price_km_extra) + price_base_km)
+                }
+                
                 let timeExpect = result?.routes.first?.expectedTravelTime ?? 0
                 let hours = Int(timeExpect) / 3600
                 let minutes = (Int(timeExpect) / 60) % 60
@@ -143,7 +193,6 @@ extension PaymentModal {
                 calcTax()
             }
         } else {
-            envio = 40
             calcTax()
         }
     }
@@ -165,7 +214,7 @@ extension PaymentMethod {
                                 let newCard = CardSD(
                                     id: card.id, last_four: card.last_four_digits,
                                     card_type: card.payment_method.name == "master"
-                                    || card.payment_method.name == "debmaster"
+                                    || card.payment_method.name == "debmaster" || card.payment_method.name == "Mastercard Débito" || card.payment_method.name == "Mastercard Crédito"
                                     ? "MasterCard"
                                     : (card.payment_method.name == "visa"
                                        || card.payment_method.name == "debvisa"

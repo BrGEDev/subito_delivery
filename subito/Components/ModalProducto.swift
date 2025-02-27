@@ -78,7 +78,7 @@ struct ModalProducto: View {
                         .multilineTextAlignment(.leading)
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(data.pd_description)
+                        Text(data.pd_description ?? data.pd_name)
                         Text("\(Image(systemName: "shippingbox")) Stock disponible: \(data.pd_quantity ?? "0")")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)

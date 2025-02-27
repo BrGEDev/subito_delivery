@@ -11,6 +11,7 @@ import SwiftUI
 struct AsyncImageCache<ImageView: View, PlaceholderView: View>: View {
     // Input dependencies
     var url: URL?
+    var urlError: URL? = URL(string: "")
     @ViewBuilder var content: (Image) -> ImageView
     @ViewBuilder var placeholder: () -> PlaceholderView
     
@@ -19,10 +20,12 @@ struct AsyncImageCache<ImageView: View, PlaceholderView: View>: View {
     
     init(
         url: URL?,
+        urlError: URL? = URL(string: ""),
         @ViewBuilder content: @escaping (Image) -> ImageView,
         @ViewBuilder placeholder: @escaping () -> PlaceholderView
     ) {
         self.url = url
+        self.urlError = urlError
         self.content = content
         self.placeholder = placeholder
     }
@@ -57,11 +60,17 @@ struct AsyncImageCache<ImageView: View, PlaceholderView: View>: View {
                 // Save returned image data into the cache
                 URLCache.shared.storeCachedResponse(.init(response: response, data: data), for: .init(url: url))
                 
-                guard let image = UIImage(data: data) else {
-                    return nil
+                if let image = UIImage(data: data) {
+                    URLCache.shared.storeCachedResponse(.init(response: response, data: data), for: .init(url: url))
+                    return image
+                } else {
+                    guard let urlError else { return nil }
+                        let (data, response) = try await URLSession.shared.data(from: urlError)
+                                          
+                        guard let image = UIImage(data: data) else { return nil }
+                        
+                        return image
                 }
-                
-                return image
             }
         } catch {
             print("Error downloading: \(error)")

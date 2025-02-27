@@ -61,18 +61,29 @@ struct EstablishmentLocated: View {
                 AsyncImageCache(
                     url: URL(
                         string:
-                            "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? data.picture_logo!)"
-                    )
+                            "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")"
+                    ),
+                    urlError: URL(string: "https://da-pw.mx/APPRISA/\(data.picture_logo!)")
                 ) { image in
                     image
                         .resizable()
                         .scaledToFill()
                 } placeholder: {
-                    SkeletonCellView(
-                        width: Screen.width, height: 250
-                    )
-                    .blinking(duration: 0.75)
-
+                    AsyncImageCache(
+                        url: URL(
+                            string:
+                                "https://da-pw.mx/APPRISA/\(data.picture_logo!)"
+                        )
+                    ) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        SkeletonCellView(
+                            width: Screen.width, height: 250
+                        )
+                        .blinking(duration: 0.75)
+                    }
                 }
             }
             .frame(width: Screen.width, height: 250)
@@ -142,12 +153,22 @@ struct EstablishmentView: View {
                                                     image
                                                         .resizable()
                                                 } placeholder: {
-                                                    SkeletonCellView(
-                                                        width: Screen.width,
-                                                        height: Screen.height
-                                                            * 0.50
-                                                    )
-                                                    .blinking(duration: 0.75)
+                                                    AsyncImageCache(
+                                                        url: URL(
+                                                            string:
+                                                                "https://da-pw.mx/APPRISA/\(data.picture_logo!)"
+                                                        )
+                                                    ) { image in
+                                                        image
+                                                            .resizable()
+                                                    } placeholder: {
+                                                        SkeletonCellView(
+                                                            width: Screen.width,
+                                                            height: Screen.height
+                                                                * 0.50
+                                                        )
+                                                        .blinking(duration: 0.75)
+                                                    }
                                                 }
                                             }
                                             .scaledToFill()

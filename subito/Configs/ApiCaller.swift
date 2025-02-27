@@ -10,7 +10,7 @@ import Foundation
 final class ApiCaller: ObservableObject {
     
     func mercagoPago<T:Decodable>(url: String, method: String, body: [String:Any] = [:], ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void) {
-        let urlfetch = URL(string: "https://api.mercadopago.com/v1/\(url)?public_key=TEST-4099973f-8403-4c13-8252-5bb42032987e")!
+        let urlfetch = URL(string: "https://api.mercadopago.com/v1/\(url)?public_key=APP_USR-8daeda8b-e726-406d-8c0a-c9ca1f236baa")!
         var request = URLRequest(url: urlfetch)
         
         request.httpMethod = method
@@ -38,7 +38,7 @@ final class ApiCaller: ObservableObject {
     }
     
     func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void){
-        let urlfetch = URL(string: "https://qa-dev-pw.mx/api/delivery-drive/" + url)!
+        let urlfetch = URL(string: "https://ti-lexa.tech/api/delivery-drive/" + url)!
         var request = URLRequest(url: urlfetch)
         
         request.httpMethod = method
