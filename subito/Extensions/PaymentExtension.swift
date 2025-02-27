@@ -45,9 +45,15 @@ extension PaymentModal {
                 }
                 
                 if res!.status == "success" {
+                    percent = Double(res!.data!.establishment.percent)!
+                    
                     if res!.data!.establishment.percent == "0" {
                         envio = 0
                     }
+                    
+                    km_base = Double(res!.data!.km_base)!
+                    price_base_km = Double(res!.data!.price_base_km)!
+                    price_km_extra = Double(res!.data!.price_km_extra)!
                     
                     calcDistance()
                     loadPayment()
@@ -176,7 +182,7 @@ extension PaymentModal {
                 let result = try? await MKDirections(request: request).calculate()
                 km = ceil(Double(result?.routes.first?.distance ?? 0) / 1000).decimals(2)
                     
-                if envio != 0 {
+                if percent != 0 {
                     envio = Float(km <= km_base ? price_base_km : ((km - km_base) * price_km_extra) + price_base_km)
                 }
                 

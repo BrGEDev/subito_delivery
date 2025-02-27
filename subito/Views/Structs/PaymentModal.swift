@@ -92,6 +92,7 @@ struct PaymentModal: View {
     @State var km_base: Double = 7
     @State var price_base_km: Double = 70
     @State var price_km_extra: Double = 4
+    @State var percent: Double = 0
 
     @State var modalPropina: Bool = false
     @State var alert: Bool = false
