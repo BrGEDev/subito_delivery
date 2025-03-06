@@ -96,11 +96,11 @@ struct Profile: View {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "es_MX")
         formatter.dateFormat = "yyyy-MM-dd"
-        //let date = formatter.date(from: user!.birthday)!
+        let date = formatter.date(from: user!.birthday)!
         
         name = user!.name
         lastName = user!.lastName
-        //birthDate = date
+        birthDate = date
         email = user!.email
         phone = user!.phone ?? ""
     }

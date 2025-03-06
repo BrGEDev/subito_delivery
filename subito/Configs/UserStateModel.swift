@@ -60,7 +60,9 @@ class UserStateModel: ObservableObject {
     func signIn(user: String, pass: String) async -> Result<
         Bool, UserStateError
     > {
-        isBusy = true
+        withAnimation {
+            isBusy = true
+        }
 
         var response: Bool = false
 
@@ -74,8 +76,12 @@ class UserStateModel: ObservableObject {
         ) { res, status in
             if status {
                 if res!.status == "error" {
-                    self.loggedIn = false
-                    self.isBusy = false
+                    
+                    withAnimation {
+                        self.loggedIn = false
+                        self.isBusy = false
+                    }
+                    
                     self.alert = true
                     self.message = "Usuario y/o contraseña incorrectos."
 
@@ -98,12 +104,17 @@ class UserStateModel: ObservableObject {
 
                         try self.context.save()
 
-                        self.loggedIn = true
-                        self.isBusy = false
+                        withAnimation {
+                            self.loggedIn = true
+                            self.isBusy = false
+                        }
 
                         response = true
                     } catch {
-                        print("Error saving context: \(error)")
+                        withAnimation {
+                            self.loggedIn = true
+                            self.isBusy = false
+                        }
                     }
                 }
             }
@@ -117,7 +128,10 @@ class UserStateModel: ObservableObject {
     }
 
     func signOut() async -> Result<Bool, UserStateError> {
+
         isBusy = true
+        
+        
         var response: Bool = false
 
         let user = FetchDescriptor<UserSD>()
@@ -138,15 +152,19 @@ class UserStateModel: ObservableObject {
                         }
                     }
 
-                    self.loggedIn = false
-                    self.isBusy = false
+                    withAnimation {
+                        self.loggedIn = false
+                        self.isBusy = false
+                    }
 
                     response = true
                 } else {
                     response = false
                 }
             } else {
-                self.isBusy = false
+                withAnimation {
+                    self.isBusy = false
+                }
                 response = false
             }
         }

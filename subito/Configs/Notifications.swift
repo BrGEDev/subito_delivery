@@ -9,8 +9,9 @@ import Foundation
 import UserNotifications
 
 @MainActor
-final class Notifications: ObservableObject {
-    @Published private(set) var hasPermission: Bool = false
+final class Notifications {
+    private(set) var hasPermission: Bool = false
+    
     private let notificationsCenter = UNUserNotificationCenter.current()
     
     init() {

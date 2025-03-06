@@ -68,7 +68,6 @@ struct productoView: View {
 struct CartModal: View {
     @Environment(\.modelContext) var context
     @Binding var isPresented: Bool
-    @Binding var pending: Bool
     
     @StateObject var api: ApiCaller = ApiCaller()
   
@@ -167,7 +166,7 @@ struct CartModal: View {
                 loadPayment()
             }
             .sheet(isPresented: $paymentModal){
-                PaymentModal(isPresented: $isPresented, pending: $pending)
+                PaymentModal(isPresented: $isPresented)
             }
         }
     }

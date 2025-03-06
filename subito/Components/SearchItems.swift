@@ -12,115 +12,152 @@ struct SearchItems: View {
 
     @State var activeID = UUID()
     @State var isExpand: Bool = false
+    @State var loading: Bool = false
 
     var body: some View {
-        ScrollView {
+        if searchModel.loading {
+            VStack {
+                ProgressView {
+                    Text("Buscando...")
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
             if searchModel.results != nil {
-                LazyVStack(alignment: .leading, spacing: 15) {
-                    // Categorías encontradas
+                if searchModel.results!.type_establishments!.isEmpty
+                    && searchModel.results!.establishments!.isEmpty
+                    && searchModel.results!.products!.isEmpty
+                {
+                    VStack {
+                        Text("Sin resultados").foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 15) {
+                            // Categorías encontradas
 
-                    if searchModel.results!.type_establishments!.count > 0 {
+                            if !searchModel.results!.type_establishments!
+                                .isEmpty
+                            {
 
-                        Text("Categorías")
-                            .font(.title2.bold())
+                                Text("Categorías")
+                                    .font(.title2.bold())
 
-                        LazyVStack {
-                            ZStack {
-                                VStack {
-                                    ScrollView(
-                                        .horizontal, showsIndicators: false
-                                    ) {
-                                        HStack {
-                                            ForEach(
-                                                searchModel.results!
-                                                    .type_establishments!,
-                                                id: \.dc_id
-                                            ) { item in
-                                                Category(
-                                                    category: ModelCategories(
-                                                        id: item.dc_id,
-                                                        image: item.dc_path,
-                                                        texto: item.dc_name)
-                                                )
-                                                .padding(
-                                                    EdgeInsets(
-                                                        top: 0, leading: 5,
-                                                        bottom: 0,
-                                                        trailing: 5
-                                                    )
-                                                )
+                                LazyVStack {
+                                    ZStack {
+                                        VStack {
+                                            ScrollView(
+                                                .horizontal,
+                                                showsIndicators: false
+                                            ) {
+                                                HStack {
+                                                    ForEach(
+                                                        searchModel.results!
+                                                            .type_establishments!,
+                                                        id: \.dc_id
+                                                    ) { item in
+                                                        Category(
+                                                            category:
+                                                                ModelCategories(
+                                                                    id: item
+                                                                        .dc_id,
+                                                                    image: item
+                                                                        .dc_path,
+                                                                    texto: item
+                                                                        .dc_name
+                                                                )
+                                                        )
+                                                        .padding(
+                                                            EdgeInsets(
+                                                                top: 0,
+                                                                leading: 5,
+                                                                bottom: 0,
+                                                                trailing: 5
+                                                            )
+                                                        )
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                 }
+
+                                Spacer(minLength: 1)
                             }
-                        }
 
-                        Spacer(minLength: 1)
-                    }
+                            // Fin de categorías
 
-                    // Fin de categorías
+                            // Establecimientos encontrados
 
-                    // Establecimientos encontrados
+                            if !searchModel.results!.establishments!.isEmpty {
+                                Text("Establecimientos")
+                                    .font(.title2.bold())
 
-                    if searchModel.results!.establishments!.count > 0 {
-                        Text("Establecimientos")
-                            .font(.title2.bold())
+                                ScrollView(.horizontal) {
+                                    LazyHStack(spacing: 10) {
+                                        ForEach(
+                                            searchModel.results!
+                                                .establishments!,
+                                            id: \.id_restaurant
+                                        ) { item in
 
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 10) {
-                                ForEach(
-                                    searchModel.results!.establishments!,
-                                    id: \.id_restaurant
-                                ) { item in
+                                            NavigationLink(
+                                                destination: EstablishmentView(
+                                                    data: item)
+                                            ) {
+                                                EstablishmentSearchable(
+                                                    data: item
+                                                )
+                                            }
 
-                                    NavigationLink(
-                                        destination: EstablishmentView(
-                                            data: item)
-                                    ) {
-                                        EstablishmentSearchable(
-                                            data: item
-                                        )
+                                        }
                                     }
-
+                                    .padding([.bottom], 20)
                                 }
                             }
-                            .padding([.bottom], 20)
-                        }
-                    }
 
-                    // Fin establecimientos
+                            // Fin establecimientos
 
-                    //Productos encontrados
+                            //Productos encontrados
 
-                    if searchModel.results!.products!.count > 0 {
-                        Text("Productos")
-                            .font(.title2.bold())
+                            if !searchModel.results!.products!.isEmpty {
+                                Text("Productos")
+                                    .font(.title2.bold())
 
-                        LazyVStack(spacing: 20) {
-                            ForEach(searchModel.results!.products!, id: \.pd_id)
-                            { producto in
-                                ProductList(
-                                    data: producto,
-                                    location: [
-                                        "latitude": producto.latitude!,
-                                        "longitude": producto.longitude!,
-                                    ],
-                                    estado: .constant(
-                                        state(
-                                            apertura: producto.apertura!,
-                                            cierre: producto.cierre!
+                                ForEach(
+                                    searchModel.results!.products!,
+                                    id: \.pd_id
+                                ) { producto in
+                                    ProductList(
+                                        data: producto,
+                                        location: [
+                                            "latitude": producto.latitude!,
+                                            "longitude": producto
+                                                .longitude!,
+                                        ],
+                                        estado: .constant(
+                                            state(
+                                                apertura: producto
+                                                    .apertura!,
+                                                cierre: producto.cierre!
+                                            )
                                         )
                                     )
-                                )
-                            }
-                        }
-                    }
-                    
-                    // Fin productos
+                                }
 
+                            }
+
+                            // Fin productosq
+                        }
+                        .padding()
+                    }
                 }
-                .padding()
+            } else {
+                VStack {
+                    Text("Sin resultados").foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }

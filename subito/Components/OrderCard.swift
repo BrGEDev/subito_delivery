@@ -3,12 +3,17 @@ import SwiftUI
 struct OrderCard: View {
     @Environment(\.colorScheme) var colorScheme
     var order: Orders
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack{
+            HStack {
                 VStack {
-                    AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
+                    AsyncImageCache(
+                        url: URL(
+                            string:
+                                "https://da-pw.mx/APPRISA/\(order.picture_logo)"
+                        )
+                    ) { image in
                         image
                             .resizable()
                     } placeholder: {
@@ -19,7 +24,7 @@ struct OrderCard: View {
                 .scaledToFill()
                 .clipShape(Circle())
                 .clipped()
-                
+
                 Text(order.name_restaurant)
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -27,22 +32,33 @@ struct OrderCard: View {
                     .foregroundStyle(.secondary)
                     .bold()
             }
-            
-            HStack{
-                VStack(alignment: .leading){
-                    Text(order.status == "Pendiente" ? "Tu pedido está en espera" : (order.status == "Recolectando" || order.status == "Buscar repartidor" ? "Tu pedido se encuentra en preparación" : "Tu pedido se encuentra en camino"))
-                        .font(.system(size: 25))
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .multilineTextAlignment(.leading)
+
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(
+                        order.status == "Pendiente"
+                            ? "Tu pedido está en espera"
+                            : (order.status == "Recolectando"
+                                || order.status == "Buscar repartidor"
+                                ? "Tu pedido se encuentra en preparación"
+                                : "Tu pedido se encuentra en camino")
+                    )
+                    .font(.system(size: 25))
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Spacer()
-                
-                Image(order.status == "Recolectando" || order.status == "Buscar repartidor" ||  order.status == "Pendiente" ? .tienda : .repartidor)
-                    .resizable()
-                    .frame(width: 75, height: 75)
+
+                Image(
+                    order.status == "Recolectando"
+                        || order.status == "Buscar repartidor"
+                        || order.status == "Pendiente" ? .tienda : .repartidor
+                )
+                .resizable()
+                .frame(width: 75, height: 75)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -55,20 +71,22 @@ struct OrderCard: View {
         .shadow(color: Color.black.opacity(0.1), radius: 10)
         .padding()
     }
-    
+
     private func formatDate(date: String, created_at: String) -> String {
         let create = try! dateFromString(string: created_at)
         let time = date.split(separator: ":")
-        
+
         let calendar = Calendar.current
-        var newDate = calendar.date(byAdding: .minute, value: Int(time[1])!, to: create!)
-        newDate = calendar.date(byAdding: .hour, value: Int(time[0])!, to: newDate!)
-        
+        var newDate = calendar.date(
+            byAdding: .minute, value: Int(time[1])!, to: create!)
+        newDate = calendar.date(
+            byAdding: .hour, value: Int(time[0])!, to: newDate!)
+
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter.string(from: newDate!)
     }
-    
+
     private func dateFromString(string: String) throws -> Date? {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "es_MX")
@@ -79,19 +97,27 @@ struct OrderCard: View {
 
 struct ListOrderCard: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     var orders: [Orders] = []
     var body: some View {
-        VStack(alignment:.leading){
+        VStack(alignment: .leading) {
             Text("Tienes órdenes en curso...")
                 .font(.title2)
                 .bold()
-            
-            HStack{
-                ForEach(orders.prefix(upTo: orders.count >= 4 ? 4 : orders.count), id: \.id_order) { order in
+
+            HStack {
+                ForEach(
+                    orders.prefix(upTo: orders.count >= 4 ? 4 : orders.count),
+                    id: \.id_order
+                ) { order in
                     if order.status != "Cancelado" {
-                        AsyncImageCache(url: URL(string: "https://da-pw.mx/APPRISA/\(order.picture_logo)")) { image in
-                            
+                        AsyncImageCache(
+                            url: URL(
+                                string:
+                                    "https://da-pw.mx/APPRISA/\(order.picture_logo)"
+                            )
+                        ) { image in
+
                             image
                                 .resizable()
                                 .frame(width: 70, height: 70)
@@ -120,14 +146,18 @@ struct ListOrderCard: View {
     }
 }
 
-struct ListOrders: View{
+struct ListOrders: View {
     var orders: [Orders]
+    @ObservedObject var router = NavigationManager.shared
+
     var body: some View {
-        VStack{
+        VStack {
             ScrollView {
                 ForEach(orders, id: \.id_order) { item in
                     if item.status != "Cancelado" {
-                        NavigationLink(destination: OrderDetail(order: item.id_order)) {
+                        Button(action: {
+                            router.navigateTo(.Order(id: item.id_order))
+                        }) {
                             OrderCard(order: item)
                         }
                     }
@@ -138,4 +168,3 @@ struct ListOrders: View{
         .navigationBarTitleDisplayMode(.large)
     }
 }
-

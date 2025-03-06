@@ -5,6 +5,7 @@
 //  Created by Brandon Guerra Espinoza  on 31/12/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct EstablishmentSearchable: View {
@@ -116,6 +117,8 @@ struct EstablishmentView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var data: Establishments
+    @ObservedObject var pendingOrderModel = PendingOrderModel.shared
+    @State var cartModal: Bool = false
 
     @StateObject var api: ApiCaller = ApiCaller()
 
@@ -133,9 +136,38 @@ struct EstablishmentView: View {
     @State var apertura: String = ""
     @State var cierre: String = ""
 
+    @State var loading: Bool = true
+    @Query var carts: [CartSD]
+    var cart: CartSD? { carts.first }
+    
     var body: some View {
         ZStack(alignment: .top) {
             ZStack {
+                if cart?.id == Int(data.id_restaurant) {
+                    ZStack(alignment: .bottomTrailing) {
+                        Button(action: {
+                            cartModal = true
+                        }){
+                            Label {
+                                Text("Ir a mi carrito")
+                                    .foregroundColor(.black)
+                            } icon: {
+                                Image(systemName: "cart.fill")
+                                    .tint(.black)
+                            }
+                        }
+                        .padding()
+                        .background(Color.accentColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .clipped()
+                        .shadow(color: Color.black.opacity(0.2), radius: 8)
+                        .padding(.bottom)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    .zIndex(20)
+                }
+                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 5) {
                         if !searchState {
@@ -325,27 +357,35 @@ struct EstablishmentView: View {
                             }
 
                             LazyVStack(spacing: 20) {
-                                if filteredLocales.count != 0 {
-                                    ForEach(filteredLocales, id: \.pd_id) {
-                                        producto in
-                                        if categorySelect == producto.pg_id {
-                                            ProductList(
-                                                data: producto,
-                                                location: [
-                                                    "latitude": data.latitude,
-                                                    "longitude": data.longitude,
-                                                ], estado: $estado)
-                                        } else if categorySelect == 0 {
-                                            ProductList(
-                                                data: producto,
-                                                location: [
-                                                    "latitude": data.latitude,
-                                                    "longitude": data.longitude,
-                                                ], estado: $estado)
+                                if loading {
+                                    VStack{
+                                        ProgressView() {
+                                            Text("Cargando productos...")
                                         }
                                     }
                                 } else {
-                                    Text("No hay productos disponibles")
+                                    if filteredLocales.count != 0 {
+                                        ForEach(filteredLocales, id: \.pd_id) {
+                                            producto in
+                                            if categorySelect == producto.pg_id {
+                                                ProductList(
+                                                    data: producto,
+                                                    location: [
+                                                        "latitude": data.latitude,
+                                                        "longitude": data.longitude,
+                                                    ], estado: $estado)
+                                            } else if categorySelect == 0 {
+                                                ProductList(
+                                                    data: producto,
+                                                    location: [
+                                                        "latitude": data.latitude,
+                                                        "longitude": data.longitude,
+                                                    ], estado: $estado)
+                                            }
+                                        }
+                                    } else {
+                                        Text("No hay productos disponibles")
+                                    }
                                 }
                             }
                             .onTapGesture {
@@ -404,6 +444,15 @@ struct EstablishmentView: View {
             loadProductos()
             loadCategories()
             loadInfo()
+        }
+        .sheet(isPresented: $pendingOrderModel.pendingModal) {
+            PendingOrder()
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+        }
+        .sheet(isPresented: $cartModal) {
+            CartModal(
+                isPresented: $cartModal)
         }
     }
 }

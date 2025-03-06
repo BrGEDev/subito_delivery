@@ -11,6 +11,10 @@ import SwiftUI
 struct PrincipalView: View{
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var vm: UserStateModel
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
+    @State var directionModal: Bool = false
+    
     
     @State private var username = ""
     @State private var password = ""
@@ -27,9 +31,42 @@ struct PrincipalView: View{
     
     var body: some View {
         if vm.isBusy {
-            VStack{
-                ProgressView().progressViewStyle(.circular)
-                Text("Iniciando sesión")
+            ZStack {
+                Image(.fondo2)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+
+                VStack {
+                    
+                    VStack {
+                        Image(.logo)
+                            .resizable()
+                            .frame(width: 90, height: 90)
+                            .scaledToFit()
+                            .rotationEffect(.degrees(rotation))
+                            .scaleEffect(1)
+                            .onAppear {
+                                withAnimation(
+                                    Animation
+                                        .easeInOut(duration: 2)
+                                        .repeatForever(autoreverses: false)
+                                ) {
+                                    rotation += 360
+                                }
+                            }
+                        
+                        Text("Iniciando sesión...")
+                            .multilineTextAlignment(.center)
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                            .padding()
+                    }
+
+                }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         } else {
             ZStack{

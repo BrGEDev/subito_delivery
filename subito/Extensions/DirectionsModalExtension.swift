@@ -9,7 +9,6 @@ import MapKit
 import SwiftData
 import SwiftUI
 
-
 enum DirectionsOptions {
     case addDirection(address: AddressResult)
     case editDirection(address: DirectionSD)
@@ -17,8 +16,8 @@ enum DirectionsOptions {
 
 extension DirectionsModal {
 
-    func getDirections(location: CLLocation) {
-        locationManager.geocode(location: location) { placemark, error in
+    func getDirections(coords: CLLocationCoordinate2D) {
+        locationManager.geocode(location: coords) { placemark, error in
             guard let placemark = placemark, error == nil else { return }
 
             let full_address =
@@ -33,11 +32,14 @@ extension DirectionsModal {
                 context.insert(livelocation)
             } else {
                 existLocation?.full_address = full_address
-                existLocation?.latitude = String(placemark.location!.coordinate.latitude)
-                existLocation?.longitude = String(placemark.location!.coordinate.longitude)
+                existLocation?.latitude = String(
+                    placemark.location!.coordinate.latitude)
+                existLocation?.longitude = String(
+                    placemark.location!.coordinate.longitude)
             }
             try! context.save()
         }
+
     }
 
     func loadDirections(string: String? = nil) {
@@ -65,9 +67,10 @@ extension DirectionsModal {
                                 context.insert(direction)
                             } else {
                                 let id: Int = address.ad_id
-                                let directionToUpdate = directions.first(where: {
-                                    $0.id == id
-                                })
+                                let directionToUpdate = directions.first(
+                                    where: {
+                                        $0.id == id
+                                    })
                                 if directionToUpdate != nil {
                                     directionToUpdate!.full_address =
                                         address.ad_full_address
@@ -75,8 +78,10 @@ extension DirectionsModal {
                                         address.ad_latitude
                                     directionToUpdate!.longitude =
                                         address.ad_longitude
-                                    directionToUpdate!.name = address.ad_name ?? ""
-                                    directionToUpdate!.reference = address.ad_reference ?? ""
+                                    directionToUpdate!.name =
+                                        address.ad_name ?? ""
+                                    directionToUpdate!.reference =
+                                        address.ad_reference ?? ""
                                 } else {
                                     context.insert(direction)
                                 }
@@ -84,7 +89,7 @@ extension DirectionsModal {
 
                             do {
                                 try context.save()
-                                if string != nil{
+                                if string != nil {
                                     updateSelected(string: string)
                                 }
                             } catch {
@@ -103,19 +108,27 @@ extension DirectionsModal {
 
         for index in offsets {
             let address = directions[index]
-            
-            api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res, status in }
-            
+
+            api.fetch(
+                url: "address/delete", method: "POST",
+                body: ["id_address": address.id], token: token!,
+                ofType: SaveDirectionsResponse.self
+            ) { res, status in }
+
             context.delete(address)
             try! context.save()
         }
     }
-    
+
     func drop(address: DirectionSD) {
         let query = FetchDescriptor<UserSD>()
         let token = try? context.fetch(query).first?.token
-        
-        api.fetch(url: "address/delete", method: "POST", body:["id_address": address.id], token: token!, ofType: SaveDirectionsResponse.self) {res, status in
+
+        api.fetch(
+            url: "address/delete", method: "POST",
+            body: ["id_address": address.id], token: token!,
+            ofType: SaveDirectionsResponse.self
+        ) { res, status in
             if status {
                 if res!.status == "success" {
                     context.delete(address)
@@ -129,17 +142,18 @@ extension DirectionsModal {
         for direction in directions {
             direction.status = false
         }
-        
+
         if string == nil && address != nil {
             address!.status = true
         } else {
-            let query = FetchDescriptor<DirectionSD>(predicate: #Predicate{
-                $0.full_address == string!
-            })
+            let query = FetchDescriptor<DirectionSD>(
+                predicate: #Predicate {
+                    $0.full_address == string!
+                })
             let add = try! context.fetch(query).first
             add?.status = true
         }
-        
+
         try! context.save()
         dismiss()
     }

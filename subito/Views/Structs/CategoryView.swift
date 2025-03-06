@@ -7,71 +7,88 @@
 
 import SwiftUI
 
-
 struct CategoryView: View {
-    
+    @ObservedObject var pendingOrderModel = PendingOrderModel.shared
+
     @State var categoryTitle: String
     @State var id_category: Int
-    @State var establishments: [Establishments] = []
+    @State var establishments: [Item] = []
     @State var load: Bool = true
-    
+
     @State var isExpand: Bool = false
     @State var activeID: String = ""
     @State var cartModal: Bool = false
     @State var pendingModal: Bool = false
-    
+
     @State var searchEstablishments: String = ""
-    
+
     @StateObject var api: ApiCaller = ApiCaller()
-    
-    var body: some View{
-        VStack{
-            if load{
-                ProgressView()
-                Text("Cargando...")
-            } else {
-                if !establishments.isEmpty {
-                    ScrollView{
-                        VStack(spacing: 30){
-                            ForEach(filteredLocales, id: \.id_restaurant){ est in
-                                GeometryReader { reader in
-                                    CardEstablishment(data: est, isActive: $activeID, isExpand: $isExpand)
-                                        .offset(y: activeID ==  est.id_restaurant ? -reader.frame(in: .global).minY : 0)
-                                        .opacity(activeID !=  est.id_restaurant && isExpand ? 0 : 1)
-                                }
-                                .frame(height: Screen.height * 0.45)
-                            }
+
+    var body: some View {
+        ScrollView {
+            if load {
+                ZStack {
+                    Spacer().containerRelativeFrame([.horizontal, .vertical])
+                    VStack {
+                        ProgressView(){
+                            Text("Cargando...")
                         }
                     }
-                    .scrollDisabled(isExpand)
-                } else {
-                    VStack{
-                        Image(.logo)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 150, height: 150)
-                        
-                        Text("No hay establecimientos en esta categoría")
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .multilineTextAlignment(.center)
+                }
+            } else {
+                if !establishments.isEmpty {
+                    LazyVStack(spacing: 30) {
+                        ForEach(filteredLocales) { est in
+                            GeometryReader { reader in
+                                CardEstablishment(
+                                    data: est,
+                                    typeModal: .Large,
+                                    isActive: $activeID,
+                                    isExpand: $isExpand
+                                )
+                                .offset(
+                                    y: activeID == est.id_restaurant
+                                        ? -reader.frame(in: .global).minY
+                                        : 0
+                                )
+                                .opacity(
+                                    activeID != est.id_restaurant
+                                        && isExpand ? 0 : 1)
+                            }
+                            .frame(height: Screen.height * 0.45)
+                        }
                     }
-                    .frame(maxWidth: 300, maxHeight:300)
+
+                } else {
+                    ZStack {
+                        Spacer().containerRelativeFrame([.horizontal, .vertical])
+                        VStack {
+                            Image(.logo)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 150, height: 150)
+                            
+                            Text("No hay establecimientos en esta categoría")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: 300, maxHeight: 300)
+                    }
                 }
             }
         }
-        .refreshable {
-            loadEstablishments()
-        }
-        .toolbar{
-            ToolbarItem(placement: .navigationBarTrailing){
+        .scrollBounceBehavior(.basedOnSize)
+        .scrollDisabled(isExpand)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     cartModal = true
-                }){
+                }) {
                     Image(systemName: "cart")
                         .foregroundStyle(.primary)
                 }
-                .sheet(isPresented: $cartModal){
-                    CartModal(isPresented: $cartModal, pending: $pendingModal)
+                .sheet(isPresented: $cartModal) {
+                    CartModal(isPresented: $cartModal)
                 }
             }
         }
@@ -79,9 +96,17 @@ struct CategoryView: View {
         .toolbar(isExpand ? .hidden : .visible, for: .tabBar)
         .navigationTitle(categoryTitle)
         .searchable(text: $searchEstablishments)
-        .onAppear{
+        .onAppear {
             loadEstablishments()
         }
         .navigationBarTitleDisplayMode(.large)
+        .sheet(isPresented: $pendingOrderModel.pendingModal) {
+            PendingOrder()
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+        }
+        .refreshable {
+            loadEstablishments()
+        }
     }
 }

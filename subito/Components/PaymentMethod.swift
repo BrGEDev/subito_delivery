@@ -15,15 +15,6 @@ struct CardView: View {
 
     var body: some View {
         HStack {
-            Image(
-                card.card_type == "Visa"
-                    ? .visa
-                    : (card.card_type == "MasterCard" ? .mastercard : .american)
-            )
-            .resizable()
-            .frame(maxWidth: 30, maxHeight: 25)
-            .scaledToFill()
-
             VStack(alignment: .leading) {
                 Text("\(card.card_type) \(card.last_four)")
                     .lineLimit(1)
@@ -216,6 +207,7 @@ struct PaymentMethod: View {
 }
 
 struct PendingOrder: View {
+    @ObservedObject var pendingOrderModel = PendingOrderModel.shared
     @State var title = "Esperando confirmación del establecimiento"
     @State private var rotation: Double = 0
     @State private var scale: CGFloat = 1.0
@@ -230,29 +222,49 @@ struct PendingOrder: View {
                     .ignoresSafeArea()
 
                 VStack {
-                    
+
                     VStack {
-                        Image(.logo)
-                            .resizable()
-                            .frame(width: 90, height: 90)
-                            .scaledToFit()
-                            .rotationEffect(.degrees(rotation))
-                            .scaleEffect(1)
-                            .onAppear {
-                                withAnimation(
-                                    Animation
-                                        .easeInOut(duration: 2)
-                                        .repeatForever(autoreverses: false)
-                                ) {
-                                    rotation += 360
+                        if pendingOrderModel.loading {
+                            Image(.logo)
+                                .resizable()
+                                .frame(width: 90, height: 90)
+                                .scaledToFit()
+                                .rotationEffect(.degrees(rotation))
+                                .scaleEffect(1)
+                                .onAppear {
+                                    withAnimation(
+                                        Animation
+                                            .easeInOut(duration: 2)
+                                            .repeatForever(autoreverses: false)
+                                    ) {
+                                        rotation += 360
+                                    }
                                 }
-                            }
-                        
-                        Text(title)
+                        } else {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 90, height: 90)
+                                .foregroundStyle(.red)
+                        }
+
+                        Text(pendingOrderModel.title)
                             .multilineTextAlignment(.center)
                             .font(.title2)
                             .foregroundStyle(.secondary)
                             .padding()
+
+                        if !pendingOrderModel.loading {
+                            Button(action: {
+                                pendingOrderModel.pendingModal = false
+                            }) {
+                                Text("Aceptar")
+                            }
+                            .foregroundColor(.black)
+                            .frame(width: 200, height: 50)
+                            .background(Color.yellow)
+                            .cornerRadius(20)
+                            .padding()
+                        }
                     }
 
                 }
@@ -261,13 +273,4 @@ struct PendingOrder: View {
             }
         }
     }
-}
-
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, ProductsSD.self, CartSD.self,
-            CardSD.self,
-        ])
 }

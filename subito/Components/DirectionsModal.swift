@@ -17,7 +17,7 @@ struct DirectionsModal: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.dismissSearch) var dismissSearch
     
-    @StateObject var locationManager: LocationManager = .init()
+    @StateObject var locationManager: LocationManager = LocationManager.shared
     @State var location: CLLocation = .init()
     @StateObject var DeliveryAddress: DeliveryAddress = .init()
     
@@ -48,7 +48,7 @@ struct DirectionsModal: View {
                                 
                                 VStack(alignment: .trailing){
                                     Button(action:{
-                                        getDirections(location: locationManager.coordinates)
+                                        locationManager.requestLocation()
                                     }){
                                         Text("Actualizar")
                                             .font(.system(size: 14))
@@ -56,7 +56,13 @@ struct DirectionsModal: View {
                                     .foregroundStyle(.black)
                                     .padding([.trailing, .leading], 15)
                                     .padding([.top, .bottom], 10)
+                                    .onReceive(locationManager.$coords) { val in
+                                        if val != nil {
+                                            getDirections(coords: val!)
+                                        }
+                                    }
                                 }
+                                
                             }
                         }
                     }
@@ -494,13 +500,4 @@ struct DraggablePin: View {
                 )
         )
     }
-}
-
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-            CardSD.self, TrackingSD.self,
-        ])
 }

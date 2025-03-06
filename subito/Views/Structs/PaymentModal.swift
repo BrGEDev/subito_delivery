@@ -63,10 +63,11 @@ struct PaymentModal: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
-    @StateObject var socket = SocketService.socketClient
+    
+    @ObservedObject var router = NavigationManager.shared
+    @ObservedObject var pendingOrderModel = PendingOrderModel.shared
 
     @Binding var isPresented: Bool
-    @Binding var pending: Bool
 
     @Query var establishments: [CartSD]
     @Query(

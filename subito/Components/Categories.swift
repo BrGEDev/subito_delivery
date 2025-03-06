@@ -10,9 +10,12 @@ import SwiftUI
 struct Category: View{
     @Environment(\.colorScheme) var colorScheme
     @State var category: ModelCategories
-    
+    @ObservedObject var router = NavigationManager.shared
+
     var body: some View {
-        NavigationLink(destination: CategoryView(categoryTitle: category.texto, id_category: category.id)){
+        Button(action: {
+            router.navigateTo(.Establishment(categoryTitle: category.texto, id: category.id))
+        }){
             VStack{
                 AsyncImageCache(url: URL(string: category.image)){ image in
                     image

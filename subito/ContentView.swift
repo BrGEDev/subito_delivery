@@ -9,17 +9,15 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-    @Environment(\.navigate) var navigate
     @Environment(\.modelContext) var modelContext
     
     @EnvironmentObject var vm: UserStateModel
+    @ObservedObject var locationManager: LocationManager = LocationManager.shared
     
-    @StateObject var locationManager: LocationManager = .init()
-    @StateObject var notifications: Notifications = .init()
-    
+    var notifications: Notifications = .init()
     @State var location: CLLocation = .init()
     @State private var selection = 1
-            
+                
     var body: some View {
         if vm.isBusy == true {
             VStack{
@@ -29,14 +27,9 @@ struct ContentView: View {
         } else {
             Eats()
             .onAppear{
-                locationManager.checkAuthorization()
-                
                 Task {
                     await notifications.checkAuthorization()
                 }
-            }
-            .onChange(of: locationManager.coordinates){
-                getDirections(location: locationManager.coordinates)
             }
         }
     }

@@ -6,14 +6,93 @@
 //
 
 import SwiftUI
+import SwiftData
+
+struct Item: Identifiable {
+    var id = UUID()
+    var id_restaurant: String
+    var title: String
+    var image: String
+    var establishment: String
+    var address: String
+    var latitude: String
+    var longitude: String
+    var apertura: String
+    var cierre: String
+}
 
 enum StateEstablishment {
     case open
     case closed
 }
 
+enum TypeModal {
+    case Large
+    case Small
+}
+
+struct HeaderModal: View {
+    @State var image: String
+    @State var title: String
+
+    @Binding var estado: StateEstablishment
+    var apertura: String = ""
+
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            if estado == .closed {
+                VStack {
+                    ZStack {
+                        Color.black.opacity(0.55).cornerRadius(30)
+
+                        Text("Cerrado hasta \(apertura)")
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                }
+                .frame(width: Screen.width * 0.45, height: 200)
+                .zIndex(20)
+            }
+
+            AsyncImageCache(
+                url: URL(string: "https://da-pw.mx/APPRISA/\(image)")
+            ) { image in
+                image.resizable()
+                    .scaledToFill()
+                    .frame(width: Screen.width * 0.45, height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .clipped()
+            } placeholder: {
+                SkeletonCellView(
+                    width: Screen.width * 0.45, height: 200
+                )
+                .blinking(duration: 0.75)
+            }
+
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.system(.title2))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .shadow(color: .black, radius: 3)
+                }
+                .padding()
+
+                Spacer()
+            }
+            .background(.ultraThinMaterial)
+            .cornerRadius(30)
+            .frame(width: Screen.width * 0.45)
+        }
+    }
+}
+
 struct CardEstablishmentHeaderModal: View {
-    var data: Establishments
+    var data: Item
     @Binding var estado: StateEstablishment
     var apertura: String = ""
 
@@ -38,7 +117,7 @@ struct CardEstablishmentHeaderModal: View {
                 AsyncImageCache(
                     url: URL(
                         string:
-                            "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")"
+                            "https://da-pw.mx/APPRISA/\(data.establishment)"
                     )
                 ) { image in
                     image
@@ -50,14 +129,15 @@ struct CardEstablishmentHeaderModal: View {
                     AsyncImageCache(
                         url: URL(
                             string:
-                                "https://da-pw.mx/APPRISA/\(data.picture_logo!)"
+                                "https://da-pw.mx/APPRISA/\(data.image)"
                         )
                     ) { image in
                         image
                             .resizable()
                     } placeholder: {
                         SkeletonCellView(
-                            width: Screen.width * 0.9, height: Screen.height * 0.45
+                            width: Screen.width * 0.9,
+                            height: Screen.height * 0.45
                         )
                         .blinking(duration: 0.75)
                     }
@@ -77,7 +157,7 @@ struct CardEstablishmentHeaderModal: View {
                             AsyncImageCache(
                                 url: URL(
                                     string:
-                                        "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
+                                        "https://da-pw.mx/APPRISA/\(data.image)"
                                 )
                             ) { image in
                                 image.resizable()
@@ -103,7 +183,7 @@ struct CardEstablishmentHeaderModal: View {
                     HStack {
                         VStack {
                             VStack(alignment: .leading) {
-                                Text(data.name_restaurant)
+                                Text(data.title)
                                     .font(.system(.title2))
                             }
                             .padding(.leading, 120)
@@ -131,7 +211,7 @@ struct CardEstablishmentHeaderModal: View {
 
 struct BodyEstablishmentModal: View {
     @Binding var isExpand: Bool
-    @State var data: Establishments
+    @State var data: Item
     @State var productosC: [ProductCategory]
     @Binding var estado: StateEstablishment
     var apertura: String = ""
@@ -145,7 +225,7 @@ struct BodyEstablishmentModal: View {
                         AsyncImageCache(
                             url: URL(
                                 string:
-                                    "https://da-pw.mx/APPRISA/\(data.picture_establishment ?? "")"
+                                    "https://da-pw.mx/APPRISA/\(data.establishment)"
                             )
                         ) { image in
                             image
@@ -154,7 +234,7 @@ struct BodyEstablishmentModal: View {
                             AsyncImageCache(
                                 url: URL(
                                     string:
-                                        "https://da-pw.mx/APPRISA/\(data.picture_logo!)"
+                                        "https://da-pw.mx/APPRISA/\(data.image)"
                                 )
                             ) { image in
                                 image
@@ -181,7 +261,7 @@ struct BodyEstablishmentModal: View {
                                 AsyncImageCache(
                                     url: URL(
                                         string:
-                                            "https://da-pw.mx/APPRISA/\(data.picture_logo ?? "")"
+                                            "https://da-pw.mx/APPRISA/\(data.image)"
                                     )
                                 ) { image in
                                     image
@@ -204,7 +284,7 @@ struct BodyEstablishmentModal: View {
 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(data.name_restaurant)
+                        Text(data.title)
                             .font(.system(.largeTitle))
                             .lineLimit(1)
                             .truncationMode(.tail)
@@ -365,6 +445,12 @@ struct ProductList: View {
 }
 
 struct CardEstablishment: View {
+    @Environment(\.modelContext) var context
+    @ObservedObject var pendingOrderModel = PendingOrderModel.shared
+
+    @State var data: Item
+    var typeModal: TypeModal
+
     @Environment(\.colorScheme) var colorScheme
     @State var dragValue = CGSize.zero
 
@@ -372,8 +458,6 @@ struct CardEstablishment: View {
 
     @State var productos: [Product] = []
     @State var productosC: [ProductCategory] = []
-
-    @State var data: Establishments
     @FocusState var searchFocus: Bool
     @State var searchState: Bool = false
     @State var searchProducto: String = ""
@@ -386,25 +470,73 @@ struct CardEstablishment: View {
     @State var estado: StateEstablishment = .closed
     @State var apertura: String = ""
     @State var cierre: String = ""
+    
+    @State var cartModal: Bool = false
+
+    @State var loading: Bool = true
+    
+    @Query var carts: [CartSD]
+    var cart: CartSD? { carts.first }
 
     var body: some View {
         ZStack(alignment: .top) {
-            CardEstablishmentHeaderModal(
-                data: data, estado: $estado, apertura: apertura
-            )
-            .onTapGesture {
-                isExpand = true
-                isActive = data.id_restaurant
+            switch typeModal {
+            case .Large:
+                CardEstablishmentHeaderModal(
+                    data: data, estado: $estado, apertura: apertura
+                )
+                .onTapGesture {
+                    isExpand = true
+                    isActive = data.id_restaurant
 
-                loadProductos()
-                loadCategories()
+                    loadProductos()
+                    loadCategories()
+                }
+                .opacity(isActive == data.id_restaurant ? 0 : 1)
+            case .Small:
+                HeaderModal(
+                    image: data.image, title: data.title, estado: $estado,
+                    apertura: apertura
+                )
+                .onTapGesture {
+                    isExpand = true
+                    isActive = data.id_restaurant
+
+                    loadProductos()
+                    loadCategories()
+                }
+                .opacity(isActive == data.id_restaurant ? 0 : 1)
             }
-            .opacity(isActive == data.id_restaurant ? 0 : 1)
 
             ZStack {
                 colorScheme == .light
                     ? Color.white.edgesIgnoringSafeArea(.all)
                     : Color.black.edgesIgnoringSafeArea(.all)
+                
+                if cart?.id == Int(data.id_restaurant) {
+                    ZStack(alignment: .bottomTrailing) {
+                        Button(action: {
+                            cartModal = true
+                        }){
+                            Label {
+                                Text("Ir a mi carrito")
+                                    .foregroundColor(.black)
+                            } icon: {
+                                Image(systemName: "cart.fill")
+                                    .tint(.black)
+                            }
+                        }
+                        .padding()
+                        .background(Color.accentColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .clipped()
+                        .shadow(color: Color.black.opacity(0.2), radius: 8)
+                        .padding(.bottom)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    .zIndex(20)
+                }
 
                 ScrollView(.vertical, showsIndicators: false) {
 
@@ -502,27 +634,41 @@ struct CardEstablishment: View {
                             }
 
                             LazyVStack(spacing: 20) {
-                                if filteredLocales.count != 0 {
-                                    ForEach(filteredLocales, id: \.pd_id) {
-                                        producto in
-                                        if categorySelect == producto.pg_id {
-                                            ProductList(
-                                                data: producto,
-                                                location: [
-                                                    "latitude": data.latitude,
-                                                    "longitude": data.longitude,
-                                                ], estado: $estado)
-                                        } else if categorySelect == 0 {
-                                            ProductList(
-                                                data: producto,
-                                                location: [
-                                                    "latitude": data.latitude,
-                                                    "longitude": data.longitude,
-                                                ], estado: $estado)
+                                if loading {
+                                    VStack {
+                                        ProgressView {
+                                            Text("Cargando productos...")
                                         }
                                     }
                                 } else {
-                                    Text("No hay productos disponibles")
+                                    if filteredLocales.count != 0 {
+                                        ForEach(filteredLocales, id: \.pd_id) {
+                                            producto in
+                                            if categorySelect == producto.pg_id
+                                            {
+                                                ProductList(
+                                                    data: producto,
+                                                    location: [
+                                                        "latitude": data
+                                                            .latitude,
+                                                        "longitude": data
+                                                            .longitude,
+                                                    ], estado: $estado
+                                                )
+                                            } else if categorySelect == 0 {
+                                                ProductList(
+                                                    data: producto,
+                                                    location: [
+                                                        "latitude": data
+                                                            .latitude,
+                                                        "longitude": data
+                                                            .longitude,
+                                                    ], estado: $estado)
+                                            }
+                                        }
+                                    } else {
+                                        Text("No hay productos disponibles")
+                                    }
                                 }
                             }
                             .onTapGesture {
@@ -566,7 +712,7 @@ struct CardEstablishment: View {
                         HStack {
 
                             TextField(
-                                "Buscar en \(data.name_restaurant)",
+                                "Buscar en \(data.title)",
                                 text: $searchProducto
                             )
                             .padding()
@@ -619,14 +765,19 @@ struct CardEstablishment: View {
                 RoundedRectangle(cornerRadius: dragValue.height > 0 ? 50 : 0)
             )
             .scaleEffect(1 - (dragValue.height / 1000))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear {
             loadInfo()
         }
         .frame(
-            width: Screen.width,
+            width: typeModal == .Large
+                ? Screen.width
+                : (isActive == data.id_restaurant
+                    ? Screen.width : Screen.width * 0.45),
             height: isActive == data.id_restaurant
-                ? Screen.height : Screen.height * 0.45
+                ? Screen.height
+                : typeModal == .Large ? Screen.height * 0.45 : 200
         )
         .animation(
             Animation.spring(
@@ -647,6 +798,15 @@ struct CardEstablishment: View {
         .background(
             isExpand ? AnyShapeStyle(.thinMaterial) : AnyShapeStyle(.clear)
         )
+        .sheet(isPresented: $pendingOrderModel.pendingModal) {
+            PendingOrder()
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+        }
         .shadow(color: .black.opacity(0.25), radius: isExpand ? 5 : 0)
+        .sheet(isPresented: $cartModal) {
+            CartModal(
+                isPresented: $cartModal)
+        }
     }
 }

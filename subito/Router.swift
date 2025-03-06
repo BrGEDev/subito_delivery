@@ -9,31 +9,33 @@ import SwiftUI
 
 enum Route: Hashable{
     case Index
+    case Establishment(categoryTitle: String, id: Int)
+    case Order(id: String)
 }
 
-struct NavigationEnviromentKey: EnvironmentKey {
-     static var defaultValue: (Route) -> Void = {_ in}
-}
 
-extension EnvironmentValues {
-    var navigate: (Route) -> Void {
-        get { self[NavigationEnviromentKey.self] }
-        set { self[NavigationEnviromentKey.self] = newValue }
+class NavigationManager: ObservableObject {
+    @Published var navigationPath = NavigationPath()
+    static var shared = NavigationManager()
+    
+    func navigateTo(_ route: Route) {
+        navigationPath.append(route)
     }
 }
 
 struct Router: View {
-    @State private var paths: [Route] = []
+    @ObservedObject var paths = NavigationManager.shared
     var body: some View {
-        NavigationStack(path: $paths) {
+        NavigationStack(path: $paths.navigationPath) {
             ContentView()
-                .environment(\.navigate) { route in
-                    paths.append(route)
-                }
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .Index:
                         ContentView()
+                    case .Establishment(let type, let id):
+                        CategoryView(categoryTitle: type, id_category: id)
+                    case .Order(let id):
+                        OrderDetail(order: id)
                     }
                 }
         }

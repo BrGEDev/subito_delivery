@@ -86,7 +86,7 @@ struct Chat: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var context
     @StateObject var api: ApiCaller = ApiCaller()
-    @StateObject var socket = SocketService.socketClient
+    var socket = SocketService.socketClient
 
     var title: String
     var options: ChatOptions
@@ -161,13 +161,4 @@ struct Chat: View {
             .background(Material.bar)
         }
     }
-}
-
-
-#Preview {
-    Chat(title: "Call center", options: .join(id: 1))
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-            CardSD.self, TrackingSD.self,
-        ])
 }

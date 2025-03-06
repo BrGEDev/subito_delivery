@@ -40,7 +40,6 @@
 		4B4F92632CF4E4AB00E8CD11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */; };
 		4B4F92662CF4FD1400E8CD11 /* PaymentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */; };
 		4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */; };
-		4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F92732CF644A100E8CD11 /* ContentExtension.swift */; };
 		4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */; };
 		4B55D7C62CD17C2C0009EA89 /* EatsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7C52CD17C270009EA89 /* EatsExtension.swift */; };
 		4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7E62CD2F8270009EA89 /* Establishments.swift */; };
@@ -82,8 +81,8 @@
 		4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */; };
 		4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE716C52D0CAEBB00BE73FC /* Shopping.swift */; };
 		4BEB0CF02D2C1E9300CB008C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */; };
+		4BEF3C822D777C2900CBF509 /* PendingOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEF3C812D777C1B00CBF509 /* PendingOrderModel.swift */; };
 		4BF9655A2CD3C4750058D996 /* CategoryViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */; };
-		4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */; };
 		4BFB13042D10EB3B00A99B5F /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */; };
 		4BFB13062D10EB8F00A99B5F /* CardSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB13052D10EB8A00A99B5F /* CardSD.swift */; };
 		4BFB130B2D11CC2C00A99B5F /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB130A2D11CC2900A99B5F /* Payment.swift */; };
@@ -168,12 +167,12 @@
 		4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B4F92652CF4FD0600E8CD11 /* PaymentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModal.swift; sourceTree = "<group>"; };
 		4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentExtension.swift; sourceTree = "<group>"; };
-		4B4F92732CF644A100E8CD11 /* ContentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtension.swift; sourceTree = "<group>"; };
 		4B53F01B2D2431C400109997 /* EstablishmentLocated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstablishmentLocated.swift; sourceTree = "<group>"; };
 		4B55D7C52CD17C270009EA89 /* EatsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsExtension.swift; sourceTree = "<group>"; };
 		4B55D7E62CD2F8270009EA89 /* Establishments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Establishments.swift; sourceTree = "<group>"; };
 		4B73C74D2CE52A3800997644 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstablishmentExtension.swift; sourceTree = "<group>"; };
+		4B9059E52D720EFC00C84045 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = info.plist; path = subito/info.plist; sourceTree = SOURCE_ROOT; };
 		4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModalExtension.swift; sourceTree = "<group>"; };
 		4BA6B7F02D09DD380091D024 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
 		4BA8B7FE2D0CE171000352FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -212,8 +211,8 @@
 		4BE716A62D0B84A600BE73FC /* CartModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModalExtension.swift; sourceTree = "<group>"; };
 		4BE716C52D0CAEBB00BE73FC /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		4BEB0CEF2D2C1E8C00CB008C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		4BEF3C812D777C1B00CBF509 /* PendingOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingOrderModel.swift; sourceTree = "<group>"; };
 		4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewExtension.swift; sourceTree = "<group>"; };
-		4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalRestaurants.swift; sourceTree = "<group>"; };
 		4BFB13032D10EB3000A99B5F /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		4BFB13052D10EB8A00A99B5F /* CardSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSD.swift; sourceTree = "<group>"; };
 		4BFB130A2D11CC2900A99B5F /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -328,7 +327,6 @@
 				4BE716A42D0B768900BE73FC /* ModalProductoExtension.swift */,
 				4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */,
 				4BC080212D08B05600216D95 /* LoginExtension.swift */,
-				4B4F92732CF644A100E8CD11 /* ContentExtension.swift */,
 				4B4F92672CF50C0500E8CD11 /* PaymentExtension.swift */,
 				4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */,
 				4BF965592CD3C46B0058D996 /* CategoryViewExtension.swift */,
@@ -379,6 +377,7 @@
 				4BB1BBA22C8F682800EB8EA0 /* Router.swift */,
 				4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */,
 				4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */,
+				4B9059E52D720EFC00C84045 /* info.plist */,
 			);
 			path = subito;
 			sourceTree = "<group>";
@@ -432,6 +431,7 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4BEF3C812D777C1B00CBF509 /* PendingOrderModel.swift */,
 				4B0E46492D5D51FE00E5BDAB /* InputPicker.swift */,
 				4B0E46452D5BDD1A00E5BDAB /* AsyncImagesCache.swift */,
 				4B4521832D2833D200B495DC /* SearchView.swift */,
@@ -467,7 +467,6 @@
 				4B1AEC1A2CED205A00887421 /* ModalProducto.swift */,
 				4BD7EFCA2CD5A897001D0411 /* CardEstablishment.swift */,
 				4BD7EFC82CD54AB5001D0411 /* EatsComponent.swift */,
-				4BF9655B2CD3D6620058D996 /* ModalRestaurants.swift */,
 				4BCCD5652CCC0EDB006C962C /* Categories.swift */,
 				4B2B764B2CACF5F600F046EF /* DirectionsModal.swift */,
 				4B2B763E2CAC490400F046EF /* CartModal.swift */,
@@ -583,7 +582,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					4B4F91E12CF4CA5200E8CD11 = {
 						CreatedOnToolsVersion = 16.1;
@@ -727,11 +726,10 @@
 				4BFB13662D14C07900A99B5F /* OrderDetail.swift in Sources */,
 				4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */,
 				4B0E46462D5BDD2100E5BDAB /* AsyncImagesCache.swift in Sources */,
-				4B4F92742CF644A600E8CD11 /* ContentExtension.swift in Sources */,
 				4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */,
+				4BEF3C822D777C2900CBF509 /* PendingOrderModel.swift in Sources */,
 				4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */,
 				4BB1BB7A2C8F65C000EB8EA0 /* ContentView.swift in Sources */,
-				4BF9655C2CD3D6680058D996 /* ModalRestaurants.swift in Sources */,
 				4B4521842D2833D200B495DC /* SearchView.swift in Sources */,
 				4BB1BBA32C8F682800EB8EA0 /* Router.swift in Sources */,
 				4BB1BB782C8F65C000EB8EA0 /* subitoApp.swift in Sources */,
@@ -925,10 +923,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -981,9 +982,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -1003,21 +1007,25 @@
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = subito/Info.plist;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = subito/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1028,7 +1036,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = auto;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1052,21 +1060,25 @@
 				DEVELOPMENT_TEAM = 9NTUW88L35;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = subito/Info.plist;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = subito/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere tu ubicación";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1077,7 +1089,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = auto;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;

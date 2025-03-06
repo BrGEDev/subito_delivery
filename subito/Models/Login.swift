@@ -41,11 +41,16 @@ struct RegisterResponse: Decodable {
     let status: String
     let message: String
     let data: RegisterData?
-    let errors: ErrorsData?
 }
 
 struct RegisterData: Decodable {
     let user: UserData?
+    let name: [String]?
+    let lastname:  [String]?
+    let birthday:  [String]?
+    let ua_email:  [String]?
+    let password:  [String]?
+    let ua_phone:  [String]?
 }
 
 struct UserData: Decodable {
@@ -55,14 +60,6 @@ struct UserData: Decodable {
     let ua_email: String
     let ua_token: String
     let ua_phone: String?
-}
-
-struct ErrorsData: Decodable {
-    let name: String?
-    let lastname: String?
-    let birthday: String?
-    let ua_email: String?
-    let password: String?
 }
 
 struct RecoverResponse: Decodable {

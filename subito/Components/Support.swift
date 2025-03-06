@@ -130,13 +130,3 @@ struct Support: View {
         }
     }
 }
-
-#Preview {
-    NavigationView {
-        Support()
-    }
-    .modelContainer(for: [
-        UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-        CardSD.self, TrackingSD.self,
-    ])
-}

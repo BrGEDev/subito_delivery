@@ -7,7 +7,7 @@ final class SearchViewModel: ObservableObject {
     private var api: ApiCaller = ApiCaller()
     @Published var searchText: String = ""
     @Published var results: SearchData? = nil
-    
+    @Published var loading: Bool = false
     
     init(){
         searchSubito()
@@ -21,9 +21,11 @@ final class SearchViewModel: ObservableObject {
                         "search" : $0
                     ]
                     
+                    self.loading = true
+                    
                     self.api.fetch(url: "search", method: "POST", body: data, ofType: SearchResponse.self) { res, status in
                         self.results = nil
-                        
+                        self.loading = false
                         if status {
                             if res!.status == "success" {
                                 self.results = res!.data!

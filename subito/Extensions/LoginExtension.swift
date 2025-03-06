@@ -16,6 +16,10 @@ extension Register{
             return
         }
         
+        withAnimation{
+            loading = true
+        }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let birthdate = formatter.string(from: birthday)
@@ -29,6 +33,10 @@ extension Register{
         ]
         
         api.fetch(url: "register", method: "POST", body: data, ofType: RegisterResponse.self){ res, status in
+            withAnimation {
+                loading = false
+            }
+            
             if status {
                 if res!.status == "success" {
                     alert = true
@@ -37,12 +45,12 @@ extension Register{
                 } else {
                     alert = true
                     title = "Error"
-                    errorMessage = res!.errors?.ua_email ?? "Ya tiene una cuenta registrada con ese correo, inicie sesión o ingresa otro correo"
+                    errorMessage = res!.data?.ua_email?[0] ?? "Ya tiene una cuenta registrada con ese correo, inicie sesión o ingresa otro correo"
                 }
             } else {
                 alert = true
                 title = "Error"
-                errorMessage = res!.errors?.ua_email ?? "Ocurrió un error de conexión, intente más tarde."
+                errorMessage = "Ocurrió un error de conexión, intente más tarde."
             }
         }
     }

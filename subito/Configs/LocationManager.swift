@@ -1,60 +1,64 @@
-import Foundation
-import MapKit
+import CoreLocation
 
-class LocationManager: NSObject, ObservableObject, MKMapViewDelegate, CLLocationManagerDelegate{
-    @Published var manager: CLLocationManager = .init()
-    @Published var userLocation: CLLocationCoordinate2D = .init(latitude: 19.0414398, longitude: -98.2062727)
-    @Published var coordinates: CLLocation = .init(latitude: 19.0414398, longitude: -98.2062727)
-    @Published var printPosition: [String: String] = [:]
-    @Published var isLocationAuthorized: Bool = false
+class LocationManager: NSObject, ObservableObject {
+    private let manager = CLLocationManager()
+    @Published var userLocation: CLLocation?
+    @Published var coords: CLLocationCoordinate2D?
+    static let shared = LocationManager()
     
     override init() {
         super.init()
         
         manager.delegate = self
-        manager.requestWhenInUseAuthorization()
+        manager.requestAlwaysAuthorization()
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.allowsBackgroundLocationUpdates = false
-        manager.pausesLocationUpdatesAutomatically = true
     }
     
-    nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Task { await checkAuthorization() }
+    func requestLocation() {
+        manager.requestLocation()
+    }
+}
+
+extension LocationManager: CLLocationManagerDelegate {
+    func locationManager(_ manafer: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+            
+            case .notDetermined:
+                print("Not Determined")
+                manager.requestAlwaysAuthorization()
+            case .restricted:
+                print("Restricted")
+                manager.requestAlwaysAuthorization()
+            case .denied:
+                print("Denied")
+                manager.requestAlwaysAuthorization()
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Start Updating Location")
+           
+            @unknown default:
+                print("IDK")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let currentLocation = locations.last else {return}
-        
-        printPosition = [
-            "lat" : String(currentLocation.coordinate.latitude),
-            "lng" : String(currentLocation.coordinate.longitude)
-        ]
-        
-        userLocation = .init(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-        coordinates = .init(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-        isLocationAuthorized = true
+        guard let location = locations.last else { return }
+        userLocation = location
+        coords = location.coordinate
     }
     
-    func geocode(location: CLLocation, completion: @escaping (CLPlacemark?, Error?) -> ()){
-        CLGeocoder().reverseGeocodeLocation(location) {
-            completion($0?.first, $1)
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print(error)
+    }
+    
+    func geocode(location: CLLocationCoordinate2D?, completion: @escaping (CLPlacemark?, Error?) -> ()){
+        guard location != nil else {
+            completion(nil, nil)
+            return
         }
-    }
         
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        checkAuthorization()
-    }
-    
-    func checkAuthorization() {
-        switch manager.authorizationStatus{
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .denied:
-            manager.requestWhenInUseAuthorization()
-        case .authorizedAlways,.authorizedWhenInUse:
-            manager.requestLocation()
-        default:
-            break
+        let locate: CLLocation = .init(latitude: location!.latitude, longitude: location!.longitude)
+        CLGeocoder().reverseGeocodeLocation(locate) {
+            completion($0?.first, $1)
         }
     }
 }

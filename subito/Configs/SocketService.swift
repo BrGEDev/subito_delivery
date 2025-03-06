@@ -8,7 +8,9 @@
 import Foundation
 import SocketIO
 
-final class SocketService: ObservableObject {
+final class SocketService {
+    //https://lexatax.com.mx:3000
+    //https://qa-dev-pw.mx:5001
     let socketManager: SocketManager = SocketManager(socketURL: URL(string: "https://lexatax.com.mx:3000")!, config: [.log(false), .compress, .reconnects(true), .forceWebsockets(true)])
     
     @Published var socket: SocketIOClient

@@ -124,7 +124,7 @@ extension PaymentModal {
                 ],
                 "order": [
                     "products": products,
-                    "total": payment,
+                    "total": subtotal,
                     "tip": ceil(prepropina),
                     "shipping_cost": envio,
                     "distance_km": km,
@@ -141,16 +141,15 @@ extension PaymentModal {
                 if res!.status == "success" {
                     progress = false
                     isPresented.toggle()
-                    socket.socket.emit("orderDelivery", ["orderId": res!.data!.orderId, "establishmentId": res!.data!.establishmentId])
+                    pendingOrderModel.socket.socket.emit("orderDelivery", ["orderId": res!.data!.orderId, "establishmentId": res!.data!.establishmentId])
 
-                    let order = TrackingSD(id: UUID(), order: res!.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime!)
+                    let order = TrackingSD(id: UUID(), order: res!.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime ?? "0")
                     
                     paymentsSelected?.token = nil
                     context.insert(order)
-                    try! context.delete(model: CartSD.self)
-                    try! context.save()
                     
-                    pending = true
+                    pendingOrderModel.pendingModal = true
+                    pendingOrderModel.listeners(order: order, router: router, context: context)
                     dismiss()
                 } else {
                     progress = false
@@ -183,7 +182,8 @@ extension PaymentModal {
                 km = ceil(Double(result?.routes.first?.distance ?? 0) / 1000).decimals(2)
                     
                 if percent != 0 {
-                    envio = Float(km <= km_base ? price_base_km : ((km - km_base) * price_km_extra) + price_base_km)
+                    let envio_cal = Float(km <= km_base ? price_base_km : ((km - km_base) * price_km_extra) + price_base_km)
+                    envio = envio_cal * Float(percent) / 100
                 }
                 
                 let timeExpect = result?.routes.first?.expectedTravelTime ?? 0
@@ -206,6 +206,7 @@ extension PaymentModal {
 
 extension PaymentMethod {
     func getPaymentMethod() {
+        print(user!.token)
         api.fetch(
             url: "payment-methods", method: "POST", token: user!.token,
             ofType: PaymentMethodResponse.self
@@ -219,12 +220,7 @@ extension PaymentMethod {
                             if query == nil {
                                 let newCard = CardSD(
                                     id: card.id, last_four: card.last_four_digits,
-                                    card_type: card.payment_method.name == "master"
-                                    || card.payment_method.name == "debmaster" || card.payment_method.name == "Mastercard Débito" || card.payment_method.name == "Mastercard Crédito"
-                                    ? "MasterCard"
-                                    : (card.payment_method.name == "visa"
-                                       || card.payment_method.name == "debvisa"
-                                       ? "Visa" : "American Express"),
+                                    card_type: card.issuer.name ?? card.payment_method.name,
                                     expiry:
                                         "\(card.expiration_month)/\(card.expiration_year)",
                                     brand: card.payment_method.secure_thumbnail,

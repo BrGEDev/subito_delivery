@@ -74,7 +74,7 @@ struct CheckoutResponse: Decodable {
 }
 
 struct CheckoutData: Decodable {
-    var responseMP: ResponseMP
+    var responseMP: ResponseMP?
     var orderId: Int
     var establishmentId: Int
 }

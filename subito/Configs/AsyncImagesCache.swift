@@ -65,7 +65,7 @@ struct AsyncImageCache<ImageView: View, PlaceholderView: View>: View {
                     return image
                 } else {
                     guard let urlError else { return nil }
-                        let (data, response) = try await URLSession.shared.data(from: urlError)
+                        let (data, _) = try await URLSession.shared.data(from: urlError)
                                           
                         guard let image = UIImage(data: data) else { return nil }
                         

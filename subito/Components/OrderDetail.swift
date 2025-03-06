@@ -11,10 +11,10 @@ import SwiftData
 
 struct OrderDetail: View {
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) var dismiss
+    @ObservedObject var router = NavigationManager.shared
     
     var order: String
-    @StateObject var socket = SocketService.socketClient
+    var socket = SocketService.socketClient
     @State var orderDetails: OrderDetails?
     @StateObject var api: ApiCaller = ApiCaller()
     @Query var userData: [UserSD]
@@ -42,7 +42,7 @@ struct OrderDetail: View {
                             HStack{
                                 Button(action: {
                                     modalInfo = false
-                                    dismiss()
+                                    router.navigationPath.removeLast()
                                 }){
                                     Image(systemName: "arrow.backward")
                                         .foregroundStyle(colorScheme == .dark ? .white : .black)
@@ -295,7 +295,7 @@ struct OrderDetail: View {
                     .padding(.bottom, 30)
                     
                     Button(action: {
-                        dismiss()
+                        router.navigationPath.removeLast()
                     }) {
                         Text("Volver al inicio")
                     }
@@ -315,16 +315,9 @@ struct OrderDetail: View {
             detailOrder()
         }
         .onDisappear {
-            socket.disconnect_socket()
+            socket.clearListener(listener: "sendLocation")
+            socket.clearListener(listener: "orderCanceled")
+            socket.clearListener(listener: "responseAutoAsign")
         }
     }
-}
-
-#Preview {
-    AppSwitch()
-        .environmentObject(UserStateModel())
-        .modelContainer(for: [
-            UserSD.self, DirectionSD.self, CartSD.self, ProductsSD.self,
-            CardSD.self, TrackingSD.self,
-        ])
 }
