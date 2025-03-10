@@ -15,6 +15,7 @@ final class PendingOrderModel: ObservableObject {
     func listeners(order: TrackingSD, router: NavigationManager, context: ModelContext) {
         title = "Esperando confirmación del establecimiento"
         loading = true
+        
         socket.socket.on("orderDelivery") { data, ack in
             
             let dataArray = data as NSArray
@@ -59,6 +60,8 @@ final class PendingOrderModel: ObservableObject {
                 }
             }
         }
+        
+        
     }
     
     

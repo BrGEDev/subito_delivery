@@ -40,7 +40,7 @@ func saveproduct(context: ModelContext, data: Product, location: [String:Any], a
         let check = {
             for product in inCart!.products {
                 if product.id == Int(data.pd_id) {
-                    product.amount = 1
+                    product.amount = product.amount + 1
                     return true
                 }
             }
@@ -179,7 +179,7 @@ extension ModalProducto {
             let check = {
                 for product in inCart!.products {
                     if product.id == Int(data.pd_id) {
-                        product.amount = count
+                        product.amount = product.amount + count
                         return true
                     }
                 }

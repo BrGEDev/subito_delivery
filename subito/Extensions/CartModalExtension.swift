@@ -9,15 +9,16 @@ import SwiftUI
 import SwiftData
 
 extension CartModal {
-    func loadPayment() {
+    func loadPayment() -> Float {
         var sum: Float = 0
         
         for est in establishments {
             for product in est.products {
                 sum += Float(product.amount) * product.unit_price
             }
-            payment = sum
         }
+        
+        return sum
     }
     
     func deleteAll() {
@@ -29,7 +30,6 @@ extension CartModal {
         api.fetch(url: "shopping/remove/cart", method: "POST", token: user.token, ofType: ShoppingModResponse.self) { res, status in
             if status {
                 if res!.status == "success"{
-                    payment = 0
                     try! context.delete(model: CartSD.self)
                     try! context.save()
                 } else  {
