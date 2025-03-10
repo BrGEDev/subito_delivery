@@ -244,7 +244,7 @@ struct Eats: View {
                 }
 
                 HomePage()
-
+                
                 if locatedEstablishment.count > 0 {
                     VStack {
                         VStack {

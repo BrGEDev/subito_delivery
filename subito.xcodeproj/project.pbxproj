@@ -239,6 +239,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4B4F91E52CF4CA5200E8CD11 /* Delivery */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4B4F91F62CF4CA5300E8CD11 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Delivery; sourceTree = "<group>"; };
+		4B9E994C2D7F5501000A44AD /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +362,7 @@
 		4BB1BB762C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXGroup;
 			children = (
+				4B9E994C2D7F5501000A44AD /* Helpers */,
 				4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */,
 				4B2B712E2D0A1FA9003BF403 /* SwiftData */,
 				4B4F92622CF4E4AB00E8CD11 /* Assets.xcassets */,
@@ -532,6 +534,9 @@
 			);
 			dependencies = (
 				4B4F91F42CF4CA5300E8CD11 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4B9E994C2D7F5501000A44AD /* Helpers */,
 			);
 			name = subito;
 			productName = subito;

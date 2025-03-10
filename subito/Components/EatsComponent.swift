@@ -67,8 +67,6 @@ struct HomePage: View {
                 }
             }
         }
-        .padding(.leading)
-        .padding(.trailing)
-        
+        .padding([.leading, .trailing])
     }
 }

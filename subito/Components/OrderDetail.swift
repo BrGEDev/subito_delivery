@@ -200,18 +200,18 @@ struct OrderDetail: View {
                                         .clipped()
                                         .frame(maxWidth: .infinity)
                                         
-                                        Button(action: {
-                                            // Iniciar chat con repartidor
-                                        }){
-                                            Label("Mensaje", systemImage: "ellipsis.message")
-                                                .frame(maxWidth: .infinity)
-                                        }
-                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
-                                        .padding()
-                                        .background(Material.bar)
-                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                                        .clipped()
-                                        .frame(maxWidth: .infinity)
+//                                        Button(action: {
+//                                            // Iniciar chat con repartidor
+//                                        }){
+//                                            Label("Mensaje", systemImage: "ellipsis.message")
+//                                                .frame(maxWidth: .infinity)
+//                                        }
+//                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
+//                                        .padding()
+//                                        .background(Material.bar)
+//                                        .clipShape(RoundedRectangle(cornerRadius: 20))
+//                                        .clipped()
+//                                        .frame(maxWidth: .infinity)
                                     }
                                 }
                                 
@@ -313,6 +313,65 @@ struct OrderDetail: View {
         .toolbar(.hidden, for: .tabBar)
         .onAppear{
             detailOrder()
+        }
+        .onChange(of: statusString) { oldValue, newValue in
+            
+            print("El valor anterior es \(oldValue)")
+            print("El nuevo valor es \(newValue)")
+            
+            if oldValue != newValue {
+                let title: String = switch statusString {
+                    case "Recolectando", "En espera":
+                        "Tu pedido está en preparación"
+                    case "Esperando producto":
+                        "El repartidor ha llegado a \(orderDetails?.order?.name_restaurant ?? "")"
+                    case "Delivery":
+                        "El repartidor va camino a tu domicilio"
+                    case "En pago":
+                        "El repartidor ha llegado, ¡recolecta tu pedido!"
+                    default:
+                        "Pedido terminado"
+                }
+                
+                UIApplication.shared.inAppNotification {
+                    let activeWindow =
+                    (UIApplication.shared.connectedScenes.first
+                     as? UIWindowScene)?
+                        .windows.first(where: { $0.tag == 0320 })
+                    
+                    HStack {
+                        Image(statusString == "Recolectando" || statusString == "En espera" ? .tienda : .repartidor)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 60, height: 60)
+                        .padding(2)
+                        .background(
+                            Circle().fill(.gray.opacity(0.5))
+                        )
+                        .clipped()
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(title)
+                                .font(.callout.bold())
+                                .lineLimit(2)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            Text("Su número de pedido es \(orderDetails?.order?.no_order ?? "")")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)                        }
+                        .padding(
+                            .top, activeWindow != nil &&
+                            activeWindow!.safeAreaInsets.top >= 51 ? 20 : 0)
+                        
+                        Spacer(minLength: 0)
+                    }
+                    .foregroundStyle(.white)
+                    .padding(15)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15).fill(.black)
+                    )
+                }
+            }
         }
         .onDisappear {
             socket.clearListener(listener: "sendLocation")

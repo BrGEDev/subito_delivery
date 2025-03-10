@@ -19,6 +19,8 @@ struct ModalProducto: View {
     @State var advertencia: Bool = false
     @State var token : String = ""
     
+    @State var showNotification: Bool = false
+    
     var body: some View {
         VStack{
             ScrollView{
@@ -131,6 +133,54 @@ struct ModalProducto: View {
             .onAppear{
                 let query = FetchDescriptor<UserSD>()
                 token = try! context.fetch(query).first!.token
+            }
+            .onChange(of: showNotification) { oldValue, newValue in
+                
+                print("El valor anterior es \(oldValue)")
+                print("El nuevo valor es \(newValue)")
+                
+                UIApplication.shared.inAppNotification(playSound: false) {
+                    let activeWindow =
+                    (UIApplication.shared.connectedScenes.first
+                     as? UIWindowScene)?
+                        .windows.first(where: { $0.tag == 0320 })
+                    
+                    HStack {
+                        let image = URL(string: data.pd_image ?? "")
+
+                        AsyncImageCache(url: image) { image in
+                            image
+                                .resizable()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .scaledToFill()
+                        .frame(width: 60, height: 60)
+                        .clipShape(
+                            Circle()
+                        )
+                        .clipped()
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Se agregó x\(count) de \(data.pd_name) al carrito")
+                                .font(.callout.bold())
+                            
+                            Text("Desde \(data.name_restaurant)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(
+                            .top, activeWindow != nil &&
+                            activeWindow!.safeAreaInsets.top >= 51 ? 20 : 0)
+                        
+                        Spacer(minLength: 0)
+                    }
+                    .foregroundStyle(.white)
+                    .padding(15)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15).fill(.black)
+                    )
+                }
             }
         }
     }
