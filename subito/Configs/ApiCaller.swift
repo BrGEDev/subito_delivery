@@ -9,6 +9,10 @@ import Foundation
 
 final class ApiCaller: ObservableObject {
     
+    let urlServ = "https://ti-lexa.tech/api/delivery-drive/"
+    // https://qa-dev-pw.mx/api/delivery-drive/
+    // https://ti-lexa.tech/api/delivery-drive/
+    
     func mercagoPago<T:Decodable>(url: String, method: String, body: [String:Any] = [:], ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void) {
         let urlfetch = URL(string: "https://api.mercadopago.com/v1/\(url)?public_key=APP_USR-8daeda8b-e726-406d-8c0a-c9ca1f236baa")!
         
@@ -41,10 +45,8 @@ final class ApiCaller: ObservableObject {
         }.resume()
     }
     
-    func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void){
-        let urlfetch = URL(string: "https://ti-lexa.tech/api/delivery-drive/" + url)!
-        // https://qa-dev-pw.mx/api/delivery-drive/
-        // https://ti-lexa.tech/api/delivery-drive/
+    func fetch<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type, _ completion: @escaping (T?, Bool) -> Void) {
+        let urlfetch = URL(string: urlServ + url)!
         var request = URLRequest(url: urlfetch)
         
         request.httpMethod = method
@@ -72,5 +74,28 @@ final class ApiCaller: ObservableObject {
             }
             
         }.resume()
+    }
+    
+    func fetchAsync<T:Decodable>(url: String, method: String, body: [String:Any] = [:], token: String = "", ofType type: T.Type) async throws -> T? {
+        let urlfetch = URL(string: urlServ + url)!
+        var request = URLRequest(url: urlfetch)
+        
+        request.httpMethod = method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if method != "GET" {
+            let bodyRequest = try! JSONSerialization.data(withJSONObject: body, options: [])
+            request.httpBody = bodyRequest
+        }
+       
+        let (data, _) = try await URLSession.shared.data(for: request)
+        
+        if let response = String(data: data, encoding: .utf8) {
+            let model = try JSONDecoder().decode(T.self, from: data)
+            return model
+        } else {
+            return nil
+        }
     }
 }

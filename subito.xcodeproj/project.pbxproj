@@ -45,6 +45,10 @@
 		4B55D7E72CD2F82F0009EA89 /* Establishments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55D7E62CD2F8270009EA89 /* Establishments.swift */; };
 		4B73C74E2CE52A3B00997644 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B73C74D2CE52A3800997644 /* Products.swift */; };
 		4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */; };
+		4B9E999A2D80A5E5000A44AD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9E99992D80A5E5000A44AD /* Intents.framework */; };
+		4B9E99A52D80A5E5000A44AD /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9E99A42D80A5E5000A44AD /* IntentsUI.framework */; };
+		4B9E99C12D80AB6B000A44AD /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
+		4B9E99C22D80AB6B000A44AD /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
 		4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */; };
 		4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7F02D09DD380091D024 /* Directions.swift */; };
 		4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */; };
@@ -173,6 +177,10 @@
 		4B73C74D2CE52A3800997644 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		4B73C74F2CE52F4900997644 /* CardEstablishmentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEstablishmentExtension.swift; sourceTree = "<group>"; };
 		4B9059E52D720EFC00C84045 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = info.plist; path = subito/info.plist; sourceTree = SOURCE_ROOT; };
+		4B9E99982D80A5E5000A44AD /* SubitoIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubitoIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B9E99992D80A5E5000A44AD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		4B9E99A32D80A5E5000A44AD /* SubitoIntentsUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubitoIntentsUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B9E99A42D80A5E5000A44AD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModalExtension.swift; sourceTree = "<group>"; };
 		4BA6B7F02D09DD380091D024 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
 		4BA8B7FE2D0CE171000352FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -240,6 +248,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4B4F91E52CF4CA5200E8CD11 /* Delivery */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4B4F91F62CF4CA5300E8CD11 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Delivery; sourceTree = "<group>"; };
 		4B9E994C2D7F5501000A44AD /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
+		4B9E998C2D807EF7000A44AD /* AppleIntelligence */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppleIntelligence; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +259,22 @@
 				4B4F91E42CF4CA5200E8CD11 /* SwiftUI.framework in Frameworks */,
 				4B4F91E32CF4CA5200E8CD11 /* WidgetKit.framework in Frameworks */,
 				4B2B71342D0A55FB003BF403 /* SwiftData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E99952D80A5E5000A44AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B9E999A2D80A5E5000A44AD /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E99A02D80A5E5000A44AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B9E99A52D80A5E5000A44AD /* IntentsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +340,8 @@
 				4B2B71332D0A55FB003BF403 /* SwiftData.framework */,
 				4B4F91AA2CF4C93500E8CD11 /* WidgetKit.framework */,
 				4B4F91AC2CF4C93500E8CD11 /* SwiftUI.framework */,
+				4B9E99992D80A5E5000A44AD /* Intents.framework */,
+				4B9E99A42D80A5E5000A44AD /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -355,6 +382,8 @@
 				4BB1BB852C8F65C200EB8EA0 /* subitoTests.xctest */,
 				4BB1BB8F2C8F65C200EB8EA0 /* subitoUITests.xctest */,
 				4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */,
+				4B9E99982D80A5E5000A44AD /* SubitoIntents.appex */,
+				4B9E99A32D80A5E5000A44AD /* SubitoIntentsUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,6 +391,7 @@
 		4BB1BB762C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXGroup;
 			children = (
+				4B9E998C2D807EF7000A44AD /* AppleIntelligence */,
 				4B9E994C2D7F5501000A44AD /* Helpers */,
 				4BDC23F82D1F29BF00EE5A41 /* GoogleService-Info.plist */,
 				4B2B712E2D0A1FA9003BF403 /* SwiftData */,
@@ -521,6 +551,44 @@
 			productReference = 4B4F91E22CF4CA5200E8CD11 /* DeliveryExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		4B9E99972D80A5E5000A44AD /* SubitoIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B9E99B42D80A5E5000A44AD /* Build configuration list for PBXNativeTarget "SubitoIntents" */;
+			buildPhases = (
+				4B9E99942D80A5E5000A44AD /* Sources */,
+				4B9E99952D80A5E5000A44AD /* Frameworks */,
+				4B9E99962D80A5E5000A44AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubitoIntents;
+			packageProductDependencies = (
+			);
+			productName = SubitoIntents;
+			productReference = 4B9E99982D80A5E5000A44AD /* SubitoIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		4B9E99A22D80A5E5000A44AD /* SubitoIntentsUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B9E99B82D80A5E5000A44AD /* Build configuration list for PBXNativeTarget "SubitoIntentsUI" */;
+			buildPhases = (
+				4B9E999F2D80A5E5000A44AD /* Sources */,
+				4B9E99A02D80A5E5000A44AD /* Frameworks */,
+				4B9E99A12D80A5E5000A44AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubitoIntentsUI;
+			packageProductDependencies = (
+			);
+			productName = SubitoIntentsUI;
+			productReference = 4B9E99A32D80A5E5000A44AD /* SubitoIntentsUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4BB1BB732C8F65C000EB8EA0 /* subito */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB1BB992C8F65C200EB8EA0 /* Build configuration list for PBXNativeTarget "subito" */;
@@ -537,6 +605,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				4B9E994C2D7F5501000A44AD /* Helpers */,
+				4B9E998C2D807EF7000A44AD /* AppleIntelligence */,
 			);
 			name = subito;
 			productName = subito;
@@ -586,11 +655,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					4B4F91E12CF4CA5200E8CD11 = {
 						CreatedOnToolsVersion = 16.1;
+					};
+					4B9E99972D80A5E5000A44AD = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					4B9E99A22D80A5E5000A44AD = {
+						CreatedOnToolsVersion = 16.2;
 					};
 					4BB1BB732C8F65C000EB8EA0 = {
 						CreatedOnToolsVersion = 15.4;
@@ -626,6 +701,8 @@
 				4BB1BB842C8F65C200EB8EA0 /* subitoTests */,
 				4BB1BB8E2C8F65C200EB8EA0 /* subitoUITests */,
 				4B4F91E12CF4CA5200E8CD11 /* DeliveryExtension */,
+				4B9E99972D80A5E5000A44AD /* SubitoIntents */,
+				4B9E99A22D80A5E5000A44AD /* SubitoIntentsUI */,
 			);
 		};
 /* End PBXProject section */
@@ -636,6 +713,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BDC23F92D1F29BF00EE5A41 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E99962D80A5E5000A44AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E99A12D80A5E5000A44AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +764,22 @@
 			files = (
 				4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
 				4B4F91FA2CF4CCE600E8CD11 /* DeliveryState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E99942D80A5E5000A44AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B9E99C12D80AB6B000A44AD /* ApiCaller.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B9E999F2D80A5E5000A44AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B9E99C22D80AB6B000A44AD /* ApiCaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +982,140 @@
 			};
 			name = Release;
 		};
+		4B9E99B52D80A5E5000A44AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubitoIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubitoIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.SubitoIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		4B9E99B62D80A5E5000A44AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubitoIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubitoIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.SubitoIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4B9E99B92D80A5E5000A44AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubitoIntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubitoIntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.SubitoIntentsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		4B9E99BA2D80A5E5000A44AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9NTUW88L35;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubitoIntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubitoIntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = Yes;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Yes;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito.SubitoIntentsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		4BB1BB972C8F65C200EB8EA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -934,6 +1175,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -992,6 +1234,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
@@ -1018,6 +1261,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -1039,11 +1283,14 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1071,6 +1318,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -1092,11 +1340,14 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1201,6 +1452,24 @@
 			buildConfigurations = (
 				4B4F91F82CF4CA5300E8CD11 /* Debug */,
 				4B4F91F92CF4CA5300E8CD11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B9E99B42D80A5E5000A44AD /* Build configuration list for PBXNativeTarget "SubitoIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B9E99B52D80A5E5000A44AD /* Debug */,
+				4B9E99B62D80A5E5000A44AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B9E99B82D80A5E5000A44AD /* Build configuration list for PBXNativeTarget "SubitoIntentsUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B9E99B92D80A5E5000A44AD /* Debug */,
+				4B9E99BA2D80A5E5000A44AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

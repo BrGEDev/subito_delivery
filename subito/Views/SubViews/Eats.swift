@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import AppIntents
 
 struct Eats: View {
     @ObservedObject var router = NavigationManager.shared
@@ -160,8 +161,12 @@ struct Eats: View {
                             Account()
                         }
                     }
-                    .padding([.top, .trailing, .leading])
+                    .padding()
 
+//                    SiriTipView(intent: SearchInSubito(), isVisible: .constant(true))
+//                        .clipShape(.capsule)
+//                        .padding([.leading, .trailing, .bottom])
+                    
                     Button(action: {
                         withAnimation {
                             searchableText = true
@@ -178,7 +183,6 @@ struct Eats: View {
                             .foregroundStyle(Color.gray.opacity(0.6))
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 15)
                     .padding([.bottom, .trailing, .leading])
                 }
 

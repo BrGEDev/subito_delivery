@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import AppIntents
 
 struct productoView: View {
     @StateObject var api: ApiCaller = ApiCaller()
@@ -98,6 +99,10 @@ struct CartModal: View {
             Group {
                 if establishments.count != 0 {
                     ScrollView {
+                        
+                        SiriTipView(intent: InCartSubito())
+                            .padding([.leading, .trailing])
+                        
                         ForEach(establishments) { est in
                             VStack {
                                 HStack {
@@ -140,12 +145,15 @@ struct CartModal: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 150, height: 150)
-
+                        
                         Text("Aún no hay productos en tu carrito")
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: 300, alignment: .center)
                             .multilineTextAlignment(.center)
+                        
+                        SiriTipView(intent: InCartSubito())
+                            .padding([.leading, .trailing])
                     }
-                    .frame(maxWidth: 300, maxHeight: 300)
+                    .frame(maxHeight: 300)
                 }
             }
             .navigationTitle("Mi carrito")
@@ -345,7 +353,8 @@ struct UpdateProduct: View {
         }
         
         let data = [
-            "amount" : amount
+            "amount" : amount,
+            "id" : product.id
         ]
         
         api.fetch(url: "shopping/update", method: "PUT", body: data, token: user!.token, ofType: ShoppingModResponse.self) { res, status in

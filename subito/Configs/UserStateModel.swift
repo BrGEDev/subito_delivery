@@ -53,6 +53,7 @@ class UserStateModel: ObservableObject {
         loggedIn = userQuery == nil ? false : true
 
         if userQuery != nil {
+            UserDefaults().set(userQuery!.token, forKey: "tokenUser")
             loadCart(token: userQuery!.token)
         }
     }
@@ -100,6 +101,7 @@ class UserStateModel: ObservableObject {
                             )
                         )
 
+                        UserDefaults().set(res!.data!.token, forKey: "tokenUser")
                         self.loadCart(token: res!.data!.token)
 
                         try self.context.save()

@@ -425,7 +425,7 @@ struct PaymentModal: View {
                                 }
                             }
                         
-                        Text("Procesando tu pago...")
+                        Text("Creando tu pedido...")
                             .multilineTextAlignment(.center)
                             .font(.title2)
                             .foregroundStyle(.secondary)
@@ -440,7 +440,7 @@ struct PaymentModal: View {
                     Alert(
                         title: Text("Error"),
                         message: Text(
-                            "Ha ocurrido un error procesando tu pago, por favor intenta de nuevo o contacta con tu banco emisor."
+                            "Ha ocurrido un error creando tu pedido, por favor intente de nuevamente."
                         ), dismissButton: .default(Text("Aceptar")))
                 }
             }

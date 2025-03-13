@@ -315,13 +315,10 @@ struct OrderDetail: View {
             detailOrder()
         }
         .onChange(of: statusString) { oldValue, newValue in
-            
-            print("El valor anterior es \(oldValue)")
-            print("El nuevo valor es \(newValue)")
-            
+            // Dynamic Island In App Notification
             if oldValue != newValue {
                 let title: String = switch statusString {
-                    case "Recolectando", "En espera":
+                    case "Recolectando", "En espera", "Buscar repartidor":
                         "Tu pedido está en preparación"
                     case "Esperando producto":
                         "El repartidor ha llegado a \(orderDetails?.order?.name_restaurant ?? "")"

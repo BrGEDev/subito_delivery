@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import AppIntents
 
 struct Account: View {
     @Environment(\.colorScheme) var colorScheme
@@ -76,7 +77,6 @@ struct Account: View {
                     NavigationLink(destination: Support()){
                         Label("Soporte técnico", systemImage: "phone.bubble.fill")
                     }
-                
                 }
                 
                 Button("Cerrar sesión"){
