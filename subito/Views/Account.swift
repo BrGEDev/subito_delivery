@@ -10,6 +10,7 @@ import SwiftUI
 import AppIntents
 
 struct Account: View {
+    @Environment(\.modelContext) var ModelContext
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var vm: UserStateModel
     
@@ -52,6 +53,9 @@ struct Account: View {
                         Label("Mi perfil", systemImage: "person.crop.circle.fill")
                     }
                 
+                    NavigationLink(destination: HistoryOrder(context: ModelContext)) {
+                        Label("Mis pedidos", systemImage: "clock.fill")
+                    }
                 }
                 
                 Section(header: Text("Pagos")){
@@ -73,7 +77,7 @@ struct Account: View {
 //                }
 //                .listRowSeparator(.hidden)
                 
-                Section(header: Text("Ayuda")){
+                Section(header: Text("Ayuda"), footer: Text("Centro de ayuda de Súbito. Puedes reportar problemas o inquietudes de la aplicación, así como dudas sobre el servicio o tus pagos.")){
                     NavigationLink(destination: Support()){
                         Label("Soporte técnico", systemImage: "phone.bubble.fill")
                     }

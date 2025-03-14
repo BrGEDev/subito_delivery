@@ -60,6 +60,7 @@ struct OrderDetailModel: Decodable {
     var client_longitude: String
     var establishment_latitude: String
     var establishment_longitude: String
+    var picture_order: String?
 }
 
 struct ProductsDetailModel: Decodable {
@@ -80,4 +81,26 @@ struct LocationModel: Decodable {
     let id_delivery: String
     let latitude: String
     let longitude: String
+}
+
+struct HistoryResponse: Decodable {
+    let status: String
+    let message: String
+    let data: [HistoryData]?
+}
+
+struct HistoryData: Decodable {
+    let id_order: String
+    let no_order: String
+    let time_order: String
+    let name_restaurant: String
+    let address: String
+    let picture_logo: String
+    let created_at: String
+    let payment: String
+    let status: String
+    let client_latitude: String
+    let client_longitude: String
+    let establishment_longitude: String
+    let establishment_latitude: String
 }

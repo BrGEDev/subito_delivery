@@ -26,7 +26,7 @@ struct AppShorcuts: AppShortcutsProvider {
         AppShortcut(
             intent: InCartSubito(),
             phrases: [
-                "¿Qué tengo en mi carrito de \(.applicationName)",
+                "¿Qué tengo en mi carrito de \(.applicationName)?",
                 "Ve mi carrito de \(.applicationName)",
                 "Ver mi carrito de \(.applicationName)",
                 "Ver mi carrito en \(.applicationName)",

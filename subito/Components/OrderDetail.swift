@@ -320,7 +320,7 @@ struct OrderDetail: View {
                 let title: String = switch statusString {
                     case "Recolectando", "En espera", "Buscar repartidor":
                         "Tu pedido está en preparación"
-                    case "Esperando producto":
+                    case "Esperando Producto":
                         "El repartidor ha llegado a \(orderDetails?.order?.name_restaurant ?? "")"
                     case "Delivery":
                         "El repartidor va camino a tu domicilio"

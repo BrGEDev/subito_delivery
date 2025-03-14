@@ -47,7 +47,7 @@ extension OrderDetail {
                         case "25":
                             statusString = "En Pago"
                         case "26":
-                            statusString = "Esperando producto"
+                            statusString = "Esperando Producto"
                         case "23":
                             statusString = "Delivery"
                         default:
