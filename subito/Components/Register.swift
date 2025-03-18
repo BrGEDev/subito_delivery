@@ -89,12 +89,14 @@ struct Register: View {
                                 .frame(height: 50)
                                 .background(.ultraThinMaterial)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .keyboardType(.alphabet)
                             
                             TextField("Apellido(s)", text: $lastName)
                                 .padding()
                                 .frame(height: 50)
                                 .background(.ultraThinMaterial)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .keyboardType(.alphabet)
                             
                             DatePicker(
                                 "Fecha de nacimiento", selection: $birthday,
@@ -110,6 +112,7 @@ struct Register: View {
                                 .frame(height: 50)
                                 .background(.ultraThinMaterial)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .keyboardType(.emailAddress)
                             
                             SecureField("Contraseña", text: $password)
                                 .padding()

@@ -74,3 +74,25 @@ struct InCartSubito: AppIntent {
         return sum
     }
 }
+
+struct DeleteCartSubito: AppIntent {
+    static var title: LocalizedStringResource = "Eliminar carrito de Súbito"
+    static var description: IntentDescription? = .init(stringLiteral: "Eliminar el carrito de Súbito")
+    static var openAppWhenRun: Bool = false
+    
+    func perform() async throws -> some IntentResult & ProvidesDialog {
+        let api = ApiCaller()
+        let db = SwifDataEntity()
+        
+        let token = UserDefaults().string(forKey: "tokenUser") ?? ""
+        
+        let result = try await api.fetchAsync(url: "shopping/remove/cart", method: "POST", token: token, ofType: ShoppingModResponse.self)
+        
+        if result?.status == "success" {
+            db.deleteCart()
+            return .result(dialog: "Se limpió correctamente tu carrito de Súbito.")
+        }
+        
+        return .result(dialog: "No se pudo eliminar tu carrito, consulta la aplicación")
+    }
+}

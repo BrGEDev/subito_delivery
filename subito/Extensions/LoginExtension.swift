@@ -16,6 +16,13 @@ extension Register{
             return
         }
         
+        guard password.count >= 8 else {
+            alert = true
+            title = "Atención"
+            errorMessage = "La contraseña debe tener mínimo 8 carácteres"
+            return
+        }
+        
         withAnimation{
             loading = true
         }
