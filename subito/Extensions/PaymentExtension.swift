@@ -206,7 +206,6 @@ extension PaymentModal {
 
 extension PaymentMethod {
     func getPaymentMethod() {
-        print(user!.token)
         api.fetch(
             url: "payment-methods", method: "POST", token: user!.token,
             ofType: PaymentMethodResponse.self

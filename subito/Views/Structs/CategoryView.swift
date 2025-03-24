@@ -37,28 +37,39 @@ struct CategoryView: View {
                 }
             } else {
                 if !establishments.isEmpty {
-                    LazyVStack(spacing: 30) {
-                        ForEach(filteredLocales) { est in
-                            GeometryReader { reader in
-                                CardEstablishment(
-                                    data: est,
-                                    typeModal: .Large,
-                                    isActive: $activeID,
-                                    isExpand: $isExpand
-                                )
-                                .offset(
-                                    y: activeID == est.id_restaurant
-                                        ? -reader.frame(in: .global).minY
-                                        : 0
-                                )
-                                .opacity(
-                                    activeID != est.id_restaurant
-                                        && isExpand ? 0 : 1)
+                    if !filteredLocales.isEmpty {
+                        LazyVStack(spacing: 30) {
+                            ForEach(filteredLocales) { est in
+                                GeometryReader { reader in
+                                    CardEstablishment(
+                                        data: est,
+                                        typeModal: .Large,
+                                        isActive: $activeID,
+                                        isExpand: $isExpand
+                                    )
+                                    .offset(
+                                        y: activeID == est.id_restaurant
+                                            ? -reader.frame(in: .global).minY
+                                            : 0
+                                    )
+                                    .opacity(
+                                        activeID != est.id_restaurant
+                                            && isExpand ? 0 : 1)
+                                }
+                                .frame(height: Screen.height * 0.45)
                             }
-                            .frame(height: Screen.height * 0.45)
                         }
-                    }
-
+                    } else {
+                        ZStack {
+                            Spacer().containerRelativeFrame([.horizontal, .vertical])
+                            VStack {
+                                Text("Sin resultados")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(maxWidth: 300, maxHeight: 300)
+                        }                    }
                 } else {
                     ZStack {
                         Spacer().containerRelativeFrame([.horizontal, .vertical])

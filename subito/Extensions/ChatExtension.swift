@@ -6,24 +6,27 @@
 //
 
 import Foundation
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 extension Chat {
-    
+
     func calcVisibility(index: String, message: Message) -> Bool {
         return Int(index)! > 0
-        ? (messages.count > Int(index)! + 1
-           && messages[Int(index)! + 1]
-            .isCurrentUser
-           == message.isCurrentUser
-           ? false : true)
-        : (Int(index)! == 0 && !message.isCurrentUser
-           ? (messages.count > Int(index)! + 1
-              ? (messages[Int(index)! + 1].isCurrentUser != message.isCurrentUser
-                 ? true : false)
-              : true)
-           : messages.count > Int(index)! + 1 ? (messages[Int(index)! + 1].isCurrentUser == message.isCurrentUser ? false : true) : true)
+            ? (messages.count > Int(index)! + 1
+                && messages[Int(index)! + 1]
+                    .isCurrentUser
+                    == message.isCurrentUser
+                ? false : true)
+            : (Int(index)! == 0 && !message.isCurrentUser
+                ? (messages.count > Int(index)! + 1
+                    ? (messages[Int(index)! + 1].isCurrentUser
+                        != message.isCurrentUser
+                        ? true : false)
+                    : true)
+                : messages.count > Int(index)! + 1
+                    ? (messages[Int(index)! + 1].isCurrentUser
+                        == message.isCurrentUser ? false : true) : true)
     }
 
     func getMessages() {
@@ -43,10 +46,11 @@ extension Chat {
                 if status {
                     if res!.status == true {
                         let calendar = Date()
-                        let date = calendar.formatted(date: .omitted, time: .shortened)
-                        
+                        let date = calendar.formatted(
+                            date: .omitted, time: .shortened)
+
                         listenMessages()
-                        
+
                         id_chat = res!.id_chat
                         messages.append(
                             Message(
@@ -60,11 +64,15 @@ extension Chat {
                 }
             }
 
+            break
         case .join(let id):
-                
+
             id_chat = id
-            
-            api.fetch(url: "client_chat/get/\(id)", method: "GET", token: user.token, ofType: MessagesResponse.self) { res, status in
+
+            api.fetch(
+                url: "client_chat/get/\(id)", method: "GET", token: user.token,
+                ofType: MessagesResponse.self
+            ) { res, status in
                 listenMessages()
                 if status {
                     if res!.data != nil {
@@ -73,38 +81,96 @@ extension Chat {
                                 Message(
                                     content: message.mc_message,
                                     time: message.mc_time_at,
-                                    isCurrentUser: message.mc_user == "\(user.name) \(user.lastName)"
+                                    isCurrentUser: message.mc_user
+                                        == "\(user.name) \(user.lastName)"
                                 )
                             )
                         }
                     }
                 }
             }
-                
+
+            break
+        case .joinWithDelivery(let id):
+
+            api.fetch(
+                url: "chat_order",
+                method: "POST",
+                body: ["order_id": id, "id_user": user.id],
+                ofType: OrderChatResponse.self
+            ) { res, status in
+                listenMessages()
+                if status {
+                    if res!.data != nil {
+                        id_chat = res!.data!.id_chat
+
+                        res!.data!.messages.forEach { message in
+                            messages.append(
+                                Message(
+                                    content: message.mc_message,
+                                    time: message.mc_time_at,
+                                    isCurrentUser: message.mc_user
+                                        == "\(user.name) \(user.lastName)"
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
+            break
         }
     }
 
     func sendMessage() {
         let user = try! context.fetch(FetchDescriptor<UserSD>()).first!
-        
+
         if !newMessage.isEmpty {
             let calendar = Date()
             let date = calendar.formatted(date: .omitted, time: .shortened)
-            
-            socket.socket.emit("new message", newMessage, "\(user.name) \(user.lastName)", date, id_chat ?? 0, "client", 3, "txt")
-            
-            messages.append(Message(content: newMessage, time: date, isCurrentUser: true))
+
+            var event = "new message"
+            switch options {
+            case .joinWithDelivery(_):
+                  event =  "message orders"
+                break
+
+            default:
+                event = "new message"
+                break
+            }
+
+            socket.socket.emit(event, newMessage, "\(user.name) \(user.lastName)", date, id_chat ?? 0, "client", 3, "txt")
+
+            messages.append(
+                Message(
+                    content: newMessage, time: date, isCurrentUser: true))
             newMessage = ""
+
         }
     }
 
     func listenMessages() {
         let user = try! context.fetch(FetchDescriptor<UserSD>()).first!
         
-        socket.socket.on("new message") { data, ack in
+        var event = "new message"
+        switch options {
+        case .joinWithDelivery(_):
+              event =  "message orders"
+            break
+
+        default:
+            event = "new message"
+            break
+        }
+        
+        socket.socket.on(event) { data, ack in
+            print(event)
+            
             if id_chat != nil {
                 if id_chat == Int("\(data[3])") {
-                    if data[1] as! String != "\(user.name) \(user.lastName)" {
+                    if data[1] as! String != "\(user.name) \(user.lastName)"
+                    {
                         messages.append(
                             Message(
                                 content: data[0] as! String,
@@ -125,9 +191,12 @@ extension Support {
     func loadChats() {
         let query = FetchDescriptor<UserSD>()
         let token = try! context.fetch(query).first!.token
-        
+
         chats = []
-        api.fetch(url: "chatsActive", method: "GET", token: token, ofType: SupportResponse.self){ res, status in
+        api.fetch(
+            url: "chatsActive", method: "GET", token: token,
+            ofType: SupportResponse.self
+        ) { res, status in
             if status {
                 if res!.status == "success" {
                     chats = res!.data!

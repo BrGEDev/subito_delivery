@@ -69,6 +69,10 @@
 		4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */; };
 		4BC0801E2D08AC5A00216D95 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC0801D2D08AC5700216D95 /* Register.swift */; };
 		4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC080212D08B05600216D95 /* LoginExtension.swift */; };
+		4BC5FFED2D8CB09800482CF3 /* EatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5FFEC2D8CB09500482CF3 /* EatsModel.swift */; };
+		4BC5FFEF2D8CB13A00482CF3 /* IntelligenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5FFEE2D8CB13100482CF3 /* IntelligenceModel.swift */; };
+		4BC5FFF12D8CE90E00482CF3 /* IntelligentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5FFF02D8CE90A00482CF3 /* IntelligentView.swift */; };
+		4BC5FFF32D8DBF2F00482CF3 /* GlassBackGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5FFF22D8DBF2F00482CF3 /* GlassBackGround.swift */; };
 		4BCCD5662CCC0EE1006C962C /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCCD5652CCC0EDB006C962C /* Categories.swift */; };
 		4BCCD5682CCC0F7F006C962C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCCD5672CCC0F5B006C962C /* Category.swift */; };
 		4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCEFB342CEE801A00C9843C /* Stepper.swift */; };
@@ -209,6 +213,10 @@
 		4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4BC0801D2D08AC5700216D95 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		4BC080212D08B05600216D95 /* LoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtension.swift; sourceTree = "<group>"; };
+		4BC5FFEC2D8CB09500482CF3 /* EatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsModel.swift; sourceTree = "<group>"; };
+		4BC5FFEE2D8CB13100482CF3 /* IntelligenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceModel.swift; sourceTree = "<group>"; };
+		4BC5FFF02D8CE90A00482CF3 /* IntelligentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentView.swift; sourceTree = "<group>"; };
+		4BC5FFF22D8DBF2F00482CF3 /* GlassBackGround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBackGround.swift; sourceTree = "<group>"; };
 		4BCCD5652CCC0EDB006C962C /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		4BCCD5672CCC0F5B006C962C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4BCEFB342CEE801A00C9843C /* Stepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
@@ -451,6 +459,7 @@
 		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4BC5FFEE2D8CB13100482CF3 /* IntelligenceModel.swift */,
 				4B1007242D6F7EED0098C98A /* PrePurchase.swift */,
 				4BDCD8142D5BA9DF0068A550 /* SearchModel.swift */,
 				4B3520AC2D2C5A3C00978D74 /* Profiles.swift */,
@@ -484,6 +493,7 @@
 				4BB1BBA62C8F69D700EB8EA0 /* UserStateModel.swift */,
 				4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */,
 				4BDCD8112D5BA9390068A550 /* SearchViewModel.swift */,
+				4BC5FFEC2D8CB09500482CF3 /* EatsModel.swift */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -491,6 +501,8 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4BC5FFF22D8DBF2F00482CF3 /* GlassBackGround.swift */,
+				4BC5FFF02D8CE90A00482CF3 /* IntelligentView.swift */,
 				4BE988032D846FB30080C4B5 /* HistoryOrderDetail.swift */,
 				4BE987FD2D8358430080C4B5 /* HistoryOrder.swift */,
 				4B482B132D65165500869C05 /* RecoveryPassword.swift */,
@@ -799,6 +811,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC5FFED2D8CB09800482CF3 /* EatsModel.swift in Sources */,
 				4B53F01C2D2431CB00109997 /* EstablishmentLocated.swift in Sources */,
 				4BDF95C02CF911D70076ACC3 /* Skeleton.swift in Sources */,
 				4B73C7502CE52F4F00997644 /* CardEstablishmentExtension.swift in Sources */,
@@ -835,6 +848,7 @@
 				4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */,
 				4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */,
 				4BDCD8172D5BC6E50068A550 /* SearchItems.swift in Sources */,
+				4BC5FFEF2D8CB13A00482CF3 /* IntelligenceModel.swift in Sources */,
 				4BE988022D83AB7F0080C4B5 /* HistoryOrderModel.swift in Sources */,
 				4B2B764C2CACF5FB00F046EF /* DirectionsModal.swift in Sources */,
 				4BB1BBAB2C8F6D0300EB8EA0 /* ApiCaller.swift in Sources */,
@@ -851,8 +865,10 @@
 				4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */,
 				4BD7EFC92CD54AB8001D0411 /* EatsComponent.swift in Sources */,
 				4BFB13662D14C07900A99B5F /* OrderDetail.swift in Sources */,
+				4BC5FFF12D8CE90E00482CF3 /* IntelligentView.swift in Sources */,
 				4BE716A72D0B84AB00BE73FC /* CartModalExtension.swift in Sources */,
 				4B0E46462D5BDD2100E5BDAB /* AsyncImagesCache.swift in Sources */,
+				4BC5FFF32D8DBF2F00482CF3 /* GlassBackGround.swift in Sources */,
 				4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */,
 				4BEF3C822D777C2900CBF509 /* PendingOrderModel.swift in Sources */,
 				4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */,

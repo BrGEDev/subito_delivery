@@ -26,14 +26,15 @@ struct Support: View {
     
     @StateObject var api: ApiCaller = ApiCaller()
     
+    @State var path: NavigationPath = NavigationPath()
+    @State var chats: [SupportData] = []
+    
     var types: [TypeSupport] = [
         .init(id: 2, icon: "phone.arrow.up.right.fill", title: "Call center", description: "Problemas con un pedido, producto incompleto, etc."),
         .init(id: 3, icon: "banknote.fill", title: "Tesorería", description: "Problemas con los pagos, aclaración del cobro de servicio, etc."),
         .init(id: 1, icon: "iphone.gen3",title: "Soporte técnico", description: "Problemas con la aplicación, problemas con mi cuenta, etc."),
     ]
     
-    @State var path: NavigationPath = NavigationPath()
-    @State var chats: [SupportData] = []
     
     var body: some View {
         ZStack(alignment: .bottomTrailing){
@@ -57,7 +58,7 @@ struct Support: View {
                 .listStyle(.plain)
             } else {
                 VStack{
-                    Text("Aún no tienes tickets de soporte activos.\n Toca '+' y selecciona el tipo de soporte que necesitas.")
+                    Text("Aún no tienes tickets de soporte activos.\n Toca '+' para comenzar.")
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(Color.secondary)
@@ -66,56 +67,15 @@ struct Support: View {
             }
             
             ZStack(alignment: .bottomTrailing) {
-                List(types, id:\.self){ type in
-                    NavigationLink(destination: Chat(title: type.title, options: .create(support: type.id))){
-                        Label(title: {
-                            VStack(alignment: .leading){
-                                Text(type.title)
-                                    .font(.title3.bold())
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
-                                
-                                Text(type.description)
-                                    .font(.footnote)
-                                    .lineLimit(2)
-                                    .truncationMode(.tail)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }, icon: {
-                            Image(systemName: type.icon)
-                        })
-                    }
-                    .padding([.top, .bottom])
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                }
-                .frame(maxWidth: isExpanded ? Screen.width / 1.5 : 64 , maxHeight: isExpanded ? Screen.height / 2 : 64, alignment: .trailing)
-                .background(Material.bar)
-                .clipShape(RoundedRectangle(cornerRadius: 26))
-                .clipped()
-                .shadow(color: Color.black.opacity(0.15), radius: isExpanded ? 6 : 0)
-                
-                
-                Button(action: {
-                    withAnimation(Animation.spring(duration: isExpanded ? 0.5 : 0.8)) {
-                        isExpanded.toggle()
-                    }
-                }){
+                NavigationLink(destination: Chat(title: "Call Center", options: .create(support: 2))){
                     HStack(alignment: .center){
                         Image(systemName: "plus")
                             .font(.system(size: 20))
                             .tint(Color.black)
-                        
-                        
-                        if isExpanded {
-                            Text("Solicitar soporte")
-                                .foregroundStyle(Color.black)
-                        }
                     }
                     .padding([.leading, .trailing], 22)
                 }
-                .frame(maxWidth: isExpanded ? Screen.width / 1.5 : 74, maxHeight: isExpanded ? 64 : 74)
+                .frame(maxWidth: 74, maxHeight: 74)
                 .background(Color.accentColor)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .shadow(color: Color.black.opacity(0.15), radius: isExpanded ? 0 : 6)

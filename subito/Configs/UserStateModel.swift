@@ -133,7 +133,6 @@ class UserStateModel: ObservableObject {
 
         isBusy = true
         
-        
         var response: Bool = false
 
         let user = FetchDescriptor<UserSD>()
@@ -179,6 +178,32 @@ class UserStateModel: ObservableObject {
     }
 
     private func loadCart(token: String) {
+        login.fetch(
+            url: "payment-methods", method: "POST", token: token,
+            ofType: PaymentMethodResponse.self
+        ) { res, status in
+            if status {
+                if res!.status == "success" {
+                    if res!.data!.count != 0 {
+                        for card in res!.data! {
+                            let newCard = CardSD(
+                                id: card.id, last_four: card.last_four_digits,
+                                card_type: card.issuer.name ?? card.payment_method.name,
+                                expiry:
+                                    "\(card.expiration_month)/\(card.expiration_year)",
+                                brand: card.payment_method.secure_thumbnail,
+                                name: card.cardholder.name ?? "",
+                                token: nil)
+                            
+                            self.context.insert(newCard)
+                        }
+                        
+                        try! self.context.save()
+                    }
+                }
+            }
+        }
+        
         login.fetch(url: "shopping/get", method: "GET", token: token, ofType: ShoppingResponse.self) { res, status in
             if status {
                 if res!.status == "success" {

@@ -55,6 +55,21 @@ struct AppShorcuts: AppShortcutsProvider {
             ], shortTitle: "Elimina mi carrito de Súbito",
             systemImageName: "trash.fill"
         )
+        
+        AppShortcut(
+            intent: AddFavouriteSubito(),
+            phrases: [
+                "Añade mis favoritos al carrito de \(.applicationName)",
+                "Agrega mis favoritos a mi carrito de \(.applicationName)",
+                "Agrega mis favoritos de esta hora a mi carrito de \(.applicationName)",
+                "Agrega mis favoritos de hoy a mi carrito de \(.applicationName)",
+                "Añade mis favoritos a mi carrito en \(.applicationName)",
+                "Añade mis favoritos de esta hora a mi carrito de \(.applicationName)",
+                "Añade mis favoritos de hoy a mi carrito de \(.applicationName)",
+                "Añade mis favoritos de hoy en \(.applicationName)"
+            ], shortTitle: "Agrega mis favoritos a mi carrito de Súbito",
+            systemImageName: "cart.fill"
+        )
     }
 
 }

@@ -145,6 +145,7 @@ extension DirectionsModal {
 
         if string == nil && address != nil {
             address!.status = true
+            aiModel.loadLocationEstablishments(directionSelected: address!)
         } else {
             let query = FetchDescriptor<DirectionSD>(
                 predicate: #Predicate {
@@ -152,7 +153,9 @@ extension DirectionsModal {
                 })
             let add = try! context.fetch(query).first
             add?.status = true
+            aiModel.loadLocationEstablishments(directionSelected: add!)
         }
+        
 
         try! context.save()
         dismiss()

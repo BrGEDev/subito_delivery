@@ -27,6 +27,8 @@ struct DirectionsModal: View {
     @StateObject var api: ApiCaller = ApiCaller()
     @State var path: NavigationPath = NavigationPath()
     
+    @StateObject var aiModel: EatsModel = EatsModel.shared
+    
     var body: some View {
         NavigationStack(path: $path) {
             List{

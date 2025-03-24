@@ -59,7 +59,7 @@ extension CardEstablishment {
     public func loadInfo() {
         do {
             let aperturaS = try timeFromString(string: data.apertura)
-            let cierreS = try timeFromString(string: data.cierre)
+            let cierreS = try timeFromString(string: data.cierre == "00:00:00" ? "23:59:59" : data.cierre)
             
             let intervalA = Date.now.timeIntervalSince(aperturaS!)
             let intervalC = Date.now.timeIntervalSince(cierreS!)
@@ -134,7 +134,7 @@ extension EstablishmentView {
     public func loadInfo() {
         do {
             let aperturaS = try timeFromString(string: data.apertura)
-            let cierreS = try timeFromString(string: data.cierre)
+            let cierreS = try timeFromString(string: data.cierre == "00:00:00" ? "23:59:59" : data.cierre)
             
             let intervalA = Date.now.timeIntervalSince(aperturaS!)
             let intervalC = Date.now.timeIntervalSince(cierreS!)

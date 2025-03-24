@@ -149,9 +149,6 @@ struct CartModal: View {
                         Text("Aún no hay productos en tu carrito")
                             .frame(maxWidth: 300, alignment: .center)
                             .multilineTextAlignment(.center)
-                        
-                        SiriTipView(intent: InCartSubito())
-                            .padding([.leading, .trailing])
                     }
                     .frame(maxHeight: 300)
                 }

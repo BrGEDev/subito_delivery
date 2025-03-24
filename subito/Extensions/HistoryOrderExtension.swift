@@ -11,7 +11,7 @@ import SwiftUI
 extension HistoryOrder {
     var ListView: some View {
         LazyVStack(spacing: 10) {
-            ForEach(historyModel.orders.sorted(by: { it,_ in it.status == selectSort }), id: \.id_order) { order in
+            ForEach(historyModel.orders.sorted(by: { dateFromString(string: $0.created_at) < dateFromString(string: $1.created_at) }).sorted(by: { it, _ in it.status == selectSort }), id: \.id_order) { order in
                 NavigationLink {
                     HistoryOrderDetail(order: order)
                 } label: {
@@ -53,7 +53,7 @@ extension HistoryOrder {
     
     var GridView: some View {
         LazyVGrid(columns: adaptiveColumn, spacing: 10) {
-            ForEach(historyModel.orders.sorted(by: { it,_ in it.status == selectSort }), id: \.id_order) { order in
+            ForEach(historyModel.orders.sorted(by: { dateFromString(string: $0.created_at) < dateFromString(string: $1.created_at) }).sorted(by: { it, _ in it.status == selectSort }), id: \.id_order) { order in
                 NavigationLink {
                     HistoryOrderDetail(order: order)
                 } label: {

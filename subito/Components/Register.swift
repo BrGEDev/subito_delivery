@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct Register: View {
     @Environment(\.dismiss) var dismiss
@@ -17,6 +18,7 @@ struct Register: View {
     @State var email: String = ""
     @State var birthday: Date = Date()
     @State var password: String = ""
+    @State var phone: String = ""
 
     @State var alert: Bool = false
     @State var errorMessage: String = ""
@@ -114,6 +116,14 @@ struct Register: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                                 .keyboardType(.emailAddress)
                             
+                            TextField("Teléfono", text: $phone)
+                                .padding()
+                                .frame(height: 50)
+                                .background(.ultraThinMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .keyboardType(.phonePad)
+                                .onReceive(Just(phone)) { _ in limitText(10) }
+                            
                             SecureField("Contraseña", text: $password)
                                 .padding()
                                 .frame(height: 50)
@@ -125,21 +135,6 @@ struct Register: View {
                         .listRowInsets(
                             EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
                         )
-                        
-                        VStack {
-                            Button(action: {
-                                register()
-                            }) {
-                                Text("Registrarme")
-                            }
-                            .foregroundColor(.black)
-                            .frame(width: 200, height: 50)
-                            .background(Color.yellow)
-                            .cornerRadius(20)
-                            .padding()
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .listRowBackground(Color.white.opacity(0))
                     }
                     .alert(isPresented: $alert) {
                         Alert(
@@ -158,7 +153,28 @@ struct Register: View {
                 }
                 .navigationTitle("¡Bienvenido!")
                 .scrollContentBackground(.hidden)
+                .safeAreaInset(edge: .bottom) {
+                    VStack {
+                        Button(action: {
+                            register()
+                        }) {
+                            Text("Registrarme")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, maxHeight: 50, alignment: .center)
+                        .background(Color.yellow)
+                        .cornerRadius(20)
+                        .padding()
+                    }
+                }
             }
+        }
+    }
+    
+    private func limitText(_ upper: Int) {
+        if phone.count > upper {
+            phone = String(phone.prefix(upper))
         }
     }
 }

@@ -5,9 +5,9 @@
 //  Created by Brandon Guerra Espinoza  on 01/10/24.
 //
 
+import AppIntents
 import SwiftData
 import SwiftUI
-import AppIntents
 
 struct Eats: View {
     @ObservedObject var router = NavigationManager.shared
@@ -53,6 +53,12 @@ struct Eats: View {
         GridItem(.adaptive(minimum: 140))
     ]
 
+    //    Apple Intelligence
+
+    @StateObject var aiModel: EatsModel = EatsModel.shared
+
+    //
+
     var body: some View {
         ZStack(alignment: .top) {
             if searchableText {
@@ -81,7 +87,8 @@ struct Eats: View {
                                     .spring(
                                         response: 0.5,
                                         dampingFraction: 0.9,
-                                        blendDuration: 0.5)
+                                        blendDuration: 0.5
+                                    )
                                 ) {
                                     searchModel.searchText = ""
                                     searchableText = false
@@ -163,10 +170,10 @@ struct Eats: View {
                     }
                     .padding()
 
-//                    SiriTipView(intent: SearchInSubito(), isVisible: .constant(true))
-//                        .clipShape(.capsule)
-//                        .padding([.leading, .trailing, .bottom])
-                    
+                    //                    SiriTipView(intent: SearchInSubito(), isVisible: .constant(true))
+                    //                        .clipShape(.capsule)
+                    //                        .padding([.leading, .trailing, .bottom])
+
                     Button(action: {
                         withAnimation {
                             searchableText = true
@@ -233,7 +240,7 @@ struct Eats: View {
                             if item.status != "Cancelado" {
                                 Button(action: {
                                     router.navigateTo(.Order(id: item.id_order))
-                                })  {
+                                }) {
                                     OrderCard(order: item)
                                 }
                             }
@@ -247,9 +254,15 @@ struct Eats: View {
                     }
                 }
 
+                if #available(iOS 18.0, *) {
+                    if aiModel.favIntelligence != nil {
+                        IntelligentView(favIntelligence: aiModel.favIntelligence!)
+                    }
+                }
+
                 HomePage()
-                
-                if locatedEstablishment.count > 0 {
+
+                if aiModel.locatedEstablishment.count > 0 {
                     VStack {
                         VStack {
                             Text("Los más cercanos a ti")
@@ -263,7 +276,7 @@ struct Eats: View {
                         ScrollView(.horizontal) {
                             LazyHStack(spacing: 16) {
                                 ForEach(
-                                    locatedEstablishment,
+                                    aiModel.locatedEstablishment,
                                     id: \.id_restaurant
                                 ) { item in
                                     NavigationLink(
@@ -390,7 +403,7 @@ struct Eats: View {
                     Image(systemName: "mappin.circle")
                     Text(
                         directionSelected?.full_address
-                            ?? "Obteniendo ubicación..."
+                            ?? "Seleccione su ubicación"
                     )
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -425,14 +438,19 @@ struct Eats: View {
             loadTypes()
             loadPopularEstablishments()
             loadOrders()
-            loadLocationEstablishments()
+            if directionSelected != nil {
+                aiModel.loadLocationEstablishments(directionSelected: directionSelected!)
+            }
         }
         .refreshable {
             loadOrders()
+            aiModel.fetchFavIntelligence()
             if !isExpand {
                 loadTypes()
-                loadLocationEstablishments()
                 loadPopularEstablishments()
+                if directionSelected != nil {
+                    aiModel.loadLocationEstablishments(directionSelected: directionSelected!)
+                }
             }
         }
         .sheet(isPresented: $cartModal) {
@@ -440,8 +458,7 @@ struct Eats: View {
                 isPresented: $cartModal)
         }
         .sheet(
-            isPresented: $directionModal,
-            onDismiss: { loadLocationEstablishments() }
+            isPresented: $directionModal
         ) {
             DirectionsModal()
         }

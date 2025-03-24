@@ -32,7 +32,9 @@ struct OrderDetail: View {
     
     @State var status: Int = 0
     @State var statusString: String = "Cargando..."
-    @State var reasonCancel: String = "Cancelado por swd    qswd qsad ade  sqwda"
+    @State var reasonCancel: String = "Cancelado por..."
+    
+    @State var openChat: Bool = false
     
     var body: some View {
         ZStack{
@@ -200,19 +202,22 @@ struct OrderDetail: View {
                                         .clipped()
                                         .frame(maxWidth: .infinity)
                                         
-//                                        Button(action: {
-//                                            // Iniciar chat con repartidor
-//                                        }){
-//                                            Label("Mensaje", systemImage: "ellipsis.message")
-//                                                .frame(maxWidth: .infinity)
-//                                        }
-//                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
-//                                        .padding()
-//                                        .background(Material.bar)
-//                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-//                                        .clipped()
-//                                        .frame(maxWidth: .infinity)
+                                        Button(action: {
+                                            openChat = true
+                                        }){
+                                            Label("Mensaje", systemImage: "ellipsis.message")
+                                                .frame(maxWidth: .infinity)
+                                        }
+                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
+                                        .padding()
+                                        .background(Material.bar)
+                                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                                        .clipped()
+                                        .frame(maxWidth: .infinity)
                                     }
+                                }
+                                .sheet(isPresented: $openChat) {
+                                    Chat(title: "\(orderDetails!.order!.name!) \(orderDetails!.order!.last_name!)", options: .joinWithDelivery(id: order), type: 1)
                                 }
                                 
                                 VStack{

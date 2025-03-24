@@ -11,6 +11,7 @@ import SwiftUI
 enum ChatOptions: Hashable, Equatable {
     case create(support: Int)
     case join(id: Int)
+    case joinWithDelivery(id: String)
 }
 
 struct Message: Hashable, Identifiable {
@@ -93,9 +94,21 @@ struct Chat: View {
     @State var newMessage: String = ""
     @State var messages: [Message] = []
     @State var id_chat: Int?
+    var type: Int = 0
 
     var body: some View {
-        VStack {
+        ZStack(alignment: .top) {
+            if type == 1 {
+                ZStack(alignment: .top) {
+                    Text(title)
+                        .font(.subheadline.bold())
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Material.bar)
+                .zIndex(20)
+            }
+            
             ScrollView {
                 ScrollViewReader { proxy in
                     ForEach(messages, id: \.self) { message in
@@ -135,12 +148,14 @@ struct Chat: View {
                         }
                     }
                     .onDisappear {
-                        socket.clearListener(listener: "new message")
+                        socket.clearListener(listener: type == 1 ? "message orders" : "new message")
                     }
                 }
             }
+            .padding(.top, (type == 1 ? 60 : 0))
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(type == 1 ? .hidden : .visible, for: .navigationBar)
         .navigationTitle(title)
         .safeAreaInset(edge: .bottom) {
             HStack {

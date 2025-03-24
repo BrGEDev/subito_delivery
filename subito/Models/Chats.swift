@@ -46,3 +46,16 @@ struct MessagesData: Decodable {
     let created_at: String?
     let updated_at: String?
 }
+
+// Chat orders
+
+struct OrderChatResponse: Decodable {
+    let status: String
+    let message: String
+    let data: OrderChatData?
+}
+
+struct OrderChatData: Decodable {
+    let id_chat: Int
+    let messages: [MessagesData]
+}

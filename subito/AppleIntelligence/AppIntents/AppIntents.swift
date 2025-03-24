@@ -96,3 +96,13 @@ struct DeleteCartSubito: AppIntent {
         return .result(dialog: "No se pudo eliminar tu carrito, consulta la aplicación")
     }
 }
+
+struct AddFavouriteSubito: AppIntent {
+    static var title: LocalizedStringResource = "Agregar mis favoritos de la hora a mi carrito de Súbito"
+    static var description: IntentDescription? = .init(stringLiteral: "Agregar tus productos favoritos actuales a tu carrito de Súbito")
+    static var openAppWhenRun: Bool = false
+    
+    func perform() async throws -> some IntentResult & ProvidesDialog {
+        return .result(dialog: "Se agregaron tus favoritos a tu carrito de Súbito.")
+    }
+}

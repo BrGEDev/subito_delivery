@@ -52,24 +52,6 @@ extension Eats {
             }
         }
     }
-    
-    func loadLocationEstablishments() {
-        let data = [
-            "latitude" : directionSelected?.latitude ?? "",
-            "longitude" : directionSelected?.longitude ?? ""
-        ]
-        
-        locatedEstablishment = []
-        api.fetch(url: "establishmentForLocation", method: "POST", body: data, ofType: GetEstablishmentsResponse.self) { res, status in
-            if status {
-                if res!.status == "success" {
-                    withAnimation {
-                        locatedEstablishment = res!.data!
-                    }
-                }
-            }
-        }
-    }
 
     func loadOrders() {
         if user?.id != nil {

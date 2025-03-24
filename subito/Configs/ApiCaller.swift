@@ -91,7 +91,7 @@ final class ApiCaller: ObservableObject {
        
         let (data, _) = try await URLSession.shared.data(for: request)
         
-        if let response = String(data: data, encoding: .utf8) {
+        if String(data: data, encoding: .utf8) != nil {
             let model = try JSONDecoder().decode(T.self, from: data)
             return model
         } else {
