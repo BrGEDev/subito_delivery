@@ -95,28 +95,26 @@ struct PrincipalView: View{
                                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 30, trailing: 0))
                             
                             
-                            TextField("Correo electrónico", text: $username)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(width: 300, height: 50)
-                                .focused($usernameFocus)
-                                .background(colorScheme == .dark ? Color.white.opacity(0.1).cornerRadius(20) : Color.black.opacity(0.06).cornerRadius(20))
-                                .keyboardType(.emailAddress)
-                            
-                            SecureField("Contraseña", text: $password)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .focused($usernameFocus)
-                                .frame(width: 300, height: 50)
-                                .background(colorScheme == .dark ? Color.white.opacity(0.1).cornerRadius(20) : Color.black.opacity(0.06).cornerRadius(20))
-                                .onTapGesture {
-                                    vm.alert = false
-                                }
+                            Group{
+                                TextField("Correo electrónico", text: $username)
+                                    .keyboardType(.emailAddress)
+                                
+                                SecureField("Contraseña", text: $password)
+                                    .onTapGesture {
+                                        vm.alert = false
+                                    }
+                            }
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .focused($usernameFocus)
+                            .frame(width: 300, height: 50)
+                            .background(
+                                colorScheme == .dark ? Color.white.opacity(0.1).cornerRadius(20) : Color.black.opacity(0.06).cornerRadius(20)
+                            )
                             
                             if vm.alert {
                                 Text(vm.message).foregroundColor(.red).font(.footnote)
                             }
-                            
                             
                             Button(action: {
                                 if username == "" || password == "" {

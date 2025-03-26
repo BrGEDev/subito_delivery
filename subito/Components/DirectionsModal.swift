@@ -425,10 +425,7 @@ struct OptionDirection: View {
         }
     }
     
-    private func geocodeDirection(
-        address: AddressResult,
-        completion: @escaping (CLLocationCoordinate2D) -> Void
-    ) {
+    private func geocodeDirection(address: AddressResult, completion: @escaping (CLLocationCoordinate2D) -> Void) {
         let searchRequest = MKLocalSearch.Request()
         let title = address.title
         let subTitle = address.subtitle

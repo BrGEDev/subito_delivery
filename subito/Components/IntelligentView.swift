@@ -6,17 +6,18 @@
 //
 
 import AppIntents
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @available(iOS 18.0, *)
 struct IntelligentView: View {
     @Environment(\.modelContext) var context
-    
+
     @StateObject var aiModel = EatsModel.shared
     var favIntelligence: FavData
     @State var openModal: Bool = false
-    
+    @State var alert: Bool = false
+
     @State var agregado: [Int] = []
 
     private let colors: [Color] = [
@@ -157,11 +158,12 @@ struct IntelligentView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 25))
 
                         Spacer(minLength: 20)
-                        
+
                         if agregado.count == favIntelligence.productos.count {
-                            VStack{
+                            VStack {
                                 Label(
-                                    "Para editar los productos accede a tu carrito directamente.", systemImage: "cart.fill"
+                                    "Para editar los productos accede a tu carrito directamente.",
+                                    systemImage: "cart.fill"
                                 )
                                 .bold()
                             }
@@ -173,8 +175,11 @@ struct IntelligentView: View {
                                 )
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 25))
-                            .animation(.smooth(duration: 0.2), value: agregado.count == favIntelligence.productos.count)
-                            
+                            .animation(
+                                .smooth(duration: 0.2),
+                                value: agregado.count
+                                    == favIntelligence.productos.count)
+
                             Spacer(minLength: 20)
                         }
 
@@ -184,12 +189,14 @@ struct IntelligentView: View {
 
                             Divider()
 
-                            /*SiriTipView(intent: AddFavouriteSubito()).clipShape(Capsule()).clipped().lineLimit(1)*/
+                            SiriTipView(intent: AddFavouriteSubito()).clipShape(
+                                Capsule()
+                            ).clipped().lineLimit(1)
 
                             VStack(spacing: 10) {
                                 ForEach(favIntelligence.productos, id: \.id) {
                                     producto in
-                                                                        
+
                                     HStack {
                                         HStack {
                                             AsyncImageCache(
@@ -233,11 +240,14 @@ struct IntelligentView: View {
                                         Spacer()
 
                                         Button(action: {
-                                            aiModel.addToCart(context: context, type: .one(product: producto)) { result in
+                                            aiModel.addToCart(
+                                                context: context,
+                                                type: .one(product: producto)
+                                            ) { result in
                                                 if result {
                                                     agregado.append(producto.id)
                                                 } else {
-                                                    
+                                                    alert = true
                                                 }
                                             }
                                         }) {
@@ -245,19 +255,31 @@ struct IntelligentView: View {
                                                 Text("Agregar")
                                                     .font(.caption)
                                             } else {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .scaledToFit()
+                                                Image(
+                                                    systemName:
+                                                        "checkmark.circle.fill"
+                                                )
+                                                .scaledToFit()
                                             }
                                         }
                                         .padding(10)
                                         .buttonStyle(.plain)
                                         .background(
-                                            RoundedRectangle(cornerRadius: agregado.contains(producto.id) ? 50 : 25)
-                                                .fill(agregado.contains(producto.id) ? .green : .blue)
-                                                .animation(.linear(duration: 0.2), value: agregado.contains(producto.id))
+                                            RoundedRectangle(
+                                                cornerRadius: agregado.contains(
+                                                    producto.id) ? 50 : 25
+                                            )
+                                            .fill(
+                                                agregado.contains(producto.id)
+                                                    ? .green : .blue
+                                            )
+                                            .animation(
+                                                .linear(duration: 0.2),
+                                                value: agregado.contains(
+                                                    producto.id))
                                         )
-                                        .disabled(agregado.contains(producto.id))
-                                        
+                                        .disabled(
+                                            agregado.contains(producto.id))
                                     }
                                     .padding(10)
                                     .background(
@@ -282,32 +304,50 @@ struct IntelligentView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 25))
 
                         Spacer(minLength: 15)
-                        
+
                         Text(
                             "Súbito aprende de las compras de tu día a día para ayudarte a agilizar tu próximo pedido."
                         )
                         .font(.caption)
                     }
-                    .animation(.smooth(duration: 0.2), value: agregado.count == favIntelligence.productos.count)
+                    .animation(
+                        .smooth(duration: 0.2),
+                        value: agregado.count == favIntelligence.productos.count
+                    )
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Material.thin)
                     .ignoresSafeArea()
-                    /*.safeAreaInset(edge: .bottom) {
+                    .alert(
+                        "Error",
+                        isPresented: $alert
+                    ) {
+                        Button(role: .destructive, action:{}) {
+                            Text("Borrar carrito y agregar nuevos")
+                        }
+                    } message: {
+                        Text("No se pudo agregar el producto porque ya cuenta con productos en su carrito, ¿Desea borrar el carrito y agregar nuevos productos?")
+                    }
+                    .safeAreaInset(edge: .bottom) {
                         Button(action: {
-                            aiModel.addToCart(context: context, type: .all) { result in
+                            aiModel.addToCart(context: context, type: .all) {
+                                result in
                                 if result {
                                     getCart()
                                     openModal = false
                                 } else {
-                                    
+                                    alert = true
                                 }
                             }
                         }) {
-                            if agregado.count == favIntelligence.productos.count {
-                                Label("Todo está en tu carrito", systemImage: "checkmark.circle.fill")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(5)
+                            if agregado.count == favIntelligence.productos.count
+                            {
+                                Label(
+                                    "Todo está en tu carrito",
+                                    systemImage: "checkmark.circle.fill"
+                                )
+                                .frame(maxWidth: .infinity)
+                                .padding(5)
                             } else {
                                 Text("Agregar todo a mi carrito")
                                     .frame(maxWidth: .infinity)
@@ -319,12 +359,22 @@ struct IntelligentView: View {
                         .buttonStyle(.plain)
                         .background(
                             RoundedRectangle(cornerRadius: 25)
-                                .fill(agregado.count == favIntelligence.productos.count ? Color.green : Color(red: 0.85, green: 0.44, blue: 0.84))
-                                .animation(.linear(duration: 0.2), value: agregado.count == favIntelligence.productos.count)
+                                .fill(
+                                    agregado.count
+                                        == favIntelligence.productos.count
+                                        ? Color.green
+                                        : Color(
+                                            red: 0.85, green: 0.44, blue: 0.84)
+                                )
+                                .animation(
+                                    .linear(duration: 0.2),
+                                    value: agregado.count
+                                        == favIntelligence.productos.count)
                         )
                         .padding(.horizontal)
-                        .disabled(agregado.count == favIntelligence.productos.count)
-                    }*/
+                        .disabled(
+                            agregado.count == favIntelligence.productos.count)
+                    }
                     .onAppear {
                         getCart()
                     }
@@ -374,18 +424,19 @@ struct IntelligentView: View {
             hue: Double(hue), saturation: Double(saturation),
             brightness: Double(brightness), opacity: Double(alpha))
     }
-    
-    private func getCart(){
+
+    private func getCart() {
         agregado = []
-        
+
         let id = Int(favIntelligence.establecimiento.id)!
-        var query2: FetchDescriptor<CartSD>{
-            let descriptor = FetchDescriptor<CartSD>(predicate: #Predicate{
-                $0.id == id
-            })
+        var query2: FetchDescriptor<CartSD> {
+            let descriptor = FetchDescriptor<CartSD>(
+                predicate: #Predicate {
+                    $0.id == id
+                })
             return descriptor
         }
-        
+
         let inCart = try! context.fetch(query2).first
         if inCart != nil {
             inCart!.products.forEach { product in

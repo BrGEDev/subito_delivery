@@ -71,7 +71,6 @@ struct Register: View {
         } else {
             NavigationView {
                 VStack {
-                    
                     Form {
                         
                         VStack {
@@ -86,49 +85,32 @@ struct Register: View {
                         .listRowBackground(Color.white.opacity(0))
                         
                         Section {
-                            TextField("Nombre", text: $name)
-                                .padding()
-                                .frame(height: 50)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .keyboardType(.alphabet)
-                            
-                            TextField("Apellido(s)", text: $lastName)
-                                .padding()
-                                .frame(height: 50)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .keyboardType(.alphabet)
-                            
-                            DatePicker(
-                                "Fecha de nacimiento", selection: $birthday,
-                                displayedComponents: [.date]
-                            )
-                            .datePickerStyle(.compact)
+                            Group {
+                                TextField("Nombre", text: $name)
+                                    .keyboardType(.alphabet)
+                                
+                                TextField("Apellido(s)", text: $lastName)
+                                    .keyboardType(.alphabet)
+                                
+                                DatePicker(
+                                    "Fecha de nacimiento", selection: $birthday,
+                                    displayedComponents: [.date]
+                                )
+                                .datePickerStyle(.compact)
+                                
+                                TextField("Correo", text: $email)
+                                    .keyboardType(.emailAddress)
+                                
+                                TextField("Teléfono", text: $phone)
+                                    .keyboardType(.phonePad)
+                                    .onReceive(Just(phone)) { _ in limitText(10) }
+                                
+                                SecureField("Contraseña", text: $password)
+                            }
                             .padding()
+                            .frame(height: 50)
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                            
-                            TextField("Correo", text: $email)
-                                .padding()
-                                .frame(height: 50)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .keyboardType(.emailAddress)
-                            
-                            TextField("Teléfono", text: $phone)
-                                .padding()
-                                .frame(height: 50)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .keyboardType(.phonePad)
-                                .onReceive(Just(phone)) { _ in limitText(10) }
-                            
-                            SecureField("Contraseña", text: $password)
-                                .padding()
-                                .frame(height: 50)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
                         }
                         .listRowBackground(Color.white.opacity(0))
                         .listRowSeparator(.hidden)

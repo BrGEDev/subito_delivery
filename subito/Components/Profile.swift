@@ -26,50 +26,149 @@ struct Profile: View {
     @State private var description: String = ""
     @State private var alert: Bool = false
     
+    @State private var deleteAccount: Bool = false
+    @State var code: String = ""
+    @State var secondsRemaining = 0
+    @EnvironmentObject var vm: UserStateModel
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
+    
+    @State var loading: Bool = false
+    
     var body: some View {
         VStack{
             Form {
-                Section(header: Text("Datos personales")){
-                    TextField("Nombre", text: $name)
+                Group {
+                    Section(header: Text("Datos personales")){
+                        Group {
+                            TextField("Nombre", text: $name)
+                                
+                            TextField("Apellido(s)", text: $lastName)
+                            
+                            DatePicker("Fecha de nacimiento", selection: $birthDate, displayedComponents: [.date])
+                                .datePickerStyle(.compact)
+                        }
                         .padding()
                         .frame(height: 50)
                         .background(.ultraThinMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
+                    }
                     
-                    TextField("Apellido(s)", text: $lastName)
+                    Section(header: Text("Contacto")){
+                        Group {
+                            TextField("Teléfono", text: $phone)
+                                .keyboardType(.phonePad)
+                            
+                            TextField("Correo electrónico", text: $email)
+                                .keyboardType(.emailAddress)
+                        }
                         .padding()
                         .frame(height: 50)
                         .background(.ultraThinMaterial)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
+                    }
                     
-                    DatePicker("Fecha de nacimiento", selection: $birthDate, displayedComponents: [.date])
-                        .datePickerStyle(.compact)
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    Section(header: Text("Extras")){
+                        Button(role: .destructive, action: {
+                            deleteAccount = true
+                            
+                            Task {
+                                await sendCode()
+                            }
+                        }){
+                            Text("Eliminar mi cuenta")
+                        }
+                        .sheet(isPresented: $deleteAccount) {
+                            NavigationView{
+                                VStack{
+                                    VStack(spacing: 40){
+                                        Text("Ingresa el código de confirmación enviado a tu correo electrónico \(user!.email)")
+                                        
+                                        TextField("Código de confirmación", text: $code)
+                                            .multilineTextAlignment(.center)
+                                            .padding()
+                                            .frame(maxWidth: .infinity, maxHeight: 50)
+                                            .background(Material.bar)
+                                            .cornerRadius(20)
+                                            .keyboardType(.numberPad)
+                                        
+                                        HStack{
+                                            if secondsRemaining == 0 {
+                                                Text("¿No has recibido el código?")
+                                                Button("Reenviar código") {
+                                                    Task {
+                                                        await resendCode()
+                                                    }
+                                                }
+                                                .foregroundStyle(.blue)
+                                                .disabled(secondsRemaining != 0)
+                                            } else {
+                                                Text("Podrás volver a intentarlo en \(secondsRemaining) segundos.")
+                                            }
+                                        }
+                                        .font(.callout)
+
+                                        VStack {
+                                            Button(action: {
+                                                deleteMyAccount()
+                                            }) {
+                                                Text("Verificar código")
+                                            }
+                                            .foregroundColor(.black)
+                                            .frame(width: 200, height: 50)
+                                            .background(Color.accentColor)
+                                            .cornerRadius(20)
+                                            .padding()
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                        .listRowBackground(Color.white.opacity(0))
+                                    }
+                                    .padding()
+                                    .alert(isPresented: $alert){
+                                        Alert(title: Text(titleAlert), message: Text(description), dismissButton: .default(Text("Aceptar")))
+                                    }
+                                    .sheet(isPresented: $loading) {
+                                        VStack {
+                                            Image(.logo)
+                                                .resizable()
+                                                .frame(width: 90, height: 90)
+                                                .scaledToFit()
+                                                .rotationEffect(.degrees(rotation))
+                                                .scaleEffect(1)
+                                                .onAppear {
+                                                    withAnimation(
+                                                        Animation
+                                                            .easeInOut(duration: 2)
+                                                            .repeatForever(autoreverses: false)
+                                                    ) {
+                                                        rotation += 360
+                                                    }
+                                                }
+                                            
+                                            Text("Confirmando la eliminación...")
+                                                .multilineTextAlignment(.center)
+                                                .font(.title2)
+                                                .foregroundStyle(.secondary)
+                                                .padding()
+                                        }
+                                        .presentationDetents([.height(280)])
+                                        .presentationBackgroundInteraction(.disabled)
+                                        .interactiveDismissDisabled(true)
+                                        .presentationCornerRadius(35)
+                                    }
+                                }
+                                .toolbarTitleDisplayMode(.inline)
+                                .navigationTitle("Eliminación de cuenta")
+                            }
+                            .presentationDetents([.medium])
+                            .presentationCornerRadius(35)
+                            .presentationDragIndicator(.visible)
+                        }
+                    }
                 }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                
-                Section(header: Text("Contacto")){
-                    TextField("Teléfono", text: $phone)
-                        .keyboardType(.numberPad)
-                        .padding()
-                        .frame(height: 50)
-                        .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                    
-                    TextField("Correo electrónico", text: $email)
-                        .padding()
-                        .frame(height: 50)
-                        .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                }
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                
             }
             .navigationTitle("Mi perfil")
             .scrollContentBackground(.hidden)
@@ -156,5 +255,53 @@ struct Profile: View {
         titleAlert = title
         description = message
         alert = true
+    }
+    
+    private func resendCode() async {
+        await sendCode()
+        
+        withAnimation {
+            secondsRemaining = 60
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+            if secondsRemaining > 0 {
+                withAnimation {
+                    secondsRemaining -= 1
+                }
+            } else {
+                Timer.invalidate()
+            }
+        }
+    }
+    
+    public func sendCode() async {
+        let response = try? await api.fetchAsync(url: "confirmationEmailCode", method: "POST", token: user!.token, ofType: GenericDelete.self)
+        print(response?.message as Any)
+    }
+    
+    private func deleteMyAccount() {
+        loading = true
+        
+        api.fetch(url: "deleteAccount", method: "POST", body: ["code": code], token: user!.token, ofType: GenericDelete.self) { res, status in
+            loading = false
+            if status {
+                if res!.status == "success" {
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Completado", message: "Su cuenta ha sido eliminada, en breve se cerrará la sesión de manera automática")
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            Task {
+                                await vm.signOut()
+                            }
+                        }
+                    }
+                } else {
+                    self.showAlert(title: "Error", message: "El código de verificación es inválido, intente nuevamente")
+                }
+            } else {
+                self.showAlert(title: "Error", message: "No se pudo completar la acción, intente nuevamente")
+            }
+        }
     }
 }

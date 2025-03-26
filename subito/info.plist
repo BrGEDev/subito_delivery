@@ -47,11 +47,11 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Súbito requiere acceso a tu ubicación</string>
+	<string>Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Súbito requiere acceso a tu ubicación</string>
+	<string>Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Súbito requiere acceso a tu ubicación</string>
+	<string>Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSSupportsLiveActivities</key>

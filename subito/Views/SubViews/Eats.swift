@@ -53,11 +53,7 @@ struct Eats: View {
         GridItem(.adaptive(minimum: 140))
     ]
 
-    //    Apple Intelligence
-
     @StateObject var aiModel: EatsModel = EatsModel.shared
-
-    //
 
     var body: some View {
         ZStack(alignment: .top) {

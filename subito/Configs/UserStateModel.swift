@@ -58,9 +58,7 @@ class UserStateModel: ObservableObject {
         }
     }
 
-    func signIn(user: String, pass: String) async -> Result<
-        Bool, UserStateError
-    > {
+    func signIn(user: String, pass: String) async -> Result<Bool, UserStateError> {
         withAnimation {
             isBusy = true
         }

@@ -67,6 +67,7 @@
 		4BB1BBB62C8F6FB700EB8EA0 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */; };
 		4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB72C8F70A000EB8EA0 /* Account.swift */; };
 		4BB1BBBA2C8F718C00EB8EA0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */; };
+		4BB45E1A2D9450BF0094717C /* DeleteAccountModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB45E192D9450B80094717C /* DeleteAccountModels.swift */; };
 		4BC0801E2D08AC5A00216D95 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC0801D2D08AC5700216D95 /* Register.swift */; };
 		4BC080222D08B05F00216D95 /* LoginExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC080212D08B05600216D95 /* LoginExtension.swift */; };
 		4BC5FFED2D8CB09800482CF3 /* EatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5FFEC2D8CB09500482CF3 /* EatsModel.swift */; };
@@ -211,6 +212,7 @@
 		4BB1BBB52C8F6FB700EB8EA0 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4BB1BBB72C8F70A000EB8EA0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		4BB1BBB92C8F718C00EB8EA0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4BB45E192D9450B80094717C /* DeleteAccountModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModels.swift; sourceTree = "<group>"; };
 		4BC0801D2D08AC5700216D95 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		4BC080212D08B05600216D95 /* LoginExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtension.swift; sourceTree = "<group>"; };
 		4BC5FFEC2D8CB09500482CF3 /* EatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatsModel.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 		4BB1BBA42C8F698000EB8EA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4BB45E192D9450B80094717C /* DeleteAccountModels.swift */,
 				4BC5FFEE2D8CB13100482CF3 /* IntelligenceModel.swift */,
 				4B1007242D6F7EED0098C98A /* PrePurchase.swift */,
 				4BDCD8142D5BA9DF0068A550 /* SearchModel.swift */,
@@ -845,6 +848,7 @@
 				4BDCD8152D5BA9E40068A550 /* SearchModel.swift in Sources */,
 				4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */,
 				4BB1BBA72C8F69D700EB8EA0 /* UserStateModel.swift in Sources */,
+				4BB45E1A2D9450BF0094717C /* DeleteAccountModels.swift in Sources */,
 				4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */,
 				4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */,
 				4BDCD8172D5BC6E50068A550 /* SearchItems.swift in Sources */,
@@ -1291,9 +1295,9 @@
 				INFOPLIST_FILE = subito/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -1348,9 +1352,9 @@
 				INFOPLIST_FILE = subito/info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Súbito";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito requiere acceso a tu ubicación";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito requiere acceso a tu ubicación";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Súbito toma tu ubicación actual para mejorar la precisión de la entrega de tus pedidos en tu domicilio";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
