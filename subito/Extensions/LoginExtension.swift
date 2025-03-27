@@ -34,14 +34,13 @@ extension Register{
             loading = true
         }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let birthdate = formatter.string(from: birthday)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        let birthdate = formatter.string(from: birthday)
 
         let data = [
             "name" : name,
             "lastname" : lastName,
-            "birthday" : birthdate,
             "email" : email,
             "phone" : phone,
             "password" : password,

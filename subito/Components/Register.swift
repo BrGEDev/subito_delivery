@@ -92,11 +92,11 @@ struct Register: View {
                                 TextField("Apellido(s)", text: $lastName)
                                     .keyboardType(.alphabet)
                                 
-                                DatePicker(
-                                    "Fecha de nacimiento", selection: $birthday,
-                                    displayedComponents: [.date]
-                                )
-                                .datePickerStyle(.compact)
+//                                DatePicker(
+//                                    "Fecha de nacimiento", selection: $birthday,
+//                                    displayedComponents: [.date]
+//                                )
+//                                .datePickerStyle(.compact)
                                 
                                 TextField("Correo", text: $email)
                                     .keyboardType(.emailAddress)

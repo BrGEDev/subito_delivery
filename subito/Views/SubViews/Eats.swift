@@ -24,8 +24,7 @@ struct Eats: View {
     @StateObject var api: ApiCaller = ApiCaller()
     @StateObject var searchModel = SearchViewModel()
 
-    @State var categories: [ModelCategories] = []
-    @State var items: [Item] = []
+    @StateObject var indexModel = IndexViewModel.shared
     @State var orders: [Orders] = []
     @State var locatedEstablishment: [Establishments] = []
 
@@ -195,9 +194,9 @@ struct Eats: View {
                             ScrollView(
                                 .horizontal, showsIndicators: false
                             ) {
-                                if categories.count > 0 {
+                                if indexModel.categories.count > 0 {
                                     HStack {
-                                        ForEach(categories) { item in
+                                        ForEach(indexModel.categories) { item in
                                             Category(
                                                 category: item
                                             )
@@ -344,8 +343,8 @@ struct Eats: View {
 
                 LazyVGrid(columns: adaptiveColumn, spacing: 10) {
 
-                    if items.count > 0 {
-                        ForEach(items) { item in
+                    if indexModel.items.count > 0 {
+                        ForEach(indexModel.items) { item in
                             GeometryReader { reader in
                                 CardEstablishment(
                                     data: item,
@@ -431,8 +430,6 @@ struct Eats: View {
         .onAppear {
             isExpand = false
             activeID = ""
-            loadTypes()
-            loadPopularEstablishments()
             loadOrders()
             if directionSelected != nil {
                 aiModel.loadLocationEstablishments(directionSelected: directionSelected!)
@@ -442,8 +439,8 @@ struct Eats: View {
             loadOrders()
             aiModel.fetchFavIntelligence()
             if !isExpand {
-                loadTypes()
-                loadPopularEstablishments()
+                indexModel.loadTypes()
+                indexModel.loadPopularEstablishments()
                 if directionSelected != nil {
                     aiModel.loadLocationEstablishments(directionSelected: directionSelected!)
                 }

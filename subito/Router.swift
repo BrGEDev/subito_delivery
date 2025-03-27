@@ -13,12 +13,22 @@ enum Route: Hashable{
     case Order(id: String)
 }
 
+enum RouteSignOut: Hashable{
+    case Index
+    case Login
+    case Establishment(categoryTitle: String, id: Int)
+}
+
 
 class NavigationManager: ObservableObject {
     @Published var navigationPath = NavigationPath()
     static var shared = NavigationManager()
     
     func navigateTo(_ route: Route) {
+        navigationPath.append(route)
+    }
+    
+    func navigateSignOutTo(_ route: RouteSignOut) {
         navigationPath.append(route)
     }
 }
@@ -42,6 +52,25 @@ struct Router: View {
     }
 }
 
+struct RouterSignOut: View {
+    @ObservedObject var paths = NavigationManager.shared
+    var body: some View {
+        NavigationStack(path: $paths.navigationPath) {
+            Index()
+                .navigationDestination(for: RouteSignOut.self) { route in
+                    switch route {
+                    case .Index:
+                        Index()
+                    case .Login:
+                        PrincipalView()
+                    case .Establishment(let type, let id):
+                        CategoryView(categoryTitle: type, id_category: id)
+                    }
+                }
+        }
+    }
+}
+
 @MainActor
 struct AppSwitch: View {
     @EnvironmentObject var vm: UserStateModel
@@ -51,7 +80,7 @@ struct AppSwitch: View {
             if vm.loggedIn {
                 Router()
             } else {
-                PrincipalView()
+                RouterSignOut()
             }
         }
     }

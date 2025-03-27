@@ -67,6 +67,7 @@ struct PrincipalView: View{
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .navigationBarBackButtonHidden(vm.isBusy)
             }
         } else {
             ZStack{

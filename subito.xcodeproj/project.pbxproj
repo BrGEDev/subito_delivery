@@ -49,6 +49,8 @@
 		4B9E99A52D80A5E5000A44AD /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9E99A42D80A5E5000A44AD /* IntentsUI.framework */; };
 		4B9E99C12D80AB6B000A44AD /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
 		4B9E99C22D80AB6B000A44AD /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1BBAA2C8F6D0300EB8EA0 /* ApiCaller.swift */; };
+		4BA0EC492D95AC5000963501 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0EC482D95AC4D00963501 /* Index.swift */; };
+		4BA0EC4B2D95C3A000963501 /* IndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0EC4A2D95C39B00963501 /* IndexViewModel.swift */; };
 		4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */; };
 		4BA6B7F12D09DD3A0091D024 /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA6B7F02D09DD380091D024 /* Directions.swift */; };
 		4BA8B7FD2D0CE16C000352FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B7FC2D0CE16C000352FC /* LaunchScreen.storyboard */; };
@@ -190,6 +192,8 @@
 		4B9E99992D80A5E5000A44AD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4B9E99A32D80A5E5000A44AD /* SubitoIntentsUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubitoIntentsUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9E99A42D80A5E5000A44AD /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		4BA0EC482D95AC4D00963501 /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
+		4BA0EC4A2D95C39B00963501 /* IndexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewModel.swift; sourceTree = "<group>"; };
 		4BA6B7EE2D09DC470091D024 /* DirectionsModalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsModalExtension.swift; sourceTree = "<group>"; };
 		4BA6B7F02D09DD380091D024 /* Directions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
 		4BA8B7FE2D0CE171000352FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -337,6 +341,7 @@
 		4B2B76402CAC6B1900F046EF /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				4BA0EC482D95AC4D00963501 /* Index.swift */,
 				4B2B76492CACEAD700F046EF /* Eats.swift */,
 			);
 			path = SubViews;
@@ -484,6 +489,7 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4BA0EC4A2D95C39B00963501 /* IndexViewModel.swift */,
 				4BE988012D83AB700080C4B5 /* HistoryOrderModel.swift */,
 				4BEF3C812D777C1B00CBF509 /* PendingOrderModel.swift */,
 				4B0E46492D5D51FE00E5BDAB /* InputPicker.swift */,
@@ -831,6 +837,7 @@
 				4BFB13102D122C0C00A99B5F /* MercadoPago.swift in Sources */,
 				4BFB13622D14A9CA00A99B5F /* Orders.swift in Sources */,
 				4BCCD5682CCC0F7F006C962C /* Category.swift in Sources */,
+				4BA0EC492D95AC5000963501 /* Index.swift in Sources */,
 				4BB1BBB82C8F70A000EB8EA0 /* Account.swift in Sources */,
 				4BD7EFCB2CD5A89C001D0411 /* CardEstablishment.swift in Sources */,
 				4B2B76442CAC6DBE00F046EF /* LocationManager.swift in Sources */,
@@ -884,6 +891,7 @@
 				4B482B142D65165B00869C05 /* RecoveryPassword.swift in Sources */,
 				4B2B763F2CAC490900F046EF /* CartModal.swift in Sources */,
 				4BE988042D846FB80080C4B5 /* HistoryOrderDetail.swift in Sources */,
+				4BA0EC4B2D95C3A000963501 /* IndexViewModel.swift in Sources */,
 				4BCEFB352CEE801E00C9843C /* Stepper.swift in Sources */,
 				4BE716C62D0CAEBE00BE73FC /* Shopping.swift in Sources */,
 				4B0E464A2D5D520B00E5BDAB /* InputPicker.swift in Sources */,
@@ -1317,6 +1325,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
@@ -1330,6 +1339,9 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Debug;
 		};
@@ -1374,6 +1386,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.subito.subito;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
@@ -1387,6 +1400,9 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};

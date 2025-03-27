@@ -20,6 +20,7 @@ struct ModalProducto: View {
     @State var token : String = ""
     
     @State var showNotification: Bool = false
+    @State var isLogged: Bool = true
     
     var body: some View {
         VStack{
@@ -102,25 +103,34 @@ struct ModalProducto: View {
             }
             
             HStack(spacing: 15){
-                Stepper(value: $count, in: 1...10, max: data.pd_quantity ?? "0")
-                    .controlSize(.regular)
-                    .frame(width: 120)
+                if isLogged {
+                    Stepper(value: $count, in: 1...10, max: data.pd_quantity ?? "0")
+                        .controlSize(.regular)
+                        .frame(width: 120)
+                }
                 
                 Button(action: {
                    addToCart()
                 }){
                     let price = Float(data.pd_unit_price)! * Float(count)
                     
-                    Text("Agregar \(Text(price, format: .currency(code: "MXN")))")
-                        .padding()
-                        .font(.system(size: 18))
-                        .bold()
+                    if isLogged {
+                        Text("Agregar \(Text(price, format: .currency(code: "MXN")))")
+                            .padding()
+                            .font(.system(size: 18))
+                            .bold()
+                    } else {
+                        Text("Debes iniciar sesión para agregar este producto a tu carrito")
+                            .padding()
+                            .font(.system(size: 18))
+                            .bold()
+                    }
                 }
-                .disabled(data.pd_quantity ?? "0" == "0" ? true : false)
+                .disabled(isLogged == false ? true : (data.pd_quantity ?? "0" == "0" ? true : false))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
-                .background(data.pd_quantity ?? "0" == "0" ? .accent.opacity(0.5) : .accent)
+                .background(isLogged == false ? Color.gray.opacity(0.5) : (data.pd_quantity ?? "0" == "0" ? .accent.opacity(0.5) : .accent))
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.2), radius: 10)
                 .alert(isPresented: $advertencia){
@@ -132,7 +142,17 @@ struct ModalProducto: View {
             .padding()
             .onAppear{
                 let query = FetchDescriptor<UserSD>()
-                token = try! context.fetch(query).first!.token
+                do {
+                    let user = try context.fetch(query).first
+                    
+                    if user != nil {
+                        token = user!.token
+                    } else {
+                        isLogged = false
+                    }
+                } catch {
+                    isLogged = false
+                }
             }
             .onChange(of: showNotification) { oldValue, newValue in
                 

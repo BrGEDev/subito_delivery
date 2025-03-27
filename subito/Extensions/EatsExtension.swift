@@ -3,56 +3,6 @@ import SwiftData
 import SwiftUI
 
 extension Eats {
-    func loadTypes() {
-        api.fetch(
-            url: "type_establishments", method: "GET",
-            ofType: TypeEstablishmentsResponse.self
-        ) { res, status in
-            categories.removeAll()
-            if status {
-                if res!.status == "success" {
-                    for category in res!.data! {
-                        categories.append(
-                            ModelCategories(
-                                id: category.dc_id, image: category.dc_path,
-                                texto: category.dc_name))
-                    }
-                }
-            }
-        }
-    }
-
-    func loadPopularEstablishments() {
-        api.fetch(
-            url: "mostPopularEstablishments", method: "GET",
-            ofType: PopularEstablishmentsResponse.self
-        ) { res, status in
-            items.removeAll()
-                
-            if status {
-                if res!.status == "success" {
-                    
-                    for establishment in res!.data! {
-
-                        items.append(
-                            Item(
-                                id_restaurant: establishment.id_restaurant,
-                                title: establishment.name_restaurant,
-                                image: establishment.picture_logo ?? "",
-                                establishment: establishment.picture_establishment
-                                    ?? "", address: establishment.address,
-                                latitude: establishment.latitude,
-                                longitude: establishment.longitude,
-                                apertura: establishment.apertura,
-                                cierre: establishment.cierre
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    }
-
     func loadOrders() {
         if user?.id != nil {
             api.fetch(

@@ -15,11 +15,11 @@ class UserSD {
     var name: String
     var lastName: String
     var email: String
-    var birthday: String
+    var birthday: String?
     var phone: String?
     var token: String
     
-    init(id: Int, name: String, lastName: String, email: String, phone: String? = "", birthday: String, token: String) {
+    init(id: Int, name: String, lastName: String, email: String, phone: String? = "", birthday: String? = "", token: String) {
         self.id = id
         self.name = name
         self.lastName = lastName
@@ -40,13 +40,14 @@ class CartSD {
     var longitude: String
     
     @Relationship(deleteRule: .cascade)
-    var products = [ProductsSD]()
+    var products: [ProductsSD]
     
     init (id: Int, establishment: String, latitude: String = "", longitude: String = "") {
         self.id = id
         self.establishment = establishment
         self.latitude = latitude
         self.longitude = longitude
+        self.products = [ProductsSD]()
     }
 }
 

@@ -192,14 +192,17 @@ struct Profile: View {
     }
     
     private func loadUser(){
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "es_MX")
-        formatter.dateFormat = "yyyy-MM-dd"
-        let date = formatter.date(from: user!.birthday)!
+        if user!.birthday != nil {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "es_MX")
+            formatter.dateFormat = "yyyy-MM-dd"
+            let date = formatter.date(from: user!.birthday!)!
+            
+            birthDate = date
+        }
         
         name = user!.name
         lastName = user!.lastName
-        birthDate = date
         email = user!.email
         phone = user!.phone ?? ""
     }

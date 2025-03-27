@@ -1,10 +1,3 @@
-//
-//  UserStateModel.swift
-//  subito
-//
-//  Created by Brandon Guerra Espinoza  on 09/09/24.
-//
-
 import Foundation
 import SwiftData
 import SwiftUI
@@ -43,6 +36,8 @@ class UserStateModel: ObservableObject {
     @Published var message: String = ""
     @Published var userData: LoginInfo?
 
+    let router = NavigationManager.shared
+
     private var login: ApiCaller = ApiCaller()
 
     init() {
@@ -70,9 +65,7 @@ class UserStateModel: ObservableObject {
             "password": pass,
         ]
 
-        login.fetch(
-            url: "login", method: "POST", body: data, ofType: Login.self
-        ) { res, status in
+        login.fetch(url: "login", method: "POST", body: data, ofType: Login.self) { res, status in
             if status {
                 if res!.status == "error" {
                     
@@ -86,6 +79,7 @@ class UserStateModel: ObservableObject {
 
                     response = false
                 } else {
+                    self.router.navigationPath.removeLast()
                     let us = res!.data?.user
 
                     do {
@@ -104,17 +98,13 @@ class UserStateModel: ObservableObject {
 
                         try self.context.save()
 
-                        withAnimation {
-                            self.loggedIn = true
-                            self.isBusy = false
-                        }
+                        self.loggedIn = true
+                        self.isBusy = false
 
                         response = true
                     } catch {
-                        withAnimation {
-                            self.loggedIn = true
-                            self.isBusy = false
-                        }
+                        self.loggedIn = true
+                        self.isBusy = false
                     }
                 }
             }
@@ -196,7 +186,11 @@ class UserStateModel: ObservableObject {
                             self.context.insert(newCard)
                         }
                         
-                        try! self.context.save()
+                        do {
+                            try self.context.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
             }
@@ -205,7 +199,13 @@ class UserStateModel: ObservableObject {
         login.fetch(url: "shopping/get", method: "GET", token: token, ofType: ShoppingResponse.self) { res, status in
             if status {
                 if res!.status == "success" {
-                    try! self.context.delete(model: CartSD.self)
+                    
+                    do {
+                        try self.context.delete(model: CartSD.self)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    
                     let data = res!.data
 
                     if data != nil {
@@ -215,6 +215,8 @@ class UserStateModel: ObservableObject {
                             latitude: data!.establishment_latitude,
                             longitude: data!.establishment_longitude
                         )
+                        
+                        self.context.insert(cart)
 
                         for product in data!.order.products {
                             let producto = ProductsSD(
@@ -226,9 +228,12 @@ class UserStateModel: ObservableObject {
 
                             cart.products.append(producto)
                         }
-
-                        self.context.insert(cart)
-                        try! self.context.save()
+                        
+                        do {
+                            try self.context.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
             }

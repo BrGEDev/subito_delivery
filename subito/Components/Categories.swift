@@ -9,12 +9,18 @@ import SwiftUI
 
 struct Category: View{
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var vm: UserStateModel
+
     @State var category: ModelCategories
     @ObservedObject var router = NavigationManager.shared
 
     var body: some View {
         Button(action: {
-            router.navigateTo(.Establishment(categoryTitle: category.texto, id: category.id))
+            if vm.loggedIn {
+                router.navigateTo(.Establishment(categoryTitle: category.texto, id: category.id))
+            } else {
+                router.navigateSignOutTo(.Establishment(categoryTitle: category.texto, id: category.id))
+            }
         }){
             VStack{
                 AsyncImageCache(url: URL(string: category.image)){ image in
