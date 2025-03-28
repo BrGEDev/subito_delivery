@@ -9,14 +9,14 @@ import SwiftUI
 
 extension Register{
     func register(){
-        guard name.isEmpty && lastName.isEmpty && email.isEmpty && password.isEmpty && phone.isEmpty else {
+        guard !name.isEmpty && !lastName.isEmpty && !email.isEmpty && !password.isEmpty && !phone.isEmpty else {
             alert = true
             title = "Atención"
             errorMessage = "Debe completar el formulario"
             return
         }
         
-        guard phone.count > 10 else {
+        guard phone.count >= 10 else {
             alert = true
             title = "Atención"
             errorMessage = "Ingrese un número de teléfono válido a 10 dígitos"

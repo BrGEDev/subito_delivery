@@ -56,7 +56,7 @@ struct RegisterData: Decodable {
 struct UserData: Decodable {
     let ua_name: String
     let ua_lastname: String
-    let ua_birthday: String
+    let ua_birthday: String?
     let ua_email: String
     let ua_token: String
     let ua_phone: String?

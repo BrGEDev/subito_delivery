@@ -192,7 +192,7 @@ struct Profile: View {
     }
     
     private func loadUser(){
-        if user!.birthday != nil {
+        if !user!.birthday!.isEmpty {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "es_MX")
             formatter.dateFormat = "yyyy-MM-dd"
