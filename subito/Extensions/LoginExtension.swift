@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Register{
     func register(){
-        guard name.isEmpty == false && lastName.isEmpty == false && email.isEmpty == false && password.isEmpty && phone.isEmpty == false else {
+        guard name.isEmpty && lastName.isEmpty && email.isEmpty && password.isEmpty && phone.isEmpty else {
             alert = true
             title = "Atención"
             errorMessage = "Debe completar el formulario"

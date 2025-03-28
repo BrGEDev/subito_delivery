@@ -16,7 +16,6 @@ struct Register: View {
     @State var name: String = ""
     @State var lastName: String = ""
     @State var email: String = ""
-    @State var birthday: Date = Date()
     @State var password: String = ""
     @State var phone: String = ""
 
