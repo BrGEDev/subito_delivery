@@ -32,6 +32,7 @@ enum TypeModal {
 }
 
 struct HeaderModal: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var image: String
     @State var title: String
 
@@ -59,16 +60,16 @@ struct HeaderModal: View {
                 url: URL(string: "https://da-pw.mx/APPRISA/\(image)")
             ) { image in
                 image.resizable()
-                    .scaledToFill()
-                    .frame(width: Screen.width * 0.45, height: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .clipped()
             } placeholder: {
                 SkeletonCellView(
                     width: Screen.width * 0.45, height: 200
                 )
                 .blinking(duration: 0.75)
             }
+            .scaledToFill()
+            .frame(width: Screen.width * 0.45, height: 200)
+            .clipShape(RoundedRectangle(cornerRadius: 30))
+            .clipped()
 
             HStack {
                 VStack(alignment: .leading) {
@@ -77,17 +78,23 @@ struct HeaderModal: View {
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .bold()
-                        .foregroundStyle(.white)
-                        .shadow(color: .black, radius: 3)
                 }
                 .padding()
 
                 Spacer()
             }
-            .background(.ultraThinMaterial)
-            .cornerRadius(30)
+            .background(colorScheme == .light ? .white : .black)
+            .clipShape(
+                .rect(
+                    topLeadingRadius: 0,
+                    bottomLeadingRadius: 30,
+                    bottomTrailingRadius: 30,
+                    topTrailingRadius: 0
+                )
+            )
             .frame(width: Screen.width * 0.45)
         }
+        .shadow(color: Color.black.opacity(0.05), radius: 5)
     }
 }
 
@@ -165,8 +172,8 @@ struct CardEstablishmentHeaderModal: View {
                                 ProgressView()
                             }
                         }
-                        .frame(width: 100, height: 100)
                         .scaledToFill()
+                        .frame(width: 100, height: 100)
                         .background(Color.white)
                         .clipShape(Circle())
                     }
@@ -270,6 +277,7 @@ struct BodyEstablishmentModal: View {
                                     ProgressView()
                                 }
                             }
+                            .scaledToFill()
                             .frame(width: 120, height: 120)
                             .background(Color.white)
                             .clipShape(Circle())

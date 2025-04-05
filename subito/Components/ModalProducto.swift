@@ -22,6 +22,10 @@ struct ModalProducto: View {
     @State var showNotification: Bool = false
     @State var isLogged: Bool = true
     
+    @State var loading: Bool = false
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
+    
     var body: some View {
         VStack{
             ScrollView{
@@ -201,6 +205,38 @@ struct ModalProducto: View {
                         RoundedRectangle(cornerRadius: 15).fill(.black)
                     )
                 }
+            }
+            .sheet(isPresented: $loading) {
+                VStack {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 90, height: 90)
+                        .scaledToFit()
+                        .rotationEffect(.degrees(rotation))
+                        .scaleEffect(1)
+                        .onAppear {
+                            withAnimation(
+                                Animation
+                                    .easeInOut(duration: 2)
+                                    .repeatForever(autoreverses: false)
+                            ) {
+                                rotation += 360
+                            }
+                        }
+                    
+                    Text("Agregando a tu carrito...")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                        .padding()
+                }
+                .presentationBackground(
+                    Material.thin
+                )
+                .presentationDetents([.height(280)])
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+                .presentationCornerRadius(35)
             }
         }
     }

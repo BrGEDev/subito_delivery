@@ -131,7 +131,7 @@ struct Index: View {
                             
                             VStack(spacing: 15) {
                                 if viewModel.items.count > 0 {
-                                    ForEach(viewModel.items) { item in
+                                    ForEach(viewModel.items.prefix(upTo: 5)) { item in
                                         HStack {
                                             VStack(alignment: .leading, spacing: 5){
                                                 Text(item.title)

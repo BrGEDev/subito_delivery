@@ -21,6 +21,8 @@ final class EatsModel: ObservableObject {
     @Published var favIntelligence: FavData? = nil
     @Published var locatedEstablishment: [Establishments] = []
     
+    @Published var loading: Bool = false
+    
     init() {
         fetchFavIntelligence()
     }
@@ -130,7 +132,10 @@ final class EatsModel: ObservableObject {
                         inCart!.products.append(producto)
                     }
                     
+                    loading = true
                     api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingModResponse.self) { res, status in
+                        self.loading = false
+                        
                         if status {
                             if res!.status == "success" {
                                 try! context.save()
@@ -157,10 +162,14 @@ final class EatsModel: ObservableObject {
                     }
                     
                     if check() {
+                        loading = true
+                        
                         context.insert(establishment)
                         establishment.products.append(producto)
                         
                         api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingModResponse.self) { response, status in
+                            self.loading = false
+                            
                             if status {
                                 if response!.status == "success" {
                                     try! context.save()
@@ -192,6 +201,28 @@ final class EatsModel: ObservableObject {
                         self.locatedEstablishment = res!.data!
                     }
                 }
+            }
+        }
+    }
+    
+    func removeCart(context: ModelContext, completion: @escaping (Bool) -> Void){
+        loading = true
+        
+        let query = FetchDescriptor<UserSD>()
+        let token = try! context.fetch(query).first!.token
+        
+        api.fetch(url: "shopping/remove/cart", method: "POST", token: token, ofType: ShoppingModResponse.self) { response, status in
+            if status {
+                if response!.status == "success" {
+                    try! context.delete(model: CartSD.self)
+                    completion(true)
+                } else {
+                    self.loading = false
+                    completion(false)
+                }
+            } else {
+                self.loading = false
+                completion(false)
             }
         }
     }

@@ -352,6 +352,7 @@ struct Eats: View {
                                     isActive: $activeID,
                                     isExpand: $isExpand
                                 )
+                                .frame(width: isExpand ? Screen.width : Screen.width * 0.45)
                                 .offset(
                                     x: activeID == item.id_restaurant
                                         ? -reader.frame(in: .global)
@@ -365,10 +366,7 @@ struct Eats: View {
                                         && isExpand
                                         ? 0 : 1)
                             }
-                            .frame(
-                                width: isExpand
-                                    ? Screen.width
-                                    : Screen.width * 0.45, height: 200)
+                            .frame(width: isExpand ? Screen.width : Screen.width * 0.45, height: 200)
                         }
                     } else {
                         ForEach(0..<6) { _ in

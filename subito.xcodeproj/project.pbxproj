@@ -14,6 +14,8 @@
 		4B1224352CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */; };
 		4B1224382CFA579D001057B0 /* AddressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1224372CFA579A001057B0 /* AddressRow.swift */; };
+		4B158E6B2D9F3755005FCFB9 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B158E6A2D9F3751005FCFB9 /* Picker.swift */; };
+		4B158E6D2D9F38F5005FCFB9 /* PrePurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B158E6C2D9F38EF005FCFB9 /* PrePurchaseViewModel.swift */; };
 		4B1AEC1B2CED205F00887421 /* ModalProducto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1AEC1A2CED205A00887421 /* ModalProducto.swift */; };
 		4B2B56492D2841A4006E505A /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B56482D28419B006E505A /* Support.swift */; };
 		4B2B564B2D286D84006E505A /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B564A2D286D7D006E505A /* Chat.swift */; };
@@ -158,6 +160,8 @@
 		4B1007242D6F7EED0098C98A /* PrePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrePurchase.swift; sourceTree = "<group>"; };
 		4B1224342CFA5531001057B0 /* AddressAutocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAutocomplete.swift; sourceTree = "<group>"; };
 		4B1224372CFA579A001057B0 /* AddressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRow.swift; sourceTree = "<group>"; };
+		4B158E6A2D9F3751005FCFB9 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		4B158E6C2D9F38EF005FCFB9 /* PrePurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrePurchaseViewModel.swift; sourceTree = "<group>"; };
 		4B1AEC1A2CED205A00887421 /* ModalProducto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProducto.swift; sourceTree = "<group>"; };
 		4B2B56482D28419B006E505A /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		4B2B564A2D286D7D006E505A /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -489,6 +493,7 @@
 		4BB1BBA52C8F69BB00EB8EA0 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				4B158E6C2D9F38EF005FCFB9 /* PrePurchaseViewModel.swift */,
 				4BA0EC4A2D95C39B00963501 /* IndexViewModel.swift */,
 				4BE988012D83AB700080C4B5 /* HistoryOrderModel.swift */,
 				4BEF3C812D777C1B00CBF509 /* PendingOrderModel.swift */,
@@ -510,6 +515,7 @@
 		4BB1BBAC2C8F6D4900EB8EA0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B158E6A2D9F3751005FCFB9 /* Picker.swift */,
 				4BC5FFF22D8DBF2F00482CF3 /* GlassBackGround.swift */,
 				4BC5FFF02D8CE90A00482CF3 /* IntelligentView.swift */,
 				4BE988032D846FB30080C4B5 /* HistoryOrderDetail.swift */,
@@ -851,6 +857,7 @@
 				4BE987FE2D8358500080C4B5 /* HistoryOrder.swift in Sources */,
 				4B4521822D26F0A700B495DC /* TemporalDirection.swift in Sources */,
 				4B1007252D6F7EF30098C98A /* PrePurchase.swift in Sources */,
+				4B158E6B2D9F3755005FCFB9 /* Picker.swift in Sources */,
 				4B1224362CFA5537001057B0 /* AddressAutocomplete.swift in Sources */,
 				4BDCD8152D5BA9E40068A550 /* SearchModel.swift in Sources */,
 				4B2B71322D0A3593003BF403 /* UserSD.swift in Sources */,
@@ -858,6 +865,7 @@
 				4BB45E1A2D9450BF0094717C /* DeleteAccountModels.swift in Sources */,
 				4BA6B7EF2D09DC510091D024 /* DirectionsModalExtension.swift in Sources */,
 				4B4F92682CF50C0A00E8CD11 /* PaymentExtension.swift in Sources */,
+				4B158E6D2D9F38F5005FCFB9 /* PrePurchaseViewModel.swift in Sources */,
 				4BDCD8172D5BC6E50068A550 /* SearchItems.swift in Sources */,
 				4BC5FFEF2D8CB13A00482CF3 /* IntelligenceModel.swift in Sources */,
 				4BE988022D83AB7F0080C4B5 /* HistoryOrderModel.swift in Sources */,

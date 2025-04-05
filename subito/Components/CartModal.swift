@@ -17,6 +17,10 @@ struct productoView: View {
     var establishment: Int
     @Binding var onDelete: Bool
     @State var updateModal: Bool = false
+    
+    @State var loading: Bool = false
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
 
     var body: some View {
         VStack {
@@ -80,6 +84,35 @@ struct productoView: View {
                 .presentationBackgroundInteraction(.disabled)
                 .interactiveDismissDisabled(true)
         }
+        .sheet(isPresented: $loading) {
+            VStack {
+                Image(.logo)
+                    .resizable()
+                    .frame(width: 90, height: 90)
+                    .scaledToFit()
+                    .rotationEffect(.degrees(rotation))
+                    .scaleEffect(1)
+                    .onAppear {
+                        withAnimation(
+                            Animation
+                                .easeInOut(duration: 2)
+                                .repeatForever(autoreverses: false)
+                        ) {
+                            rotation += 360
+                        }
+                    }
+                
+                Text("Eliminando producto...")
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                    .padding()
+            }
+            .presentationDetents([.height(280)])
+            .presentationBackgroundInteraction(.disabled)
+            .interactiveDismissDisabled(true)
+            .presentationCornerRadius(35)
+        }
     }
 }
 
@@ -90,9 +123,18 @@ struct CartModal: View {
     @StateObject var api: ApiCaller = ApiCaller()
 
     @Query var establishments: [CartSD]
+    @Query var userData: [UserSD]
+    var user: UserSD? { userData.first }
+    
     @State var onDelete: Bool = false
 
     @State var paymentModal: Bool = false
+    
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
+    @State var loading: Bool = false
+    
+    @ObservedObject var viewModel = PrePurchaseViewModel.shared
 
     var body: some View {
         NavigationView {
@@ -153,6 +195,11 @@ struct CartModal: View {
                     .frame(maxHeight: 300)
                 }
             }
+            .onAppear {
+                if user != nil {
+                    viewModel.prePurchase(establishments: establishments, user: user!)
+                }
+            }
             .navigationTitle("Mi carrito")
             .safeAreaInset(edge: .bottom) {
                 if establishments.count != 0 {
@@ -189,6 +236,35 @@ struct CartModal: View {
             }
             .sheet(isPresented: $paymentModal) {
                 PaymentModal(isPresented: $isPresented)
+            }
+            .sheet(isPresented: $loading) {
+                VStack {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 90, height: 90)
+                        .scaledToFit()
+                        .rotationEffect(.degrees(rotation))
+                        .scaleEffect(1)
+                        .onAppear {
+                            withAnimation(
+                                Animation
+                                    .easeInOut(duration: 2)
+                                    .repeatForever(autoreverses: false)
+                            ) {
+                                rotation += 360
+                            }
+                        }
+                    
+                    Text("Limpiando tu carrito...")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                        .padding()
+                }
+                .presentationDetents([.height(280)])
+                .presentationBackgroundInteraction(.disabled)
+                .interactiveDismissDisabled(true)
+                .presentationCornerRadius(35)
             }
         }
     }

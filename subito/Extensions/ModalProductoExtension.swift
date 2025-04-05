@@ -191,7 +191,9 @@ extension ModalProducto {
                 inCart!.products.append(producto)
             }
             
+            loading = true
             api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingModResponse.self) { response, status in
+                loading = false
                 if status {
                     if response!.status == "success" {
                         showNotification = true
@@ -221,7 +223,9 @@ extension ModalProducto {
                 context.insert(establishment)
                 establishment.products.append(producto)
                 
+                loading = true
                 api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingModResponse.self) { response, status in
+                    loading = false
                     if status {
                         if response!.status == "success" {
                             showNotification = true
@@ -260,7 +264,9 @@ extension ModalProducto {
                         ]
                     ]
                     
+                    loading = true
                     api.fetch(url: "shopping/add", method: "POST", body: shoppingCart, token: token, ofType: ShoppingModResponse.self) { response, status in
+                        loading = false
                         if status {
                             if response!.status == "success" {
                                 showNotification = true

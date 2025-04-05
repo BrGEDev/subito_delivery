@@ -41,13 +41,15 @@ final class IndexViewModel: ObservableObject {
     
     func loadPopularEstablishments() {
         api.fetch(
-            url: "mostPopularEstablishments", method: "GET",
+            url: "getAllEstablishment", method: "GET",
             ofType: PopularEstablishmentsResponse.self
         ) { res, status in
             self.items.removeAll()
                 
             if status {
                 if res!.status == "success" {
+                    self.items = []
+                    
                     for establishment in res!.data! {
                         self.items.append(
                             Item(

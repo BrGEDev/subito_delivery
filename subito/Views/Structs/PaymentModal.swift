@@ -5,7 +5,6 @@
 //  Created by Brandon Guerra Espinoza  on 25/11/24.
 //
 
-import Combine
 import SwiftData
 import SwiftUI
 
@@ -81,21 +80,8 @@ struct PaymentModal: View {
         }) var payments: [CardSD]
     var paymentsSelected: CardSD? { payments.first }
 
-    @State var segment: Int = 0
-    @State var propina: Int = 0
-    @State var prepropina: Float = 0
-    @State var payment: Float = 0
-    @State var subtotal: Float = 0
-    @State var envio: Float = 40
-    @State var km: Double = 0
-    @State var estimatedTime: String?
     @State var detail: String = ""
-    @State var km_base: Double = 7
-    @State var price_base_km: Double = 70
-    @State var price_km_extra: Double = 4
-    @State var percent: Double = 0
-
-    @State var modalPropina: Bool = false
+   
     @State var alert: Bool = false
     @State var error: Bool = false
     @State var cvvCode: Bool = false
@@ -104,11 +90,11 @@ struct PaymentModal: View {
     @State private var rotation: Double = 0
     @State private var scale: CGFloat = 1.0
     @State var directionModal: Bool = false
-    
-    @State var loading: Bool = true
+        
+    @ObservedObject var viewModel = PrePurchaseViewModel.shared
 
     var body: some View {
-        if loading {
+        if viewModel.loading {
             ZStack {
                 Image(.fondo2)
                     .resizable()
@@ -146,142 +132,121 @@ struct PaymentModal: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .onAppear {
-                prePurchase()
-            }
         } else {
             NavigationView{
                 List {
-                    Section(header: Text("Dirección de envío")) {
-                        Button(action: {
-                            directionModal = true
-                        }) {
-                            Label {
-                                Text(directionSelected?.full_address ?? "Selecciona una dirección")
-                            } icon: {
-                                Image(systemName:  "mappin.circle.fill")
-                                    .foregroundStyle(Color.accentColor)
+                    Group {
+                        Section(header: Text("Dirección de envío")) {
+                            Button(action: {
+                                directionModal = true
+                            }) {
+                                Label {
+                                    Text(directionSelected?.full_address ?? "Selecciona una dirección")
+                                } icon: {
+                                    Image(systemName:  "mappin.circle.fill")
+                                        .foregroundStyle(Color.accentColor)
+                                }
+                                .foregroundStyle(colorScheme == .dark ? .white : .black)
                             }
-                            .foregroundStyle(colorScheme == .dark ? .white : .black)
                         }
-                    }
-                    .listRowSeparator(.hidden)
-                    .listSectionSeparator(.hidden)
-                    .listRowBackground(Color.white.opacity(0))
-                    
-                    Section(header: Text("Método de pago")) {
-                        NavigationLink(
-                            destination:
-                                PaymentMethod()
+                        
+                        Section(header: Text("Método de pago")) {
+                            NavigationLink(
+                                destination:
+                                    PaymentMethod()
+                            ) {
+                                Label(
+                                    paymentsSelected == nil
+                                    ? "Selecciona un método de pago"
+                                    : "\(paymentsSelected!.card_type) \(paymentsSelected!.last_four)",
+                                    systemImage: "creditcard.fill")
+                            }
+                        }
+                        
+                        Section(
+                            header: Text("¿Deseas agregar propina?"),
+                            footer: Text(
+                                "Un apoyo para tu repartidor Súbito, ¡recibirá el 100% de la cantidad!"
+                            )
                         ) {
-                            Label(
-                                paymentsSelected == nil
-                                ? "Selecciona un método de pago"
-                                : "\(paymentsSelected!.card_type) \(paymentsSelected!.last_four)",
-                                systemImage: "creditcard.fill")
+                            PropinaPicker(segment: $viewModel.segment)
                         }
-                    }
-                    .listRowSeparator(.hidden)
-                    .listSectionSeparator(.hidden)
-                    .listRowBackground(Color.white.opacity(0))
-                    
-                    Section(
-                        header: Text("¿Deseas agregar propina?"),
-                        footer: Text(
-                            "Un apoyo para tu repartidor Súbito, ¡recibirá el 100% de la cantidad!"
-                        )
-                    ) {
-                        Picker("Propina", selection: $segment) {
-                            Text("5%").tag(5)
-                            Text("10%").tag(10)
-                            Text("15%").tag(15)
-                            Text("20%").tag(20)
-                            Text(segment != -1 ? "Otro" : "Editar").tag(-1)
+                        
+                        ForEach(establishments) { est in
+                            VStack {
+                                HStack {
+                                    Text(est.establishment)
+                                        .font(.title3)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                    
+                                    Spacer()
+                                }
+                                .padding()
+                                
+                                ForEach(est.products) { prod in
+                                    productoPayment(
+                                        product: prod, establishment: est.id)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Material.ultraThin)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .shadow(color: Color.black.opacity(0.15), radius: 10)
                         }
-                        .labelsHidden()
-                        .pickerStyle(.segmented)
-                        .colorMultiply(Color.accentColor)
-                    }
-                    .listRowSeparator(.hidden)
-                    .listSectionSeparator(.hidden)
-                    .listRowBackground(Color.white.opacity(0))
-                    
-                    ForEach(establishments) { est in
-                        VStack {
+                        
+                        Section {
                             HStack {
-                                Text(est.establishment)
-                                    .font(.title3)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
+                                Text("Total de productos")
                                 
                                 Spacer()
+                                
+                                Text(viewModel.subtotal, format: .currency(code: "MXN"))
                             }
-                            .padding()
                             
-                            ForEach(est.products) { prod in
-                                productoPayment(
-                                    product: prod, establishment: est.id)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Costo de envío")
+                                    Text(
+                                        Measurement(value: viewModel.km, unit: UnitLength.kilometers),
+                                        format: .measurement(width: .abbreviated)
+                                    )
+                                    .font(.footnote)
+                                }
+                                
+                                Spacer()
+                                
+                                if viewModel.envio == 0 {
+                                    Text("Envío gratis").foregroundStyle(Color.green)
+                                }
+                                else {
+                                    Text(viewModel.envio, format: .currency(code: "MXN"))
+                                }
+                            }
+                            
+                            if viewModel.prepropina > 0 {
+                                HStack {
+                                    Text("Propina")
+                                    
+                                    Spacer()
+                                    
+                                    Text(viewModel.prepropina, format: .currency(code: "MXN"))
+                                }
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Material.ultraThin)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .shadow(color: Color.black.opacity(0.15), radius: 10)
                         .listRowBackground(Color.white.opacity(0))
                         .listRowSeparator(.hidden)
                         .listSectionSeparator(.hidden)
-                    }
-                    
-                    Section {
-                        HStack {
-                            Text("Total de productos")
-                            
-                            Spacer()
-                            
-                            Text(subtotal, format: .currency(code: "MXN"))
+                        
+                        Section(
+                            header: Text("Detalles del pedido"),
+                            footer: Text(
+                                "Puedes especificar los detalles que necesites sobre tu pedido"
+                            )
+                        ) {
+                            TextEditorWithPlaceholder(text: $detail)
                         }
                         
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("Costo de envío")
-                                Text(
-                                    Measurement(value: km, unit: UnitLength.kilometers),
-                                    format: .measurement(width: .abbreviated)
-                                )
-                                .font(.footnote)
-                            }
-                            
-                            Spacer()
-                            
-                            if envio == 0 {
-                                Text("Envío gratis").foregroundStyle(Color.green)
-                            }
-                            else {
-                                Text(envio, format: .currency(code: "MXN"))
-                            }
-                        }
-                        
-                        if prepropina > 0 {
-                            HStack {
-                                Text("Propina")
-                                
-                                Spacer()
-                                
-                                Text(prepropina, format: .currency(code: "MXN"))
-                            }
-                        }
-                    }
-                    .listRowBackground(Color.white.opacity(0))
-                    .listRowSeparator(.hidden)
-                    .listSectionSeparator(.hidden)
-                    
-                    Section(
-                        header: Text("Detalles del pedido"),
-                        footer: Text(
-                            "Puedes especificar los detalles que necesites sobre tu pedido"
-                        )
-                    ) {
-                        TextEditorWithPlaceholder(text: $detail)
                     }
                     .listRowBackground(Color.white.opacity(0))
                     .listRowSeparator(.hidden)
@@ -300,7 +265,7 @@ struct PaymentModal: View {
                             
                             Spacer()
                             
-                            Text(payment, format: .currency(code: "MXN"))
+                            Text(viewModel.payment, format: .currency(code: "MXN"))
                                 .font(.largeTitle)
                                 .bold()
                         }
@@ -328,61 +293,8 @@ struct PaymentModal: View {
                     .padding()
                     .background(colorScheme == .dark ? Color.black : Color.white)
                 }
-                .sheet(isPresented: $modalPropina) {
-                    NavigationView {
-                        VStack {
-                            TextField("Propina", value: $propina, format: .number)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(width: 300, height: 50)
-                                .background(
-                                    colorScheme == .dark
-                                    ? Color.white.opacity(0.1).cornerRadius(20)
-                                    : Color.black.opacity(0.06).cornerRadius(20)
-                                )
-                                .keyboardType(.numberPad)
-                                .onReceive(Just(propina)) { value in
-                                    propina = value > 40 ? 40 : value
-                                }
-                            
-                            Button(action: {
-                                if propina <= 0 {
-                                    alert = true
-                                } else {
-                                    modalPropina = false
-                                    calcTax()
-                                }
-                            }) {
-                                Text("Continuar")
-                            }
-                            .foregroundColor(.black)
-                            .frame(width: 200, height: 50)
-                            .background(Color.accentColor)
-                            .cornerRadius(20)
-                            .padding()
-                            .alert(isPresented: $alert) {
-                                Alert(
-                                    title: Text("Error"),
-                                    message: Text("La propina debe ser mayor al 0%"),
-                                    dismissButton: .default(Text("Aceptar")))
-                            }
-                            
-                            Button(action: {
-                                modalPropina = false
-                                propina = 0
-                                segment = 0
-                                calcTax()
-                            }) {
-                                Text("Sin propina")
-                            }
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .frame(width: 200, height: 50)
-                            .background(Material.bar)
-                            .cornerRadius(20)
-                        }
-                        .navigationTitle("Propina")
-                        .navigationBarTitleDisplayMode(.inline)
-                    }
+                .sheet(isPresented: $viewModel.modalPropina) {
+                    ModalPropina(alert: $alert)
                     .presentationDetents([.height(280)])
                     .presentationBackgroundInteraction(.disabled)
                     .interactiveDismissDisabled(true)
@@ -400,12 +312,6 @@ struct PaymentModal: View {
                 }
                 .sheet(isPresented: $directionModal) {
                     DirectionsModal()
-                }
-                .onChange(of: segment) {
-                    loadTaxes()
-                }
-                .onChange(of: directionSelected) {
-                    calcDistance()
                 }
                 .sheet(isPresented: $progress) {
                     VStack {
@@ -436,12 +342,23 @@ struct PaymentModal: View {
                     .interactiveDismissDisabled(true)
                     .presentationCornerRadius(35)
                 }
-                .alert(isPresented: $error) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(
-                            "Ha ocurrido un error creando tu pedido, por favor intente de nuevamente."
-                        ), dismissButton: .default(Text("Aceptar")))
+                .alert("Error", isPresented: $error) {
+                    Text("Ha ocurrido un error creando tu pedido, por favor intente de nuevamente.")
+                    
+                    Button(role: .destructive, action: {
+                        alert = false
+                    }) {
+                        Text("Aceptar")
+                    }
+                }
+                .onChange(of: viewModel.segment) {
+                    viewModel.loadTaxes()
+                }
+                .onChange(of: directionSelected) {
+                    viewModel.calcDistance(directionSelected: directionSelected, establishments: establishments)
+                }
+                .onAppear {
+                    viewModel.calcDistance(directionSelected: directionSelected, establishments: establishments)
                 }
             }
         }

@@ -19,6 +19,10 @@ struct IntelligentView: View {
     @State var alert: Bool = false
 
     @State var agregado: [Int] = []
+    @State var type: SaveToType = .all
+    
+    @State private var rotation: Double = 0
+    @State private var scale: CGFloat = 1.0
 
     private let colors: [Color] = [
         Color(red: 0.29, green: 0.00, blue: 0.51),
@@ -189,9 +193,9 @@ struct IntelligentView: View {
 
                             Divider()
 
-                            SiriTipView(intent: AddFavouriteSubito()).clipShape(
+                            /*SiriTipView(intent: AddFavouriteSubito()).clipShape(
                                 Capsule()
-                            ).clipped().lineLimit(1)
+                            ).clipped().lineLimit(1)*/
 
                             VStack(spacing: 10) {
                                 ForEach(favIntelligence.productos, id: \.id) {
@@ -240,9 +244,11 @@ struct IntelligentView: View {
                                         Spacer()
 
                                         Button(action: {
+                                            type = .one(product: producto)
+                                            
                                             aiModel.addToCart(
                                                 context: context,
-                                                type: .one(product: producto)
+                                                type: type
                                             ) { result in
                                                 if result {
                                                     agregado.append(producto.id)
@@ -278,8 +284,7 @@ struct IntelligentView: View {
                                                 value: agregado.contains(
                                                     producto.id))
                                         )
-                                        .disabled(
-                                            agregado.contains(producto.id))
+                                        .disabled(agregado.contains(producto.id))
                                     }
                                     .padding(10)
                                     .background(
@@ -322,62 +327,109 @@ struct IntelligentView: View {
                         "Error",
                         isPresented: $alert
                     ) {
-                        Button(role: .destructive, action:{}) {
+                        Button(role: .destructive, action:{
+                            Task {
+                                aiModel.removeCart(context: context) { result in
+                                    if result {
+                                        aiModel.addToCart(
+                                            context: context,
+                                            type: type
+                                        ) { result in
+                                            getCart()
+                                        }
+                                    }
+                                }
+                            }
+                        }) {
                             Text("Borrar carrito y agregar nuevos")
                         }
                     } message: {
                         Text("No se pudo agregar el producto porque ya cuenta con productos en su carrito, ¿Desea borrar el carrito y agregar nuevos productos?")
                     }
-                    .safeAreaInset(edge: .bottom) {
-                        Button(action: {
-                            aiModel.addToCart(context: context, type: .all) {
-                                result in
-                                if result {
-                                    getCart()
-                                    openModal = false
-                                } else {
-                                    alert = true
-                                }
-                            }
-                        }) {
-                            if agregado.count == favIntelligence.productos.count
-                            {
-                                Label(
-                                    "Todo está en tu carrito",
-                                    systemImage: "checkmark.circle.fill"
-                                )
-                                .frame(maxWidth: .infinity)
-                                .padding(5)
-                            } else {
-                                Text("Agregar todo a mi carrito")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(5)
-                            }
-                        }
-                        .foregroundStyle(.white)
-                        .padding(10)
-                        .buttonStyle(.plain)
-                        .background(
-                            RoundedRectangle(cornerRadius: 25)
-                                .fill(
-                                    agregado.count
-                                        == favIntelligence.productos.count
-                                        ? Color.green
-                                        : Color(
-                                            red: 0.85, green: 0.44, blue: 0.84)
-                                )
-                                .animation(
-                                    .linear(duration: 0.2),
-                                    value: agregado.count
-                                        == favIntelligence.productos.count)
-                        )
-                        .padding(.horizontal)
-                        .disabled(
-                            agregado.count == favIntelligence.productos.count)
-                    }
                     .onAppear {
                         getCart()
                     }
+                    .sheet(isPresented: $aiModel.loading) {
+                        VStack {
+                            Image(.logo)
+                                .resizable()
+                                .frame(width: 90, height: 90)
+                                .scaledToFit()
+                                .rotationEffect(.degrees(rotation))
+                                .scaleEffect(1)
+                                .onAppear {
+                                    withAnimation(
+                                        Animation
+                                            .easeInOut(duration: 2)
+                                            .repeatForever(autoreverses: false)
+                                    ) {
+                                        rotation += 360
+                                    }
+                                }
+                            
+                            Text("Agregando a tu carrito...")
+                                .multilineTextAlignment(.center)
+                                .font(.title2)
+                                .foregroundStyle(.secondary)
+                                .padding()
+                        }
+                        .presentationBackground(
+                            Material.thin
+                        )
+                        .presentationDetents([.height(280)])
+                        .presentationBackgroundInteraction(.disabled)
+                        .interactiveDismissDisabled(true)
+                        .presentationCornerRadius(35)
+                    }
+                    /*
+                     .safeAreaInset(edge: .bottom) {
+                         Button(action: {
+                             aiModel.addToCart(context: context, type: .all) {
+                                 result in
+                                 if result {
+                                     getCart()
+                                     openModal = false
+                                 } else {
+                                     alert = true
+                                 }
+                             }
+                         }) {
+                             if agregado.count == favIntelligence.productos.count
+                             {
+                                 Label(
+                                     "Todo está en tu carrito",
+                                     systemImage: "checkmark.circle.fill"
+                                 )
+                                 .frame(maxWidth: .infinity)
+                                 .padding(5)
+                             } else {
+                                 Text("Agregar todo a mi carrito")
+                                     .frame(maxWidth: .infinity)
+                                     .padding(5)
+                             }
+                         }
+                         .foregroundStyle(.white)
+                         .padding(10)
+                         .buttonStyle(.plain)
+                         .background(
+                             RoundedRectangle(cornerRadius: 25)
+                                 .fill(
+                                     agregado.count
+                                         == favIntelligence.productos.count
+                                         ? Color.green
+                                         : Color(
+                                             red: 0.85, green: 0.44, blue: 0.84)
+                                 )
+                                 .animation(
+                                     .linear(duration: 0.2),
+                                     value: agregado.count
+                                         == favIntelligence.productos.count)
+                         )
+                         .padding(.horizontal)
+                         .disabled(
+                             agregado.count == favIntelligence.productos.count)
+                     }
+                     */
                 }
                 .presentationCornerRadius(35)
                 .presentationBackground(

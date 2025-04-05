@@ -18,77 +18,6 @@ extension Double {
 }
 
 extension PaymentModal {
-    func prePurchase() {
-        
-        var id_products: [Int] = []
-        establishments.forEach { est in
-            est.products.forEach { product in
-                id_products.append(product.id)
-            }
-        }
-        
-        let datos: [String:Any] = [
-            "data" : [
-                "id_establishment": establishments[0].id,
-                "id_products" : id_products
-            ]
-        ]
-        
-        
-        let user = FetchDescriptor<UserSD>()
-        let userQuery = try! self.context.fetch(user).first!.token
-        
-        api.fetch(url: "pre_purchase", method: "POST", body: datos, token: userQuery, ofType: PrePurchaseResponse.self) { res, status in
-            if status {
-                withAnimation {
-                    loading = false
-                }
-                
-                if res!.status == "success" {
-                    percent = Double(res!.data!.establishment.percent)!
-                    
-                    if res!.data!.establishment.percent == "0" {
-                        envio = 0
-                    }
-                    
-                    km_base = Double(res!.data!.km_base)!
-                    price_base_km = Double(res!.data!.price_base_km)!
-                    price_km_extra = Double(res!.data!.price_km_extra)!
-                    
-                    calcDistance()
-                    loadPayment()
-                    loadTaxes()
-                }
-            }
-        }
-    }
-    
-    func loadPayment() {
-        var sum: Float = 0
-        
-        for est in establishments {
-            for product in est.products {
-                sum += Float(product.amount) * product.unit_price
-            }
-            subtotal = sum
-        }
-    }
-    
-    func loadTaxes() {
-        if segment == -1 {
-            modalPropina = true
-            return
-        } else {
-            propina = segment
-            calcTax()
-        }
-    }
-    
-    func calcTax() {
-        let presubtotal = subtotal + envio
-        prepropina =  presubtotal * (Float(propina) / 100)
-        payment = prepropina + presubtotal
-    }
     
     func buyCart() {
         guard paymentsSelected!.token != nil else {
@@ -124,10 +53,10 @@ extension PaymentModal {
                 ],
                 "order": [
                     "products": products,
-                    "total": subtotal,
-                    "tip": ceil(prepropina),
-                    "shipping_cost": envio,
-                    "distance_km": km,
+                    "total": viewModel.subtotal,
+                    "tip": ceil(viewModel.prepropina),
+                    "shipping_cost": viewModel.envio,
+                    "distance_km": viewModel.km,
                     "text_detail": detail
                 ]
             ]
@@ -136,14 +65,14 @@ extension PaymentModal {
         let user = FetchDescriptor<UserSD>()
         let userQuery = try! self.context.fetch(user).first!.token
 
-        api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res, status in
+        viewModel.api.fetch(url: "checkout", method: "POST", body: data, token: userQuery, ofType: CheckoutResponse.self) { res, status in
             if status {
                 if res!.status == "success" {
                     progress = false
                     isPresented.toggle()
                     pendingOrderModel.socket.socket.emit("orderDelivery", ["orderId": res!.data!.orderId, "establishmentId": res!.data!.establishmentId])
 
-                    let order = TrackingSD(id: UUID(), order: res!.data!.orderId, establishment: establishments[0].establishment, estimatedTime: estimatedTime ?? "0")
+                    let order = TrackingSD(id: UUID(), order: res!.data!.orderId, establishment: establishments[0].establishment, estimatedTime: viewModel.estimatedTime ?? "0")
                     
                     paymentsSelected?.token = nil
                     context.insert(order)
@@ -165,41 +94,6 @@ extension PaymentModal {
                     error = true
                 })
             }
-        }
-    }
-    
-    func calcDistance() {
-        
-        if directionSelected != nil && establishments[0].latitude != "" {
-            let request = MKDirections.Request()
-            
-            let destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(establishments[0].latitude) ?? 0, longitude: Double(establishments[0].longitude) ?? 0)))
-            request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(directionSelected!.latitude)!, longitude: Double(directionSelected!.longitude)!)))
-            request.destination = destination
-            
-            Task {
-                let result = try? await MKDirections(request: request).calculate()
-                km = ceil(Double(result?.routes.first?.distance ?? 0) / 1000).decimals(2)
-                    
-                if percent != 0 {
-                    let envio_cal = Float(km <= km_base ? price_base_km : ((km - km_base) * price_km_extra) + price_base_km)
-                    envio = envio_cal * Float(percent) / 100
-                }
-                
-                let timeExpect = result?.routes.first?.expectedTravelTime ?? 0
-                let hours = Int(timeExpect) / 3600
-                let minutes = (Int(timeExpect) / 60) % 60
-                var calendar = Calendar.current
-                calendar.locale = Locale(identifier: "es_MX")
-                
-                var date = calendar.date(byAdding: .minute, value: minutes, to: Date())
-                date = calendar.date(byAdding: .hour, value: hours, to: date!)
-                estimatedTime = date!.formatted(date: .omitted, time: .shortened)
-                
-                calcTax()
-            }
-        } else {
-            calcTax()
         }
     }
 }
